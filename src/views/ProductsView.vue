@@ -1,8 +1,7 @@
 <template>
+  <LoadingOverlay :active="isLoading"></LoadingOverlay>
   <div class="text-end">
-    <button class="btn btn-primary" type="button" @click="openModal(true)">
-      Add a new product
-    </button>
+    <button class="btn btn-primary" type="button" @click="openModal(true)">新增產品</button>
   </div>
   <table class="table mt-4">
     <thead>
@@ -56,6 +55,11 @@ export default {
       pagination: {},
       tempProduct: {},
       isNew: false,
+      isLoading: false,
+      apiPath: {
+        product: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product`,
+        products: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products`,
+      },
     };
   },
   components: {
@@ -64,26 +68,21 @@ export default {
   },
   methods: {
     getProducts() {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products`;
-      this.$http.get(api).then((res) => {
-        // get method
+      this.isLoading = true; // Show loading overlay
+
+      this.$http.get(this.apiPath.products).then((res) => {
         if (res.data.success) {
-          // console.log(res);
           this.products = res.data.products;
           this.pagination = res.data.pagination;
         }
+        this.isLoading = false; // Hide loading overlay
       });
     },
     openModal(isNew, item) {
-      // 分為 1. 新增產品 2. 編輯/刪除現有產品
-      if (isNew) {
-        this.tempProduct = {};
-        this.$refs.productModal.showModal();
-      } else {
-        this.tempProduct = item;
-        this.$refs.productModal.showModal();
-      }
+      // Case 1: Add a new product (is NOT new); Case 2: Edit the product (is New)
+      this.tempProduct = isNew ? {} : item;
       this.isNew = isNew;
+      this.$refs.productModal.showModal();
     },
     openDelModal(item) {
       this.tempProduct = item;
@@ -91,30 +90,26 @@ export default {
     },
     updateProduct(item) {
       this.tempProduct = item;
+      this.isLoading = true; // Show loading overlay
 
-      // Add product
-      let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product`;
-      let httpMethod = 'post';
-
-      // Update product
-      if (!this.isNew) {
-        api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
-        httpMethod = 'put';
-      }
-
-      // Api call
+      const api = this.isNew ? this.apiPath.product : `${this.apiPath.product}/${item.id}`;
+      const httpMethod = this.isNew ? 'post' : 'put';
       const productComponent = this.$refs.productModal;
+
       this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
         console.log(res);
+        this.isLoading = false; // Show loading overlay
+
         productComponent.hideModal();
         this.getProducts();
       });
     },
     deleteProduct(item) {
-      // Define API url
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
-      // Call prodcut delete
-      this.$http.delete(api).then((res) => {
+      this.isLoading = true; // Show loading overlay
+
+      this.$http.delete(`${this.apiPath.product}/${item.id}`).then((res) => {
+        this.isLoading = false; // Loading effect on
+
         console.log(res);
         this.$refs.deleteModal.hideModal();
         this.getProducts();
