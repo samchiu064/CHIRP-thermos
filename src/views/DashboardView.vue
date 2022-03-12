@@ -4,14 +4,17 @@
   <div class="container-fluid">
     <router-view></router-view>
   </div>
+  <ToastContainer></ToastContainer>
 </template>
 
 <script>
 import MainNavbar from '../components/MainNavbar.vue';
+import ToastContainer from '../components/ToastContainer.vue';
 
 export default {
   components: {
     MainNavbar,
+    ToastContainer,
   },
   created() {
     // console.log(document.cookie);
