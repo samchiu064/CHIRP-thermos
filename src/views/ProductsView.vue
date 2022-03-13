@@ -104,13 +104,13 @@ export default {
         productComponent.hideModal();
 
         if (!res.data.success) {
-          this.getProducts();
           this.emitter.emit('push-messages', {
             status: 'failed',
             title: '更新失敗',
             content: res.data.message.join('、'),
           });
         } else {
+          this.getProducts();
           this.emitter.emit('push-messages', {
             status: 'success',
             title: '更新成功',
