@@ -49,6 +49,7 @@ import ProductModal from '../components/ProductModal.vue';
 import DelModal from '../components/DelModal.vue';
 
 export default {
+  inject: ['emitter'],
   data() {
     return {
       products: [],
@@ -101,7 +102,21 @@ export default {
         this.isLoading = false; // Show loading overlay
 
         productComponent.hideModal();
-        this.getProducts();
+
+        if (!res.data.success) {
+          this.getProducts();
+          this.emitter.emit('push-messages', {
+            status: 'failed',
+            title: '更新失敗',
+            content: res.data.message.join('、'),
+          });
+        } else {
+          this.emitter.emit('push-messages', {
+            status: 'success',
+            title: '更新成功',
+            content: res.data.message,
+          });
+        }
       });
     },
     deleteProduct(item) {

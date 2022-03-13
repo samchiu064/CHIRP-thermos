@@ -1,20 +1,32 @@
 <template>
-  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" ref="toast">
     <div class="toast-header">
-      <span class="rounded me-2 bg-danger p-2" alt="temp"></span>
-      <strong class="me-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
+      <span class="rounded me-2 p-2" alt="temp" :class="`bg-${statusLight}`"></span>
+      <strong class="me-auto">{{ message.title }}</strong>
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-    <div class="toast-body">Hello, world! This is a toast message.</div>
+    <div class="toast-body">{{ message.content }}</div>
   </div>
 </template>
 
 <script>
+import Toast from 'bootstrap/js/dist/toast';
+
 export default {
   data() {
     return {};
   },
   props: ['message'],
+  computed: {
+    statusLight() {
+      return this.message.status === 'success' ? 'success' : 'danger';
+    },
+  },
+  mounted() {
+    const toast = new Toast(this.$refs.toast, {
+      delay: 6000,
+    });
+    toast.show();
+  },
 };
 </script>

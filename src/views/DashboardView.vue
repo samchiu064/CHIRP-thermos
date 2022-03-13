@@ -1,14 +1,15 @@
 <template>
   <!-- <div>Dashboard</div> -->
   <MainNavbar></MainNavbar>
-  <div class="container-fluid">
+  <div class="container-fluid mt-3 position-relative">
     <router-view></router-view>
+    <ToastContainer></ToastContainer>
   </div>
-  <ToastContainer></ToastContainer>
 </template>
 
 <script>
 import MainNavbar from '../components/MainNavbar.vue';
+import emitter from '../methods/emitter';
 import ToastContainer from '../components/ToastContainer.vue';
 
 export default {
@@ -35,6 +36,9 @@ export default {
         this.$router.push('/login');
       }
     });
+  },
+  provide: {
+    emitter,
   },
 };
 </script>
