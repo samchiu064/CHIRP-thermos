@@ -2,7 +2,7 @@
 
 ![design](./diagrams/toast-components.jpg);
 
-## File related
+## Files related
 
 - components/
   - ToastContainer.vue

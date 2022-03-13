@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import MainNavbar from '../components/MainNavbar.vue';
+import MainNavbar from '../components/NavbarMain.vue';
 import emitter from '../methods/emitter';
 import ToastContainer from '../components/ToastContainer.vue';
 
