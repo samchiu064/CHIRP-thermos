@@ -8,7 +8,6 @@
     aria-hidden="true"
     ref="modal"
   >
-    <!-- 請同學自行新增 v-model -->
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
