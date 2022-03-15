@@ -11,11 +11,16 @@
 import MainNavbar from '../components/NavbarMain.vue';
 import emitter from '../methods/emitter';
 import ToastContainer from '../components/ToastContainer.vue';
+import pushMessageState from '../methods/pushMessageState';
 
 export default {
   components: {
     MainNavbar,
     ToastContainer,
+  },
+  provide: {
+    emitter,
+    pushMessageState,
   },
   created() {
     // console.log(document.cookie);
@@ -36,9 +41,6 @@ export default {
         this.$router.push('/login');
       }
     });
-  },
-  provide: {
-    emitter,
   },
 };
 </script>

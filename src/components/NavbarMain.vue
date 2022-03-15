@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <router-link to="/dashboard" class="navbar-brand">後台管理</router-link>
       <button
@@ -31,7 +31,6 @@
             <router-link to="/dashboard" class="nav-link" @click="logout">登出</router-link>
           </li>
         </ul>
-        <span class="navbar-text"> Navbar text with an inline element </span>
       </div>
     </div>
   </nav>

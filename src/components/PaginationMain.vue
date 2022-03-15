@@ -31,7 +31,7 @@
 <script>
 export default {
   props: ['pages'],
-  emit: ['emit-page'],
+  emits: ['emit-page'],
   methods: {
     updatePage(page) {
       if (page === 'prev') {

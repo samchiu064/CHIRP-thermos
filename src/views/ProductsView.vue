@@ -42,7 +42,7 @@
     :product="tempProduct"
     @update-product="updateProduct"
   ></ProductModal>
-  <DelModal ref="deleteModal" :item="tempProduct" @delete-product="deleteProduct"></DelModal>
+  <DelModal ref="deleteModal" :item="tempProduct" @delete-item="deleteProduct"></DelModal>
 </template>
 
 <script>
@@ -51,7 +51,12 @@ import DelModal from '../components/DelModal.vue';
 import PaginationMain from '../components/PaginationMain.vue';
 
 export default {
-  inject: ['emitter'],
+  components: {
+    ProductModal,
+    DelModal,
+    PaginationMain,
+  },
+  inject: ['emitter', 'pushMessageState'],
   data() {
     return {
       products: [],
@@ -64,11 +69,6 @@ export default {
         products: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products`,
       },
     };
-  },
-  components: {
-    ProductModal,
-    DelModal,
-    PaginationMain,
   },
   methods: {
     getProducts(page = 1) {
@@ -103,30 +103,17 @@ export default {
       this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
         console.log(res);
         this.isLoading = false; // Show loading overlay
+        this.pushMessageState(res, '產品資料更新');
 
         productComponent.hideModal();
-
-        if (!res.data.success) {
-          this.emitter.emit('push-messages', {
-            status: 'failed',
-            title: '更新失敗',
-            content: res.data.message.join('、'),
-          });
-        } else {
-          this.getProducts();
-          this.emitter.emit('push-messages', {
-            status: 'success',
-            title: '更新成功',
-            content: res.data.message,
-          });
-        }
       });
     },
     deleteProduct(item) {
       this.isLoading = true; // Show loading overlay
 
       this.$http.delete(`${this.apiPath.product}/${item.id}`).then((res) => {
-        this.isLoading = false; // Loading effect on
+        this.isLoading = false; // Loading effect off
+        this.pushMessageState(res, '產品資料刪除');
 
         console.log(res);
         this.$refs.deleteModal.hideModal();

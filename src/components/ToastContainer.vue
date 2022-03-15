@@ -8,15 +8,16 @@
 import ToastMessage from './ToastMessage.vue';
 
 export default {
+  components: {
+    ToastMessage,
+  },
   inject: ['emitter'],
   data() {
     return {
       messages: [],
     };
   },
-  components: {
-    ToastMessage,
-  },
+
   mounted() {
     this.emitter.on('push-messages', (messages) => {
       const message = { ...messages };

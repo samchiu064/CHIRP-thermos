@@ -13,10 +13,10 @@
 import Toast from 'bootstrap/js/dist/toast';
 
 export default {
+  props: ['message'],
   data() {
     return {};
   },
-  props: ['message'],
   computed: {
     statusLight() {
       return this.message.status === 'success' ? 'success' : 'danger';

@@ -1,4 +1,5 @@
 <template>
+  <LoadingOverlay :active="isLoading"></LoadingOverlay>
   <div class="text-end">
     <button class="btn btn-primary" type="button" @click="openModal(true)">建立新的優惠券</button>
   </div>
@@ -20,65 +21,103 @@
         <td>{{ item.due_date }}</td>
         <td>{{ item.code }}</td>
         <td>
-          <span class="text-success">{{ item.is_enabled }}</span>
+          <span v-if="item.is_enabled" class="text-success">啟用</span>
+          <span v-else class="text-secondary">未啟用</span>
         </td>
         <td>
           <div class="btn-group">
             <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">
               編輯
             </button>
-            <button class="btn btn-outline-danger btn-sm">刪除</button>
+            <button class="btn btn-outline-danger btn-sm" @click="openDelModal(false, item)">
+              刪除
+            </button>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
   <CouponModal ref="couponModal" @update-coupon="updateCoupon" :coupon="tempCoupon"></CouponModal>
+  <DelModal ref="delModal" @delete-item="delCoupon" :item="tempCoupon"></DelModal>
+  <PaginationMain :pages="pagination" @emit-page="getCoupons"></PaginationMain>
 </template>
 
 <script>
 import CouponModal from '../components/CouponModal.vue';
+import DelModal from '../components/DelModal.vue';
+import PaginationMain from '../components/PaginationMain.vue';
 
 export default {
+  components: { CouponModal, DelModal, PaginationMain },
+  inject: ['pushMessageState'],
   data() {
     return {
       tempCoupon: {},
       coupons: [],
       pagination: {},
       isNew: false,
+      isLoading: false,
       apiPath: {
         coupon: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupon`,
         coupons: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupons`,
       },
     };
   },
-  components: { CouponModal },
   methods: {
     openModal(isNew, item) {
       this.tempCoupon = isNew ? {} : item;
       this.$refs.couponModal.showModal();
-      console.log(this.tempCoupon);
+      this.isNew = isNew;
     },
-    updateCoupon(tempCoupon) {
-      // Add a new coupon
-      // this.tempCoupon = { ...tempCoupon };
-      // this.tempCoupon.due_date = new Date(this.tempCoupon.due_date).getTime();
-
-      console.log(tempCoupon.due_date);
-
-      // this.$http.post(this.apiPath.coupon, { data: this.tempCoupon }).then((res) => {
-      //   console.log(res);
-      // });
+    openDelModal(isNew, item) {
+      this.tempCoupon = item;
+      this.$refs.delModal.showModal();
+      this.isNew = isNew;
     },
-    getCoupons() {
-      this.$http.get(this.apiPath.coupons).then((res) => {
+    updateCoupon(formattedItem) {
+      const apiPath = this.isNew
+        ? this.apiPath.coupon
+        : `${this.apiPath.coupon}/${this.tempCoupon.id}`;
+      const httpMethod = this.isNew ? 'post' : 'put';
+
+      this.isLoading = true;
+      this.$http[httpMethod](apiPath, { data: formattedItem }).then((res) => {
+        this.isLoading = false;
+        this.pushMessageState(res, '優惠券資料更新');
+
+        console.log('res', res);
+        this.getCoupons();
+        this.$refs.couponModal.hideModal();
+      });
+    },
+    delCoupon() {
+      const apiPath = `${this.apiPath.coupon}/${this.tempCoupon.id}`;
+      const httpMethod = 'delete';
+
+      this.isLoading = true;
+      this.$http[httpMethod](apiPath).then((res) => {
+        this.isLoading = false;
+        this.pushMessageState(res, '優惠券資料刪除');
+
+        console.log(res);
+        this.getCoupons();
+        this.$refs.delModal.hideModal();
+      });
+    },
+    getCoupons(page = 1) {
+      const apiPath = `${this.apiPath.coupons}?page=${page}`;
+      const httpMethod = 'get';
+
+      this.isLoading = true;
+      this.$http[httpMethod](apiPath).then((res) => {
+        this.isLoading = false;
+
         this.coupons = res.data.coupons;
         this.pagination = res.data.pagination;
 
         this.coupons.forEach((coupon, index) => {
           this.coupons[index].due_date = this.getCurrentDate(coupon.due_date);
         });
-        console.log(this.coupons);
       });
     },
     getCurrentDate(unixtimestamp) {
@@ -89,7 +128,6 @@ export default {
       return `${year}-${month}-${day}`;
     },
   },
-  computed: {},
   created() {
     this.getCoupons();
   },

@@ -22,7 +22,7 @@
           <button
             type="button"
             class="btn bg-danger text-white"
-            @click="$emit('delete-product', item)"
+            @click="$emit('delete-item', item)"
           >
             確認刪除
           </button>
@@ -43,14 +43,14 @@
 import modalMixin from '@/mixins/modalMixin';
 
 export default {
+  mixins: [modalMixin],
+  props: {
+    item: {},
+  },
   data() {
     return {
       modal: {},
     };
   },
-  props: {
-    item: {},
-  },
-  mixins: [modalMixin],
 };
 </script>

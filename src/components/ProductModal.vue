@@ -192,12 +192,7 @@
 import modalMixin from '@/mixins/modalMixin';
 
 export default {
-  data() {
-    return {
-      modal: {},
-      tempProduct: {},
-    };
-  },
+  mixins: [modalMixin],
   props: {
     product: {
       type: Object,
@@ -206,7 +201,12 @@ export default {
       },
     },
   },
-  mixins: [modalMixin],
+  data() {
+    return {
+      modal: {},
+      tempProduct: {},
+    };
+  },
   watch: {
     product() {
       this.tempProduct = this.product;

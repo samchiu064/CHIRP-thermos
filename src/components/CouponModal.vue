@@ -42,12 +42,12 @@
                   >折扣百分比
                   <input
                     type="number"
-                    min="0"
-                    max="100"
+                    :min="0"
+                    :max="100"
                     class="form-control"
                     id="percentage"
                     placeholder="請輸入折扣百分比"
-                    v-model="tempCoupon.percent"
+                    v-model.number="tempCoupon.percent"
                   />
                 </label>
               </div>
@@ -106,9 +106,10 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/src/modal';
+import modalMixin from '../mixins/modalMixin';
 
 export default {
+  mixins: [modalMixin],
   props: ['coupon'],
   data() {
     return {
@@ -116,22 +117,26 @@ export default {
       tempCoupon: {},
     };
   },
+  computed: {
+    formattedCoupon() {
+      return {
+        ...this.tempCoupon,
+        percent: !this.tempCoupon.percent ? 100 : this.tempCoupon.percent,
+        due_date: new Date(this.tempCoupon.due_date).getTime(),
+        is_enabled: this.tempCoupon.is_enabled || 0,
+      };
+    },
+  },
   watch: {
     coupon() {
       this.tempCoupon = this.coupon;
     },
   },
   methods: {
-    showModal() {
-      this.modal.show();
-    },
     updateCoupon() {
       // this.tempCoupon.due_date = new Date(this.tempCoupon.due_date).getTime();
-      this.$emit('update-coupon', this.tempCoupon);
+      this.$emit('update-coupon', this.formattedCoupon);
     },
-  },
-  mounted() {
-    this.modal = new Modal(this.$refs.modal);
   },
 };
 </script>
