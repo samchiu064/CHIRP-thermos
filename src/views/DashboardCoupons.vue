@@ -44,7 +44,7 @@
 
 <script>
 import CouponModal from '../components/DashboardCouponModal.vue';
-import DeleteModal from '../components/DashboardDeleteModal.vue';
+import DeleteModal from '../components/DashboardTheDeleteModal.vue';
 import ThePagination from '../components/ThePagination.vue';
 
 export default {
@@ -66,7 +66,7 @@ export default {
   methods: {
     openModal(isNew, item) {
       this.tempCoupon = isNew ? {} : item;
-      this.$refs.deleteModal.showModal();
+      this.$refs.couponModal.showModal();
       this.isNew = isNew;
     },
     openDeleteModal(isNew, item) {
