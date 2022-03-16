@@ -8,34 +8,41 @@ const routes = [
     component: HomeView,
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
-  },
-  {
     path: '/login',
     name: 'login',
-    component: () => import('../views/LoginView.vue'),
+    component: () => import('../views/DashboardLogin.vue'),
   },
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: () => import('../views/DashboardView.vue'),
+    component: () => import('../views/DashboardHome.vue'),
     children: [
       {
         path: 'products',
-        component: () => import('../views/ProductsView.vue'),
+        component: () => import('../views/DashboardProducts.vue'),
       },
       {
         path: 'orders',
-        component: () => import('../views/OrdersView.vue'),
+        component: () => import('../views/DashboardOrders.vue'),
       },
       {
         path: 'coupons',
-        component: () => import('../views/CouponsView.vue'),
+        component: () => import('../views/DashboardCoupons.vue'),
+      },
+    ],
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component: () => import('../views/UserboardHome.vue'),
+    children: [
+      {
+        path: 'cart',
+        component: () => import('../views/UserboardCart.vue'),
+      },
+      {
+        path: 'product',
+        component: () => import('../views/UserboardProducts.vue'),
       },
     ],
   },

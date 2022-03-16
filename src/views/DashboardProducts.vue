@@ -1,5 +1,5 @@
 <template>
-  <LoadingOverlay :active="isLoading"></LoadingOverlay>
+  <LoadingOverlay :active="isLoading" />
   <div class="text-end">
     <button class="btn btn-primary" type="button" @click="openModal(true)">新增產品</button>
   </div>
@@ -30,31 +30,29 @@
             <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">
               編輯
             </button>
-            <button class="btn btn-outline-danger btn-sm" @click="openDelModal(item)">刪除</button>
+            <button class="btn btn-outline-danger btn-sm" @click="openDeleteModal(item)">
+              刪除
+            </button>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <PaginationMain :pages="pagination" @emit-page="getProducts"></PaginationMain>
-  <ProductModal
-    ref="productModal"
-    :product="tempProduct"
-    @update-product="updateProduct"
-  ></ProductModal>
-  <DelModal ref="deleteModal" :item="tempProduct" @delete-item="deleteProduct"></DelModal>
+  <ThePagination :pages="pagination" @emit-page="getProducts" />
+  <ProductModal ref="productModal" :product="tempProduct" @update-product="updateProduct" />
+  <DeleteModal ref="deleteModal" :item="tempProduct" @delete-item="deleteProduct" />
 </template>
 
 <script>
-import ProductModal from '../components/ProductModal.vue';
-import DelModal from '../components/DelModal.vue';
-import PaginationMain from '../components/PaginationMain.vue';
+import ProductModal from '../components/DashboardProductModal.vue';
+import DeleteModal from '../components/DashboardDeleteModal.vue';
+import ThePagination from '../components/ThePagination.vue';
 
 export default {
   components: {
     ProductModal,
-    DelModal,
-    PaginationMain,
+    DeleteModal,
+    ThePagination,
   },
   inject: ['emitter', 'pushMessageState'],
   data() {
@@ -88,7 +86,7 @@ export default {
       this.isNew = isNew;
       this.$refs.productModal.showModal();
     },
-    openDelModal(item) {
+    openDeleteModal(item) {
       this.tempProduct = item;
       this.$refs.deleteModal.showModal();
     },

@@ -1,5 +1,5 @@
 <template>
-  <LoadingOverlay :active="isLoading"></LoadingOverlay>
+  <LoadingOverlay :active="isLoading" />
   <div class="text-end">
     <button class="btn btn-primary" type="button" @click="openModal(true)">建立新的優惠券</button>
   </div>
@@ -29,7 +29,7 @@
             <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">
               編輯
             </button>
-            <button class="btn btn-outline-danger btn-sm" @click="openDelModal(false, item)">
+            <button class="btn btn-outline-danger btn-sm" @click="openDeleteModal(false, item)">
               刪除
             </button>
           </div>
@@ -37,18 +37,18 @@
       </tr>
     </tbody>
   </table>
-  <CouponModal ref="couponModal" @update-coupon="updateCoupon" :coupon="tempCoupon"></CouponModal>
-  <DelModal ref="delModal" @delete-item="delCoupon" :item="tempCoupon"></DelModal>
-  <PaginationMain :pages="pagination" @emit-page="getCoupons"></PaginationMain>
+  <CouponModal ref="couponModal" @update-coupon="updateCoupon" :coupon="tempCoupon" />
+  <DeleteModal ref="deleteModal" @delete-item="deleteCoupon" :item="tempCoupon" />
+  <ThePagination :pages="pagination" @emit-page="getCoupons" />
 </template>
 
 <script>
-import CouponModal from '../components/CouponModal.vue';
-import DelModal from '../components/DelModal.vue';
-import PaginationMain from '../components/PaginationMain.vue';
+import CouponModal from '../components/DashboardCouponModal.vue';
+import DeleteModal from '../components/DashboardDeleteModal.vue';
+import ThePagination from '../components/ThePagination.vue';
 
 export default {
-  components: { CouponModal, DelModal, PaginationMain },
+  components: { CouponModal, DeleteModal, ThePagination },
   inject: ['pushMessageState'],
   data() {
     return {
@@ -66,12 +66,12 @@ export default {
   methods: {
     openModal(isNew, item) {
       this.tempCoupon = isNew ? {} : item;
-      this.$refs.couponModal.showModal();
+      this.$refs.deleteModal.showModal();
       this.isNew = isNew;
     },
-    openDelModal(isNew, item) {
+    openDeleteModal(isNew, item) {
       this.tempCoupon = item;
-      this.$refs.delModal.showModal();
+      this.$refs.deleteModal.showModal();
       this.isNew = isNew;
     },
     updateCoupon(formattedItem) {
@@ -90,7 +90,7 @@ export default {
         this.$refs.couponModal.hideModal();
       });
     },
-    delCoupon() {
+    deleteCoupon() {
       const apiPath = `${this.apiPath.coupon}/${this.tempCoupon.id}`;
       const httpMethod = 'delete';
 
@@ -101,7 +101,7 @@ export default {
 
         console.log(res);
         this.getCoupons();
-        this.$refs.delModal.hideModal();
+        this.$refs.deleteModal.hideModal();
       });
     },
     getCoupons(page = 1) {

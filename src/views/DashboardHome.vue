@@ -1,21 +1,21 @@
 <template>
   <!-- <div>Dashboard</div> -->
-  <MainNavbar></MainNavbar>
+  <DashboardNavbar />
   <div class="container-fluid mt-3 position-relative">
     <router-view></router-view>
-    <ToastContainer></ToastContainer>
+    <ToastContainer />
   </div>
 </template>
 
 <script>
-import MainNavbar from '../components/NavbarMain.vue';
+import DashboardNavbar from '../components/DashboardNavbar.vue';
 import emitter from '../methods/emitter';
-import ToastContainer from '../components/ToastContainer.vue';
+import ToastContainer from '../components/DashboardToastContainer.vue';
 import pushMessageState from '../methods/pushMessageState';
 
 export default {
   components: {
-    MainNavbar,
+    DashboardNavbar,
     ToastContainer,
   },
   provide: {
