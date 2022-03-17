@@ -34,15 +34,15 @@ const routes = [
   {
     path: '/user',
     name: 'user',
-    component: () => import('../views/UserboardHome.vue'),
+    component: () => import('../views/StoreHome.vue'),
     children: [
       {
         path: 'cart',
-        component: () => import('../views/UserboardCart.vue'),
+        component: () => import('../views/StoreCart.vue'),
       },
       {
-        path: 'product',
-        component: () => import('../views/UserboardProducts.vue'),
+        path: 'product/:productId',
+        component: () => import('../views/StoreProduct.vue'),
       },
     ],
   },

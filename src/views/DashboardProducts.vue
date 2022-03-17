@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import ProductModal from '../components/DashboardProductModal.vue';
-import DeleteModal from '../components/DashboardDeleteModal.vue';
+import ProductModal from '../components/DashboardModalProduct.vue';
+import DeleteModal from '../components/DashboardModalDelete.vue';
 import ThePagination from '../components/ThePagination.vue';
 
 export default {

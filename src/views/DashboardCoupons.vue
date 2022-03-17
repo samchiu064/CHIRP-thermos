@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import CouponModal from '../components/DashboardCouponModal.vue';
-import DeleteModal from '../components/DashboardDeleteModal.vue';
+import CouponModal from '../components/DashboardModalCoupon.vue';
+import DeleteModal from '../components/DashboardModalDelete.vue';
 import ThePagination from '../components/ThePagination.vue';
 
 export default {
