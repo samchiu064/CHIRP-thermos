@@ -2,6 +2,17 @@
 
 ## Design Guideline
 
+Desktop
+h1: 36pt, 383838, medium
+h2: 30pt, 383838, regular
+h3:
+p(description): 20pt, 383838, light
+p(supplement): 20pt, 383838, light
+nav: 16pt, 707070, regular
+white(background): FFFFFF
+gray(background): F4F4F6
+black: 383838
+
 ## Components
 
 - Store
