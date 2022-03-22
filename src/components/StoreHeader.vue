@@ -1,72 +1,76 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <div class="navbar-nav order-1 d-block d-lg-none">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container-fluid">
+        <div class="navbar__nav--pages">
+          <a href="javascript;" class="nav-link">item01</a>
+          <a href="javascript;" class="nav-link">item02</a>
+        </div>
         <button
-          class="navbar-toggler"
+          class="navbar-toggler navbar__mobile-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
+          data-bs-target="#navbar__mobile-content"
+          aria-controls="navbar__mobile-content"
           aria-expanded="false"
           aria-label="Toggle navigation"
           @click="toggleHamburger"
         >
           <!-- <i class="bi bi-list"></i> -->
-          <div id="navbar__hamburger" :class="{ 'is-active': isActive }">
+          <div id="navbar__mobile-icon" :class="{ 'is-active': isActive }">
             <i class="line"></i>
             <i class="line"></i>
             <i class="line"></i>
           </div>
         </button>
-      </div>
-      <div class="col-12 col-lg-auto d-flex order-4 order-lg-first">
-        <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
-          <div class="navbar-nav">
-            <a href="javascript;" class="nav-link">item01</a>
-            <a href="javascript;" class="nav-link">item02</a>
+        <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#"
+          >Akatsuki 青朽葉</a
+        >
+        <div class="navbar__nav--functions">
+          <div class="dropdown">
+            <a
+              class="nav-link"
+              href="#"
+              id="member"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="d-none">Sign in</span>
+              <i class="bi bi-person-circle"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="member">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <a
+              class="nav-link"
+              href="#"
+              id="cart"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="d-none">Shopping Cart</span>
+              <i class="bi bi-bag"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="cart">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="navbar-nav order-2"><a class="navbar-brand" href="#">Akatsuki 青朽葉</a></div>
-      <div class="d-flex flex-row justify-content-end order-3">
-        <div class="nav-item dropdown">
-          <a
-            class="nav-link"
-            href="#"
-            id="member"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <span class="d-none">Sign in</span>
-            <i class="bi bi-person-circle"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="member">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-          </ul>
-        </div>
-        <div class="nav-item dropdown">
-          <a
-            class="nav-link"
-            href="#"
-            id="cart"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <span class="d-none">Shopping Cart</span>
-            <i class="bi bi-bag"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="cart">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-          </ul>
-        </div>
+    </nav>
+    <div class="bg-dark collapse text-center" id="navbar__mobile-content">
+      <div class="navbar-nav">
+        <a href="javascript;" class="nav-link">item01</a>
+        <a href="javascript;" class="nav-link">item02</a>
       </div>
     </div>
-  </nav>
+  </header>
 </template>
 
 <script>
@@ -85,13 +89,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navbar__mobile {
-  background-color: white;
-  color: #383838;
-  @media (max-width: 992px) {
-    background: #f4f4f6;
-    // transform: translateY(7px);
-  }
+// Globe
+.bi {
+  font-size: 24px;
+  color: #707070;
 }
 
 .dropdown-menu {
@@ -99,13 +100,26 @@ export default {
   right: 0;
 }
 
-.navbar-toggler {
-  #navbar__hamburger {
+// Custom
+.navbar {
+  &__nav--pages {
+    display: flex;
+    @media (max-width: 992px) {
+      display: none;
+    }
+  }
+  &__nav--functions {
+    display: flex;
+  }
+}
+
+#navbar {
+  &__mobile-icon {
     width: 24px;
     i {
-      height: 3px;
-      background-color: #2c3e50;
       display: block;
+      background-color: #2c3e50;
+      height: 3px;
       margin: 5px auto;
       -webkit-transition: all 0.3s ease-in-out;
       -o-transition: all 0.3s ease-in-out;
@@ -130,9 +144,13 @@ export default {
       transform: translateY(-8px) rotate(-45deg);
     }
   }
-}
-.bi {
-  font-size: 24px;
-  color: #707070;
+  &__mobile-content {
+    div {
+      background: #f4f4f6;
+      a {
+        color: #383838;
+      }
+    }
+  }
 }
 </style>
