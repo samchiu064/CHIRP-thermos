@@ -1,10 +1,10 @@
 <template>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <header class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <div class="navbar__nav--pages">
-          <a href="javascript;" class="nav-link">item01</a>
-          <a href="javascript;" class="nav-link">item02</a>
+          <router-link to="/thermos/classic" class="nav-link">經典款</router-link>
+          <a href="javascript;" class="nav-link">關於我們</a>
         </div>
         <button
           class="navbar-toggler navbar__mobile-toggler"
@@ -16,7 +16,6 @@
           aria-label="Toggle navigation"
           @click="toggleHamburger"
         >
-          <!-- <i class="bi bi-list"></i> -->
           <div id="navbar__mobile-icon" :class="{ 'is-active': isActive }">
             <i class="line"></i>
             <i class="line"></i>
@@ -24,7 +23,7 @@
           </div>
         </button>
         <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#"
-          >Akatsuki 青朽葉</a
+          >青朽葉AOKUCHIBA</a
         >
         <div class="navbar__nav--functions">
           <div class="dropdown">
@@ -102,8 +101,21 @@ export default {
 
 // Custom
 .navbar {
+  height: 5.25rem;
+  @media (max-width: 992px) {
+    height: auto;
+  }
+  .container-fluid {
+    margin: 0 30px;
+    @media (max-width: 992px) {
+      margin: auto;
+    }
+  }
   &__nav--pages {
     display: flex;
+    .nav-link {
+      font-size: 14px;
+    }
     @media (max-width: 992px) {
       display: none;
     }

@@ -4,12 +4,11 @@
   <main class="kv bg-light">
     <div class="container-fluid h-100">
       <div class="row align-items-center">
-        <div class="col-12">
+        <div class="col-12 position-relative">
           <section class="kv__content">
             <h1>
               單色不鏽鋼保溫瓶 <br />
               廣口瓶身，堅固耐用 <br />
-              買得更少，買得更好
             </h1>
             <p>商品可寄送至臺澎金馬地區，目前暫不提供海外運送服務。所有商品皆於臺灣製造。</p>
           </section>
@@ -56,13 +55,19 @@ export default {
 
 <style lang="scss" scoped>
 .kv {
-  height: calc(100vh - 68px);
+  height: calc(100vh - 5.25rem);
   overflow: hidden;
+  @media (max-width: 992px) {
+    height: calc(100vh - 4.25rem);
+  }
   .row {
     &:nth-child(1) {
       height: 90%;
       @media (max-width: 576px) {
         height: 93%;
+      }
+      .col-12 {
+        bottom: 6rem;
       }
     }
     &:nth-child(2) {
@@ -75,14 +80,10 @@ export default {
   }
   &__content {
     text-align: center;
-    position: relative;
-    bottom: 5rem;
     p {
       color: #383838;
       margin: 15px 20px;
       font-weight: 400;
-      @media (max-width: 992px) {
-      }
     }
   }
   &__products {
