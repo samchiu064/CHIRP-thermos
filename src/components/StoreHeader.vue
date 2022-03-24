@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="navbar__nav--pages">
           <router-link to="/thermos/classic" class="nav-link">經典款</router-link>
-          <a href="javascript;" class="nav-link">關於我們</a>
+          <a class="nav-link">關於我們</a>
         </div>
         <button
           class="navbar-toggler navbar__mobile-toggler"
