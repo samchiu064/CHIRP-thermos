@@ -3,7 +3,7 @@
     <div class="container-fluid bg-light h-100">
       <div class="row h-100 p-0 p-0 m-0">
         <div class="col-12 h-100 p-0">
-          <article class="showcase__product h-100">
+          <article class="showcase__content h-100">
             <section class="feature col-4 order-2">
               <div class="description">
                 <!-- <div class="line">
@@ -79,7 +79,7 @@ export default {};
   @media (max-width: 992px) {
     height: calc(100vh - 4.25rem);
   }
-  &__product {
+  &__content {
     display: flex;
     background: rgb(248, 249, 250);
     background: radial-gradient(
