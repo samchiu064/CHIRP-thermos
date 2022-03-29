@@ -19,11 +19,16 @@
 
 ## BEM Key Concepts
 
-### HTML
+### Block
 
-- Don't create traditional HTML wrapper blocks. (Blocks used to position HTML elements)
+- Don't use HTML wrapper blocks for positioning purpose.
 - To position a block relative to other blocks, use a **mix**.
 - To position HTML elements inside a block, use **an additional block element**.
+
+### Element
+
+- A composite part of a block that can't be used separately from it.
+- The element name describes its purpose ("What is this?" — item, text, etc.), not its state ("What type, or what does it look like?" — red, big, etc.).
 
 ### CSS
 
@@ -41,6 +46,7 @@
 #### Modifier
 
 - Used to set **the appearance, state, and behavior for blocks**.
+- It can't be used alone, it should change the appearance, behavior, or state of the entity, not replace it
 - A block's design is changed by setting or removing a modifier
 
 ### Mixes

@@ -21,19 +21,21 @@
               <span class="color-dot"></span>
               <div class="title">胡克綠</div>
               <div class="body">
-                <img src="../assets/Hookers_green_bottle.png" alt="胡克綠保溫瓶" />
+                <img src="../assets/images/Hookers_green_bottle.png" alt="胡克綠保溫瓶" />
               </div>
             </div>
             <div class="kv__products-card">
               <span class="color-dot"></span>
               <div class="title">灰玫紅</div>
-              <div class="body"><img src="../assets/Old_rose_bottle.png" alt="灰玫紅保溫瓶" /></div>
+              <div class="body">
+                <img src="../assets/images/Old_rose_bottle.png" alt="灰玫紅保溫瓶" />
+              </div>
             </div>
             <div class="kv__products-card">
               <span class="color-dot"></span>
               <div class="title">灰丁寧藍</div>
               <div class="body">
-                <img src="../assets/Blue_yonder_bottle.png" alt="灰丁寧藍保溫瓶" />
+                <img src="../assets/images/Blue_yonder_bottle.png" alt="灰丁寧藍保溫瓶" />
               </div>
             </div>
           </section>
