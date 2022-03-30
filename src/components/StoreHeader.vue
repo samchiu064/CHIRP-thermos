@@ -1,9 +1,11 @@
 <template>
-  <header class="bg-light">
+  <header class="bg-light position-fixed vw-100 top-0 left-0">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <div class="navbar__nav--pages">
-          <router-link to="/thermos/classic" class="nav-link">經典款</router-link>
+          <router-link to="/thermos/classic" class="nav-link"
+            >經典款</router-link
+          >
           <a class="nav-link">關於我們</a>
         </div>
         <button
@@ -22,7 +24,15 @@
             <i class="line"></i>
           </div>
         </button>
-        <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#"
+        <a
+          class="
+            navbar-brand
+            position-absolute
+            top-50
+            start-50
+            translate-middle
+          "
+          href="#"
           >青朽葉AOKUCHIBA</a
         >
         <div class="navbar__nav--functions">
