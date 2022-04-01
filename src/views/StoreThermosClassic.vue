@@ -1,13 +1,17 @@
 <template>
-  <main class="container-fluid showcase">
+  <main class="container-fluid showcase showcase--bg-radius h-100">
     <article
+      style="z-index: 2"
       class="
         row
         showcase__content
-        showcase__content--bg-radius
         showcase__content--size-vh
         showcase__content--position-center
         vh-100
+        position-sticky
+        start-0
+        top-0
+        overflow-hidden
       "
     >
       <section
@@ -20,6 +24,7 @@
           p-0
           feature--position-mobile
           d-flex
+          feature__layout--animation-scrolldown
         "
       >
         <div class="feature__description feature__description--position-end">
@@ -41,7 +46,12 @@
           >
         </div>
         <img
-          class="feature__image feature__image--size-flex d-none d-md-flex"
+          class="
+            feature__image
+            feature__image--size-flex
+            feature__image--position-end
+            d-none d-md-flex
+          "
           src="../assets/images/bottle_open_hookers_green.png"
           alt="胡克綠保溫瓶"
         />
@@ -56,6 +66,7 @@
           d-flex
           align-items-center
           flex-column
+          merchandise__layout--animation-scrolldown
         "
       >
         <img
@@ -80,6 +91,7 @@
           align-items-end
           justify-content-between
           d-none d-md-flex
+          accessory__layout--animation-scrolldown
         "
       >
         <img
@@ -123,12 +135,167 @@
       </section>
       <!-- <div class="switch-nav"></div> -->
     </article>
-    <!-- <section class="scroll-block"></section> -->
+    <article
+      style="z-index: 1"
+      class="
+        row
+        showcase__content
+        showcase__content--size-vh
+        showcase__content--position-center
+        vh-100
+        top-0
+        position-fixed
+        w-100
+        overflow-hidden
+      "
+    >
+      <section
+        class="
+          col-7 col-md-4
+          feature
+          flex-column
+          justify-content-between
+          mt-4
+          p-0
+          feature--position-mobile
+          d-flex
+          feature__layout--animation-scrolldown
+        "
+      >
+        <div class="feature__description feature__description--position-end">
+          <!-- <div class="line">
+                  <span></span>
+                </div> -->
+          <h2 class="heading heading__badge heading__badge--position-front">
+            第一行文字字 <br />
+            第二行文字 <br />
+            第三行文字文字文字
+          </h2>
+          <p class="paragraph">
+            後自地作法畫法裡然政：精指條提長<br />
+            氣理不走皮開動。電花飛主人各<br />
+            散他有年演那臺麼子。
+          </p>
+          <span class="paragraph paragraph--size-sm"
+            >※黑空確，友市才部這的我的你是友流子去班終以主這道他好空灣為更</span
+          >
+        </div>
+        <img
+          class="
+            feature__image
+            feature__image--size-flex
+            feature__image--position-end
+            d-none d-md-flex
+          "
+          src="../assets/images/bottle_open_old_rose.png"
+          alt="胡克綠保溫瓶"
+        />
+      </section>
+      <section
+        class="
+          col-4
+          merchandise
+          m-auto
+          text-center
+          p-0
+          d-flex
+          align-items-center
+          flex-column
+          merchandise__layout--animation-scrolldown
+        "
+      >
+        <img
+          class="merchandise__image merchandise__image--size-flex z-index-2"
+          src="../assets/images/showcase_old_rose.png"
+          alt="胡克綠保溫瓶"
+        />
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn--theme-classic mt-3 mt-sm-4"
+        >
+          查看更多
+        </button>
+      </section>
+
+      <section
+        class="
+          col-4
+          accessory
+          p-0
+          flex-column
+          align-items-end
+          justify-content-between
+          d-none d-md-flex
+          accessory__layout--animation-scrolldown
+        "
+      >
+        <img
+          class="
+            accessory__image
+            accessory__image--size-flex
+            accessory__image--slide-left
+          "
+          src="../assets/images/bottle_cap_old_rose.png"
+          alt="胡克綠保溫瓶瓶蓋"
+        />
+        <div class="accessory__description align-self-start me-4 mt-4">
+          <!-- <div class="line">
+                  <span></span>
+                </div> -->
+          <h2 class="heading">
+            第一行文字字文字 <br />
+            第二行文字文字文字文字 <br />
+          </h2>
+          <p class="paragraph">
+            黑空確，友市才部這的我的你是友流子去班終以主這道他好
+          </p>
+          <span class="paragraph paragraph--size-sm"
+            >※黑空確，友市才部這的我的你是友流子去班終以主這道他好空灣為更</span
+          >
+        </div>
+        <div class="benefit benefit--slide-topleft d-flex align-items-end">
+          <div class="benefit__description">
+            <p class="paragraph paragraph--size-sm">※最長可保溫24小時</p>
+          </div>
+          <img
+            class="
+              benefit__image
+              benefit__image--size-flex
+              benefit__image--position-flex
+            "
+            src="../assets/images/benefit_old_rose.png"
+            alt="胡克綠保溫瓶保溫效果圖"
+          />
+        </div>
+      </section>
+      <!-- <div class="switch-nav"></div> -->
+    </article>
+    <section class="scroll-block p-0 position-static"></section>
   </main>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  computed: {},
+  methods: {
+    switchMerchandise() {
+      // const height = 0;
+      console.log(document.documentElement.scrollTop);
+      if (document.documentElement.scrollTop < window.innerHeight) {
+        // height = 0;
+      }
+      if (document.documentElement.scrollTop > window.innerHeight) {
+        // height = window.innerHeight;
+      }
+    },
+  },
+  mounted() {
+    document.addEventListener('scroll', this.switchMerchandise);
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -143,9 +310,8 @@ export default {};
 }
 
 .scroll-block {
-  width: 100vw;
   height: 100vh;
-  background-color: #000;
+  background-color: palegoldenrod;
 }
 
 .heading {
@@ -217,16 +383,16 @@ export default {};
 }
 
 .showcase {
+  &--bg-radius {
+    background: rgb(248, 249, 250);
+    background: radial-gradient(
+      circle,
+      rgba(248, 249, 250, 1) 13%,
+      rgba(255, 255, 255, 1) 27%,
+      rgba(248, 249, 250, 1) 42%
+    );
+  }
   &__content {
-    &--bg-radius {
-      background: rgb(248, 249, 250);
-      background: radial-gradient(
-        circle,
-        rgba(248, 249, 250, 1) 13%,
-        rgba(255, 255, 255, 1) 27%,
-        rgba(248, 249, 250, 1) 42%
-      );
-    }
     &--size-vh {
       height: 100vh;
       @media (max-width: 992px) {
@@ -240,17 +406,29 @@ export default {};
 }
 
 .feature {
+  &__layout {
+    &--animation-scrolldown {
+      position: absolute;
+      height: 84vh;
+    }
+  }
   &--position-mobile {
     @media (max-width: 576px) {
       position: absolute;
     }
   }
   &__image {
-    position: relative;
     &--size-flex {
       max-width: 27.8vw;
       @media (max-width: 992px) {
         max-width: 33.8vw;
+      }
+    }
+    &--position-end {
+      // position: absolute;
+      // top: 77vh;
+      @media (max-width: 992px) {
+        // top: 85vh;
       }
     }
   }
@@ -263,6 +441,14 @@ export default {};
 }
 
 .merchandise {
+  &__layout {
+    &--animation-scrolldown {
+      transform: translateY(-50%);
+      position: absolute;
+      width: 100%;
+      top: 53.5vh;
+    }
+  }
   &__image {
     width: auto;
     z-index: 1;
@@ -280,6 +466,13 @@ export default {};
 }
 
 .accessory {
+  &__layout {
+    &--animation-scrolldown {
+      position: absolute;
+      right: 0;
+      height: 84vh;
+    }
+  }
   &__image {
     position: relative;
     &--size-flex {
