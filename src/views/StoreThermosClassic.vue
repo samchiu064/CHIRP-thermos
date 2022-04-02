@@ -1,18 +1,19 @@
 <template>
   <main class="container-fluid showcase showcase--bg-radius h-100">
     <article
+      id="my-article"
       style="z-index: 2"
       class="
         row
         showcase__content
-        showcase__content--size-vh
+        showcase__content--is-first
         showcase__content--position-center
-        vh-100
         position-sticky
         start-0
         top-0
         overflow-hidden
       "
+      ref="firstArticle"
     >
       <section
         class="
@@ -279,20 +280,45 @@ export default {
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    newHeight() {
+      // return `${window.innerHeight - document.documentElement.scrollTop}`;
+      return 5;
+    },
+  },
   methods: {
+    // setDefaultHeight() {
+    //   document.documentElement.style.setProperty(
+    //     '--article-height',
+    //     this.newHeight,
+    //   );
+    // },
     switchMerchandise() {
-      // const height = 0;
-      console.log(document.documentElement.scrollTop);
-      if (document.documentElement.scrollTop < window.innerHeight) {
-        // height = 0;
+      const { innerHeight } = window;
+      const { scrollTop } = document.documentElement;
+      console.log(scrollTop);
+      if (scrollTop < innerHeight) {
+        // document.documentElement.style.setProperty(
+        //   '--article-height',
+        //   `${window.innerHeight - document.documentElement.scrollTop}px`,
+        // );
+        const newHeight = innerHeight - scrollTop;
+        if (newHeight + scrollTop > innerHeight) {
+          console.log('不要再卷了!');
+        } else {
+          document.getElementById('my-article').style.height = `${newHeight}px`;
+        }
       }
-      if (document.documentElement.scrollTop > window.innerHeight) {
-        // height = window.innerHeight;
-      }
+      // if (document.documentElement.scrollTop > window.innerHeight) {
+      // height = window.innerHeight;
+      // }
     },
   },
   mounted() {
+    document.documentElement.style.setProperty(
+      '--article-height',
+      `${window.innerHeight}px`,
+    );
     document.addEventListener('scroll', this.switchMerchandise);
   },
 };
@@ -312,6 +338,10 @@ export default {
 .scroll-block {
   height: 100vh;
   background-color: palegoldenrod;
+}
+
+:root {
+  --article-height: 0;
 }
 
 .heading {
@@ -393,6 +423,9 @@ export default {
     );
   }
   &__content {
+    &--is-first {
+      height: var(--article-height);
+    }
     &--size-vh {
       height: 100vh;
       @media (max-width: 992px) {
@@ -503,128 +536,4 @@ export default {
     }
   }
 }
-
-// .showcase {
-
-//   &__content {
-//     display: flex;
-
-//     section {
-//       // background-color: seagreen;
-//       // border: 1px solid black;
-//       // margin: 1px;
-//       text-align: left;
-//       &.feature {
-//         margin-top: 70px;
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: space-between;
-//         .description {
-//           margin-left: 12vw;
-//           h2 {
-//             position: relative;
-//             text-decoration: underline;
-//             text-underline-offset: 0.1em;
-//             line-height: 2.875rem;
-//             &::before {
-//               font-size: 0.8rem;
-//               display: flex;
-//               width: 4.3125rem;
-//               height: 4.3125rem;
-//               background-color: #4d6d58;
-//               border-radius: 50%;
-//               position: absolute;
-//               left: -80px;
-//               content: '臺灣MIT微笑標章';
-//               color: white;
-//               text-align: center;
-//               align-items: center;
-//               line-height: 1.1rem;
-//               font-weight: 300;
-//             }
-//           }
-//           p {
-//             font-weight: 300;
-//           }
-//           span {
-//             font-weight: 300;
-//           }
-//         }
-//         .line {
-//           span {
-//             display: block;
-//             width: 14vw;
-//             border: 1px #383838 dashed;
-//             transform: rotate(21deg);
-//             position: relative;
-//             left: 19vw;
-//             top: 12vh;
-//           }
-//         }
-//         img {
-//           max-width: 27.8vw;
-//         }
-//       }
-//       &.product {
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//         img {
-//           max-width: 100%;
-//           height: auto;
-//         }
-//       }
-//       &.accessory {
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: space-between;
-//         .line {
-//           span {
-//             display: block;
-//             width: 20vh;
-//             border: 1px #383838 dashed;
-//             position: relative;
-//             left: 12vw;
-//             bottom: 5.5vw;
-//             transform: rotate(90deg);
-//           }
-//         }
-//         .description {
-//           margin-top: 4rem;
-//           h2 {
-//             text-decoration: underline;
-//             text-underline-offset: 0.1em;
-//             line-height: 2.875rem;
-//           }
-//           p {
-//             font-weight: 300;
-//           }
-//           span {
-//             font-weight: 300;
-//           }
-//         }
-//         & > img {
-//           max-width: 20vw;
-//           height: auto;
-//           align-self: flex-end;
-//           position: relative;
-//           right: 5vw;
-//           top: 1vw;
-//         }
-//         .benefit {
-//           align-self: flex-end;
-//           position: relative;
-//           right: 2vw;
-//           bottom: 3vw;
-//           display: flex;
-//           align-items: flex-end;
-//           img {
-//             max-width: 14vw;
-//             height: auto;
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
 </style>
