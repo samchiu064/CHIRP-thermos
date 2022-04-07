@@ -1,27 +1,16 @@
 <template>
-  <div
-    class="scroll-img scroll-img scroll-img--active"
-    v-for="(item, index) in tempArr"
-    ref="scrollImg"
-    :key="index"
-    :class="{ active: isActive }"
-  >
-    <img :src="item.url" :alt="item.title" class="scroll-img__item" />
-  </div>
-  <!-- <div class="scroll-img scroll-img" ref="scrollImg">
-    <img
-      src="../assets/images/bottle_open_old_rose.png"
-      alt="灰玫紅保溫瓶"
-      class="scroll-img__item"
-    />
-  </div>
-  <div class="scroll-img scroll-img" ref="scrollImg">
-    <img
-      src="../assets/images/bottle_open_blue_younder.png"
-      alt="灰丁寧藍保溫瓶"
-      class="scroll-img__item"
-    />
-  </div> -->
+  <template v-for="(item, index) in tempArr" :key="index">
+    <div
+      v-show="isActive === index + 1"
+      class="scroll-img"
+      :class="{
+        'scroll-img--active': isActive === index + 1,
+      }"
+      ref="scrollImg"
+    >
+      <img :src="item.url" :alt="item.title" class="scroll-img__item" />
+    </div>
+  </template>
 </template>
 
 <script>
@@ -34,7 +23,7 @@ export default {
     return {
       originalHeight: 0,
       currentHeight: 'init value',
-      isFirst: false,
+      isFirst: true,
       isSecond: false,
       isThird: false,
       topVisible: 0,
@@ -43,14 +32,17 @@ export default {
         {
           title: '胡克綠保溫瓶',
           url: img1,
+          order: 1,
         },
         {
           title: '灰玫紅保溫瓶"',
           url: img2,
+          order: 2,
         },
         {
           title: '灰丁寧藍保溫瓶',
           url: img3,
+          order: 3,
         },
       ],
     };
@@ -58,29 +50,22 @@ export default {
   watch: {},
   computed: {
     isActive() {
-      // if (this.topVisible < this.vh && this.isFirst) {
-      //   return true;
-      // }
-      // if (
-      //   this.topVisible >= this.vh
-      //   && this.topVisible <= this.vh * 2
-      //   && this.isSecond
-      // ) {
-      //   return true;
-      // }
-      // if (
-      //   this.topVisible >= this.vh * 2
-      //   && this.topVisible <= this.vh * 3
-      //   && this.isThird
-      // ) {
-      //   return true;
-      // }
-      return true;
+      if (this.topVisible > this.vh * 2) {
+        return 3;
+      }
+      if (this.topVisible > this.vh) {
+        return 2;
+      }
+      if (this.topVisible <= this.vh) {
+        return 1;
+      }
+      return false;
     },
   },
   methods: {
-    initHeight() {
-      const srcImg = document.querySelector('.scroll-img.active');
+    initHeight(order) {
+      // const srcImg = document.querySelector('.scroll-img.active');
+      const srcImg = this.$refs.scrollImg[order];
       const originalHeight = Math.round(srcImg?.getBoundingClientRect().height);
 
       this.currentHeight = originalHeight;
@@ -99,15 +84,28 @@ export default {
       this.vh = window.innerHeight;
     },
     divideSections() {
+      // First view
       this.isFirst = this.topVisible < this.vh;
+
+      // Second view
       this.isSecond = this.topVisible >= this.vh && this.topVisible <= this.vh * 2;
+
+      // Third view
       this.isThird = this.topVisible > this.vh * 3;
+
+      if (this.isFirst) {
+        this.initHeight(0);
+      } else if (this.isSecond) {
+        this.initHeight(1);
+      } else if (this.isThird) {
+        this.initHeight(2);
+      }
     },
   },
   mounted() {
     // use timeout because document is not fully rendered in mounted().
     const timeoutId = setTimeout(() => {
-      this.initHeight();
+      this.initHeight(0);
       document.addEventListener('scroll', this.revealMask);
       clearTimeout(timeoutId);
     }, 500);
