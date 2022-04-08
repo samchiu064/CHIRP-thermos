@@ -1,12 +1,17 @@
 <template>
   <template v-for="(item, index) in tempArr" :key="index">
     <div
-      v-show="isActive === index + 1"
+      v-if="currentHeight !== 0 && isActive == index + 1"
       class="scroll-img"
-      :class="{
-        'scroll-img--active': isActive === index + 1,
-      }"
+      :style="{ height: `${currentHeight}px` }"
       ref="scrollImg"
+    >
+      <img :src="item.url" :alt="item.title" class="scroll-img__item" />
+    </div>
+    <div
+      v-for="(item, index) in tempMask"
+      :key="index"
+      class="scroll-img scroll-img__mask"
     >
       <img :src="item.url" :alt="item.title" class="scroll-img__item" />
     </div>
@@ -61,6 +66,11 @@ export default {
       }
       return false;
     },
+    tempMask() {
+      const tempMask = [...this.tempArr];
+      tempMask.shift();
+      return tempMask;
+    },
   },
   methods: {
     initHeight(order) {
@@ -93,13 +103,13 @@ export default {
       // Third view
       this.isThird = this.topVisible > this.vh * 3;
 
-      if (this.isFirst) {
-        this.initHeight(0);
-      } else if (this.isSecond) {
-        this.initHeight(1);
-      } else if (this.isThird) {
-        this.initHeight(2);
-      }
+      // if (this.isFirst) {
+      //   this.initHeight(0);
+      // } else if (this.isSecond) {
+      //   this.initHeight(1);
+      // } else if (this.isThird) {
+      //   this.initHeight(2);
+      // }
     },
   },
   mounted() {
