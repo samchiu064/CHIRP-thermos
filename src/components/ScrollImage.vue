@@ -1,21 +1,24 @@
 <template>
-  <template v-for="(item, index) in tempArr" :key="index">
-    <div
-      v-if="currentHeight !== 0 && isActive == index + 1"
-      class="scroll-img"
-      :style="{ height: `${currentHeight}px` }"
-      ref="scrollImg"
-    >
-      <img :src="item.url" :alt="item.title" class="scroll-img__item" />
-    </div>
-    <div
-      v-for="(item, index) in tempMask"
-      :key="index"
-      class="scroll-img scroll-img__mask"
-    >
-      <img :src="item.url" :alt="item.title" class="scroll-img__item" />
-    </div>
-  </template>
+  <!-- :class="{ 'scroll-img--active': isActive === index + 1 }" -->
+  <div
+    :style="{ height: `${currentHeights[0]}px` }"
+    class="scroll-img"
+    ref="scrollImg"
+  >
+    <img
+      :src="tempArr[0].url"
+      :alt="tempArr[0].title"
+      class="scroll-img__item"
+    />
+  </div>
+  <div
+    v-for="(item, index) in tempMask"
+    :key="index"
+    :style="{ height: `${currentHeights[index + 1]}px` }"
+    class="scroll-img scroll-img__mask"
+  >
+    <img :src="item.url" :alt="item.title" class="scroll-img__item" />
+  </div>
 </template>
 
 <script>
@@ -27,10 +30,7 @@ export default {
   data() {
     return {
       originalHeight: 0,
-      currentHeight: 'init value',
-      isFirst: true,
-      isSecond: false,
-      isThird: false,
+      currentHeights: [],
       topVisible: 0,
       vh: 0,
       tempArr: [
@@ -50,72 +50,48 @@ export default {
           order: 3,
         },
       ],
+      tempMask: [
+        {
+          title: '灰玫紅保溫瓶"',
+          url: img2,
+          order: 2,
+        },
+        {
+          title: '灰丁寧藍保溫瓶',
+          url: img3,
+          order: 3,
+        },
+      ],
     };
   },
   watch: {},
-  computed: {
-    isActive() {
-      if (this.topVisible > this.vh * 2) {
-        return 3;
-      }
-      if (this.topVisible > this.vh) {
-        return 2;
-      }
-      if (this.topVisible <= this.vh) {
-        return 1;
-      }
-      return false;
-    },
-    tempMask() {
-      const tempMask = [...this.tempArr];
-      tempMask.shift();
-      return tempMask;
-    },
-  },
+  computed: {},
   methods: {
-    initHeight(order) {
-      // const srcImg = document.querySelector('.scroll-img.active');
-      const srcImg = this.$refs.scrollImg[order];
+    initHeight() {
+      const srcImg = this.$refs.scrollImg;
       const originalHeight = Math.round(srcImg?.getBoundingClientRect().height);
+      const currentHeights = [originalHeight, originalHeight, originalHeight];
 
-      this.currentHeight = originalHeight;
+      this.currentHeights = currentHeights;
       this.originalHeight = originalHeight;
     },
     revealMask() {
-      // Height of the image box should be positive value or zero
-      this.currentHeight = Math.max(0, this.originalHeight - this.topVisible);
+      const currentHeight = this.originalHeight - this.topVisible * (this.originalHeight / this.vh);
 
-      document.documentElement.style.setProperty(
-        '--image-height',
-        `${this.currentHeight}px`,
-      );
+      this.currentHeights = [
+        currentHeight,
+        currentHeight + this.originalHeight,
+        currentHeight + this.originalHeight * 2,
+      ];
 
       this.topVisible = document.documentElement.scrollTop;
       this.vh = window.innerHeight;
-    },
-    divideSections() {
-      // First view
-      this.isFirst = this.topVisible < this.vh;
-
-      // Second view
-      this.isSecond = this.topVisible >= this.vh && this.topVisible <= this.vh * 2;
-
-      // Third view
-      this.isThird = this.topVisible > this.vh * 3;
-
-      // if (this.isFirst) {
-      //   this.initHeight(0);
-      // } else if (this.isSecond) {
-      //   this.initHeight(1);
-      // } else if (this.isThird) {
-      //   this.initHeight(2);
-      // }
     },
   },
   mounted() {
     // use timeout because document is not fully rendered in mounted().
     const timeoutId = setTimeout(() => {
-      this.initHeight(0);
+      this.initHeight();
       document.addEventListener('scroll', this.revealMask);
       clearTimeout(timeoutId);
     }, 500);
