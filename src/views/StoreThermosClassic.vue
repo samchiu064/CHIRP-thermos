@@ -25,7 +25,7 @@
           p-0
         "
       >
-        <div class="feature__description">
+        <div class="feature__description feature__description--position-end">
           <h2 class="heading heading__badge heading__badge--position-front">
             第一行文字字 <br />
             第二行文字 <br />
@@ -41,7 +41,7 @@
           >
         </div>
         <div class="feature__images position-relative h-100">
-          <ScrollImage />
+          <ScrollImage :src="tempArr[0]" :maskSrc="tempMask" />
         </div>
       </section>
       <section
@@ -126,10 +126,47 @@
 
 <script>
 import ScrollImage from '../components/ScrollImage.vue';
+import img1 from '../assets/images/bottle_open_hookers_green.png';
+import img2 from '../assets/images/bottle_open_old_rose.png';
+import img3 from '../assets/images/bottle_open_blue_younder.png';
 
 export default {
   components: {
     ScrollImage,
+  },
+  data() {
+    return {
+      url: 'https://fakeimg.pl/250x100',
+      tempArr: [
+        {
+          title: '胡克綠保溫瓶',
+          url: img1,
+          order: 1,
+        },
+        {
+          title: '灰玫紅保溫瓶"',
+          url: img2,
+          order: 2,
+        },
+        {
+          title: '灰丁寧藍保溫瓶',
+          url: img3,
+          order: 3,
+        },
+      ],
+      tempMask: [
+        {
+          title: '灰玫紅保溫瓶"',
+          url: img2,
+          order: 2,
+        },
+        {
+          title: '灰丁寧藍保溫瓶',
+          url: img3,
+          order: 3,
+        },
+      ],
+    };
   },
 };
 </script>
@@ -250,7 +287,7 @@ export default {
   &__description {
     &--position-end {
       position: relative;
-      margin-left: 12vw;
+      margin-left: 9vw;
     }
   }
 }
