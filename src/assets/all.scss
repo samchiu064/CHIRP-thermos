@@ -7,5 +7,36 @@
 @import './helpers/bootstrap/variables';
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/root';
-
 @import '~bootstrap/scss/bootstrap';
+
+.fs-7 {
+  font-size: 0.875rem;
+}
+
+.fs-8 {
+  font-size: 0.75rem;
+}
+
+.color-classic {
+  &-green {
+    color: #4d6d58;
+  }
+  &-red {
+    color: #cc7e85;
+  }
+  &-blue {
+    color: #496da5;
+  }
+}
+
+.bg-color-classic {
+  &-green {
+    background-color: #4d6d58;
+  }
+  &-red {
+    background-color: #cc7e85;
+  }
+  &-blue {
+    background-color: #496da5;
+  }
+}

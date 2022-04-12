@@ -117,8 +117,8 @@
           />
         </div>
       </section>
-      <!-- <div class="switch-nav"></div> -->
     </article>
+    <StoreNavbarClassicProduct />
     <section class="scroll-block p-0 position-static invisible"></section>
     <section class="scroll-block p-0 position-static invisible"></section>
   </main>
@@ -126,6 +126,7 @@
 
 <script>
 import ScrollImage from '../components/ScrollImage.vue';
+import StoreNavbarClassicProduct from '../components/StoreNavbarClassicProduct.vue';
 import img1 from '../assets/images/bottle_open_hookers_green.png';
 import img2 from '../assets/images/bottle_open_old_rose.png';
 import img3 from '../assets/images/bottle_open_blue_younder.png';
@@ -133,6 +134,7 @@ import img3 from '../assets/images/bottle_open_blue_younder.png';
 export default {
   components: {
     ScrollImage,
+    StoreNavbarClassicProduct,
   },
   data() {
     return {
