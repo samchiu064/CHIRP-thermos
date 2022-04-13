@@ -118,15 +118,15 @@
         </div>
       </section>
     </article>
-    <StoreNavbarClassicProduct />
     <section class="scroll-block p-0 position-static invisible"></section>
     <section class="scroll-block p-0 position-static invisible"></section>
+    <StoreNavbarViewport :classicProduct="tempArr" />
   </main>
 </template>
 
 <script>
 import ScrollImage from '../components/ScrollImage.vue';
-import StoreNavbarClassicProduct from '../components/StoreNavbarClassicProduct.vue';
+import StoreNavbarViewport from '../components/StoreNavbarViewport.vue';
 import img1 from '../assets/images/bottle_open_hookers_green.png';
 import img2 from '../assets/images/bottle_open_old_rose.png';
 import img3 from '../assets/images/bottle_open_blue_younder.png';
@@ -134,7 +134,7 @@ import img3 from '../assets/images/bottle_open_blue_younder.png';
 export default {
   components: {
     ScrollImage,
-    StoreNavbarClassicProduct,
+    StoreNavbarViewport,
   },
   data() {
     return {
@@ -144,16 +144,19 @@ export default {
           title: '胡克綠保溫瓶',
           url: img1,
           order: 1,
+          color: 'classic-green',
         },
         {
           title: '灰玫紅保溫瓶"',
           url: img2,
           order: 2,
+          color: 'classic-red',
         },
         {
           title: '灰丁寧藍保溫瓶',
           url: img3,
           order: 3,
+          color: 'classic-blue',
         },
       ],
       tempMask: [

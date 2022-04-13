@@ -52,11 +52,19 @@
               <!-- 延伸技巧，多圖 -->
               <div class="mt-5">
                 <div class="mb-3 input-group">
-                  <input type="url" class="form-control form-control" placeholder="請輸入連結" />
-                  <button type="button" class="btn btn-outline-danger">移除</button>
+                  <input
+                    type="url"
+                    class="form-control form-control"
+                    placeholder="請輸入連結"
+                  />
+                  <button type="button" class="btn btn-outline-danger">
+                    移除
+                  </button>
                 </div>
                 <div>
-                  <button class="btn btn-outline-primary btn-sm d-block w-100">新增圖片</button>
+                  <button class="btn btn-outline-primary btn-sm d-block w-100">
+                    新增圖片
+                  </button>
                 </div>
               </div>
             </div>
@@ -172,7 +180,11 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
+          >
             取消
           </button>
           <button

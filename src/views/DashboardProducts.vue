@@ -1,7 +1,9 @@
 <template>
   <LoadingOverlay :active="isLoading" />
   <div class="text-end">
-    <button class="btn btn-primary" type="button" @click="openModal(true)">新增產品</button>
+    <button class="btn btn-primary" type="button" @click="openModal(true)">
+      新增產品
+    </button>
   </div>
   <table class="table mt-4">
     <thead>
@@ -27,10 +29,16 @@
         </td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              @click="openModal(false, item)"
+            >
               編輯
             </button>
-            <button class="btn btn-outline-danger btn-sm" @click="openDeleteModal(item)">
+            <button
+              class="btn btn-outline-danger btn-sm"
+              @click="openDeleteModal(item)"
+            >
               刪除
             </button>
           </div>
@@ -39,8 +47,16 @@
     </tbody>
   </table>
   <ThePagination :pages="pagination" @emit-page="getProducts" />
-  <ProductModal ref="productModal" :product="tempProduct" @update-product="updateProduct" />
-  <DeleteModal ref="deleteModal" :item="tempProduct" @delete-item="deleteProduct" />
+  <ProductModal
+    ref="productModal"
+    :product="tempProduct"
+    @update-product="updateProduct"
+  />
+  <DeleteModal
+    ref="deleteModal"
+    :item="tempProduct"
+    @delete-item="deleteProduct"
+  />
 </template>
 
 <script>
@@ -78,6 +94,7 @@ export default {
           this.pagination = res.data.pagination;
         }
         this.isLoading = false; // Hide loading overlay
+        console.log(res);
       });
     },
     openModal(isNew, item) {
@@ -94,7 +111,9 @@ export default {
       this.tempProduct = item;
       this.isLoading = true; // Show loading overlay
 
-      const api = this.isNew ? this.apiPath.product : `${this.apiPath.product}/${item.id}`;
+      const api = this.isNew
+        ? this.apiPath.product
+        : `${this.apiPath.product}/${item.id}`;
       const httpMethod = this.isNew ? 'post' : 'put';
       const productComponent = this.$refs.productModal;
 
