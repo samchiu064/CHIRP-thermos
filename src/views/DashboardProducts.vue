@@ -117,8 +117,10 @@ export default {
       const httpMethod = this.isNew ? 'post' : 'put';
       const productComponent = this.$refs.productModal;
 
+      console.log(item);
+
       this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
-        console.log(res);
+        console.log('更新結果', res);
         this.isLoading = false; // Show loading overlay
         this.pushMessageState(res, '產品資料更新');
 

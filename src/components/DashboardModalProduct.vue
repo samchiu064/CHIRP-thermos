@@ -36,37 +36,32 @@
                 /></label>
               </div>
               <div class="mb-3">
-                <label for="customFile" class="form-label w-100"
-                  >或 上傳圖片
+                <label for="majorImage" class="form-label w-100">
+                  <p>上傳主要圖片</p>
                   <i class="fas fa-spinner fa-spin"></i>
                   <input
                     type="file"
-                    id="customFile"
+                    id="majorImage"
                     class="form-control"
-                    @change="uploadFile"
-                    ref="fileInput"
+                    @change="uploadFile('major')"
+                    ref="majorImageInput"
+                  />
+                </label>
+              </div>
+              <div class="mb-3" v-for="index in 5" :key="index">
+                <label :for="`minorImage${index}`" class="form-label w-100">
+                  上傳次要圖片 {{ index }}
+                  <i class="fas fa-spinner fa-spin"></i>
+                  <input
+                    type="file"
+                    :id="`minorImage${index}`"
+                    class="form-control"
+                    @change="uploadFile('minor', index)"
+                    ref="minorImageInput"
                   />
                 </label>
               </div>
               <img class="img-fluid" alt="" />
-              <!-- 延伸技巧，多圖 -->
-              <div class="mt-5">
-                <div class="mb-3 input-group">
-                  <input
-                    type="url"
-                    class="form-control form-control"
-                    placeholder="請輸入連結"
-                  />
-                  <button type="button" class="btn btn-outline-danger">
-                    移除
-                  </button>
-                </div>
-                <div>
-                  <button class="btn btn-outline-primary btn-sm d-block w-100">
-                    新增圖片
-                  </button>
-                </div>
-              </div>
             </div>
             <div class="col-sm-8">
               <div class="mb-3">
@@ -222,20 +217,27 @@ export default {
   watch: {
     product() {
       this.tempProduct = this.product;
+      if (!this.tempProduct.imagesUrl) this.tempProduct.imagesUrl = [];
     },
   },
   methods: {
-    uploadFile() {
-      const uploadedFile = this.$refs.fileInput.files[0]; // 1. 取得檔案資料
-      // console.dir(uploadedFile); // 要看property => console.dir
+    uploadFile(type, key) {
+      const index = key - 1; // Array index starting from zero
+
+      const uploadedFile = type === 'major'
+        ? this.$refs.majorImageInput.files[0]
+        : this.$refs.minorImageInput[index].files[0];
 
       const formData = new FormData(); // 2. 轉成 form-data格式
       formData.append('file-to-upload', uploadedFile);
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/upload`; // 3. 發送到後端API
-      const httpMethod = 'post';
 
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/upload`;
+      const httpMethod = 'post';
       this.$http[httpMethod](url, formData).then((res) => {
-        if (res.data.success) this.tempProduct.imageUrl = res.data.imageUrl;
+        if (!res.data.success) return;
+
+        if (type === 'major') this.tempProduct.imageUrl = res.data.imageUrl;
+        if (type === 'minor') this.tempProduct.imagesUrl[index] = res.data.imageUrl;
       });
     },
   },
