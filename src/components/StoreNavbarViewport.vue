@@ -26,28 +26,6 @@
         ><span class="bullet" :class="`bg-color-${item.color}`"></span
       ></a>
     </li>
-    <!-- <li class="nav-item color-classic-red">
-      <a
-        href="#?"
-        @click.prevent="switchView(1)"
-        class="d-flex justify-content-end align-items-center"
-        ><span
-          class="label"
-          :class="{ active: topVisible >= vh && vh <= topVisible * 2 }"
-          >灰玫紅</span
-        ><span class="bullet bg-color-classic-red"></span
-      ></a>
-    </li>
-    <li class="nav-item color-classic-blue">
-      <a
-        href="#?"
-        @click.prevent="switchView(2)"
-        class="d-flex justify-content-end align-items-center"
-        ><span class="label" :class="{ active: topVisible > vh * 2 }"
-          >灰丁寧藍</span
-        ><span class="bullet bg-color-classic-blue"></span
-      ></a>
-    </li> -->
   </ul>
 </template>
 

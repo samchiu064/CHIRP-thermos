@@ -124,6 +124,7 @@ export default {
         this.isLoading = false; // Show loading overlay
         this.pushMessageState(res, '產品資料更新');
 
+        this.getProducts();
         productComponent.hideModal();
       });
     },

@@ -138,7 +138,8 @@ export default {
   },
   data() {
     return {
-      url: 'https://fakeimg.pl/250x100',
+      origin: [],
+      classicProduct: [],
       tempArr: [
         {
           title: '胡克綠保溫瓶',
@@ -172,6 +173,48 @@ export default {
         },
       ],
     };
+  },
+  computed: {},
+  methods: {
+    getProducts() {
+      this.$http
+        .get(
+          `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products`,
+        )
+        .then((res) => {
+          if (res.data.success) {
+            this.origin = res.data.products;
+            // Retrieve data category: "Thermos" only since this is Thermos key selling point page.
+            this.classicProduct = this.origin.filter(
+              (item) => item.category === 'thermos',
+            );
+          }
+
+          this.addProperty();
+
+          console.log(this.classicProduct);
+          console.log(res);
+        });
+    },
+    addProperty() {
+      this.classicProduct.forEach((item) => {
+        const startIndex = item.title.indexOf('-') + 2;
+        const chineseName = item.title.slice(startIndex, item.length);
+        Object.defineProperty(item, 'color', {
+          value: this.convertName(chineseName),
+          writable: false,
+        });
+      });
+    },
+    convertName(chineseName) {
+      if (chineseName === '灰丁寧藍') return 'classic-blue';
+      if (chineseName === '灰玫紅') return 'classic-red';
+      if (chineseName === '胡克綠') return 'classic-green';
+      return false;
+    },
+  },
+  created() {
+    this.getProducts();
   },
 };
 </script>
