@@ -4,26 +4,27 @@
     ref="scrollImg"
     class="scroll-img"
   >
-    <img :src="src.url" :alt="src.title" class="scroll-img__item" />
+    <img
+      :src="product[0].imagesUrl[1]"
+      :alt="product[0].title"
+      class="scroll-img__item"
+    />
+    <!-- {{ product[2].imagesUrl[1] }} -->
   </div>
   <div
-    v-for="(item, index) in maskSrc"
+    v-for="(item, index) in productMask"
     :key="index"
     :style="{ height: `${currentHeights[index + 1]}px` }"
     class="scroll-img scroll-img__mask"
   >
-    <img :src="item.url" :alt="item.title" class="scroll-img__item" />
+    <img :src="item.imagesUrl[1]" :alt="item.title" class="scroll-img__item" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    src: {
-      type: Object,
-      required: true,
-    },
-    maskSrc: {
+    product: {
       type: Array,
       required: true,
     },
@@ -35,6 +36,11 @@ export default {
       topVisible: 0,
       vh: 0,
     };
+  },
+  computed: {
+    productMask() {
+      return this.product.filter((item) => item.order !== 1);
+    },
   },
   methods: {
     initHeight() {

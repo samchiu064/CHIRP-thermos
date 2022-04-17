@@ -41,7 +41,10 @@
           >
         </div>
         <div class="feature__images position-relative h-100">
-          <ScrollImage :src="tempArr[0]" :maskSrc="tempMask" />
+          <ScrollImage
+            :product="classicProduct"
+            v-if="classicProduct.hasOwnProperty(0)"
+          />
         </div>
       </section>
       <section
@@ -183,34 +186,51 @@ export default {
         )
         .then((res) => {
           if (res.data.success) {
-            this.origin = res.data.products;
-            // Retrieve data category: "Thermos" only since this is Thermos key selling point page.
+            this.origin = res.data.products; // Save origin data
             this.classicProduct = this.origin.filter(
               (item) => item.category === 'thermos',
             );
           }
-
           this.addProperty();
-
+          this.sortProduct();
           console.log(this.classicProduct);
-          console.log(res);
         });
     },
     addProperty() {
       this.classicProduct.forEach((item) => {
         const startIndex = item.title.indexOf('-') + 2;
         const chineseName = item.title.slice(startIndex, item.length);
-        Object.defineProperty(item, 'color', {
-          value: this.convertName(chineseName),
-          writable: false,
-        });
+
+        this.addColor(item, chineseName);
+        this.addOrder(item, chineseName);
       });
     },
-    convertName(chineseName) {
-      if (chineseName === '灰丁寧藍') return 'classic-blue';
-      if (chineseName === '灰玫紅') return 'classic-red';
+    convertColor(chineseName) {
       if (chineseName === '胡克綠') return 'classic-green';
+      if (chineseName === '灰玫紅') return 'classic-red';
+      if (chineseName === '灰丁寧藍') return 'classic-blue';
       return false;
+    },
+    convertOrder(chineseName) {
+      if (chineseName === '胡克綠') return 1;
+      if (chineseName === '灰玫紅') return 2;
+      if (chineseName === '灰丁寧藍') return 3;
+      return false;
+    },
+    addColor(item, chineseName) {
+      Object.defineProperty(item, 'color', {
+        value: this.convertColor(chineseName),
+        writable: false,
+      });
+    },
+    addOrder(item, chineseName) {
+      Object.defineProperty(item, 'order', {
+        value: this.convertOrder(chineseName),
+        writable: false,
+      });
+    },
+    sortProduct() {
+      this.classicProduct.sort((a, b) => a.order - b.order);
     },
   },
   created() {

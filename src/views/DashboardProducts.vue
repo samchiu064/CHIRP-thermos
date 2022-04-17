@@ -94,7 +94,7 @@ export default {
           this.pagination = res.data.pagination;
         }
         this.isLoading = false; // Hide loading overlay
-        console.log(res);
+        // console.log(res);
       });
     },
     openModal(isNew, item) {
