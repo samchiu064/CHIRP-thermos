@@ -18,7 +18,7 @@
         class="
           feature feature--position-mobile
           col-7 col-md-4
-          d-flex
+          d-none d-md-flex
           flex-column
           justify-content-between
           mt-4
@@ -27,47 +27,55 @@
       >
         <div class="feature__description feature__description--position-end">
           <h2 class="heading heading__badge heading__badge--position-front">
-            第一行文字字 <br />
-            第二行文字 <br />
-            第三行文字文字文字
+            第一行文字字
+            <br />第二行文字 <br />第三行文字文字文字
           </h2>
           <p class="paragraph">
-            後自地作法畫法裡然政：精指條提長<br />
-            氣理不走皮開動。電花飛主人各<br />
-            散他有年演那臺麼子。
+            後自地作法畫法裡然政：精指條提長
+            <br />氣理不走皮開動。電花飛主人各 <br />散他有年演那臺麼子。
           </p>
           <span class="paragraph paragraph--size-sm"
             >※黑空確，友市才部這的我的你是友流子去班終以主這道他好空灣為更</span
           >
         </div>
-        <div class="feature__images position-relative h-100">
+        <div
+          class="
+            feature-image feature-image--position-bottomleft
+            position-relative
+            h-100
+          "
+        >
           <ScrollImage
             :product="classicProduct"
+            :imageCategory="'feature'"
             v-if="classicProduct.hasOwnProperty(0)"
           />
         </div>
       </section>
-      <section
-        class="
-          col-4
-          merchandise
-          m-auto
-          text-center
-          p-0
-          d-flex
-          align-items-center
-          flex-column
-        "
-      >
-        <img
-          class="merchandise__image merchandise__image--size-flex z-index-2"
-          src="../assets/images/showcase_hookers_green.png"
-          alt="胡克綠保溫瓶"
-          ref="bottle"
-        />
+      <section class="col-12 col-md-4 merchandise p-0">
+        <div
+          class="
+            merchandise-image merchandise-image--position-top
+            position-absolute
+            start-50
+            translate-middle
+          "
+        >
+          <ScrollImage
+            :product="classicProduct"
+            :imageCategory="'main'"
+            v-if="classicProduct.hasOwnProperty(0)"
+          />
+        </div>
         <button
           type="button"
-          class="btn btn-outline-secondary btn--theme-classic mt-3 mt-sm-4"
+          class="
+            btn btn-outline-secondary btn--theme-classic btn--position-bottom
+            mb-3 mb-sm-4
+            position-absolute
+            start-50
+            translate-middle-x
+          "
         >
           查看更多
         </button>
@@ -84,19 +92,23 @@
           d-none d-md-flex
         "
       >
-        <img
-          class="
-            accessory__image
-            accessory__image--size-flex
-            accessory__image--slide-left
-          "
-          src="../assets/images/bottle_cap_hookers_green.png"
-          alt="胡克綠保溫瓶瓶蓋"
-        />
+        <div class="accessory-image accessory-image--position-left">
+          <ScrollImage
+            :product="classicProduct"
+            :imageCategory="'accessory'"
+            v-if="classicProduct.hasOwnProperty(0)"
+          />
+          <!-- <img
+            src="../assets/images/bottle_cap_hookers_green.png"
+            alt="胡克綠保溫瓶瓶蓋"
+          /> -->
+        </div>
+
         <div class="accessory__description align-self-start me-4 mt-4">
           <h2 class="heading">
-            第一行文字字文字 <br />
-            第二行文字文字文字文字 <br />
+            第一行文字字
+            <br />第二行文字文字文
+            <br />
           </h2>
           <p class="paragraph">
             黑空確，友市才部這的我的你是友流子去班終以主這道他好
@@ -105,25 +117,23 @@
             >※黑空確，友市才部這的我的你是友流子去班終以主這道他好空灣為更</span
           >
         </div>
-        <div class="benefit benefit--slide-topleft d-flex align-items-end">
+        <div class="benefit benefit--position-topleft d-flex align-items-end">
           <div class="benefit__description">
             <p class="paragraph paragraph--size-sm">※最長可保溫24小時</p>
           </div>
-          <img
-            class="
-              benefit__image
-              benefit__image--size-flex
-              benefit__image--position-flex
-            "
-            src="../assets/images/benefit_hookers_green.png"
-            alt="胡克綠保溫瓶保溫效果圖"
-          />
+          <div class="benefit-image">
+            <ScrollImage
+              :product="classicProduct"
+              :imageCategory="'benefit'"
+              v-if="classicProduct.hasOwnProperty(0)"
+            />
+          </div>
         </div>
       </section>
     </article>
     <section class="scroll-block p-0 position-static invisible"></section>
     <section class="scroll-block p-0 position-static invisible"></section>
-    <StoreNavbarViewport :classicProduct="tempArr" />
+    <StoreNavbarViewport :classicProduct="classicProduct" />
   </main>
 </template>
 
@@ -218,7 +228,11 @@ export default {
       return false;
     },
     addColor(item, chineseName) {
-      Object.defineProperty(item, 'color', {
+      Object.defineProperty(item, 'chtColor', {
+        value: chineseName,
+        writable: false,
+      });
+      Object.defineProperty(item, 'engColor', {
         value: this.convertColor(chineseName),
         writable: false,
       });
@@ -321,6 +335,12 @@ export default {
     border-radius: 30px;
     padding: 10px 25px;
   }
+  &--position-bottom {
+    bottom: 1rem;
+    @media (max-width: 576px) {
+      bottom: 4rem;
+    }
+  }
 }
 
 .showcase {
@@ -347,6 +367,23 @@ export default {
 }
 
 .feature {
+  &-image {
+    width: 408px;
+    height: 245px;
+    max-width: 24.8vw;
+    @media (max-width: 992px) {
+      max-width: 33.8vw;
+    }
+    &--position-bottomleft {
+      top: 35vh;
+      @media (max-width: 1200px) {
+        top: 16vh;
+      }
+      @media (max-width: 992px) {
+        top: 26vh;
+      }
+    }
+  }
   &--position-mobile {
     @media (max-width: 576px) {
       position: absolute;
@@ -361,51 +398,51 @@ export default {
 }
 
 .merchandise {
-  &__image {
-    width: auto;
-    z-index: 1;
-    &--size-flex {
-      @media (min-width: 992px) and (max-width: 1200px) {
-        max-width: 17vw;
-      }
+  &-image {
+    width: 209px;
+    height: 636px;
+    max-width: 44.8vw;
+    @media (min-width: 1200px) {
+      max-width: 17vw;
     }
-  }
-  &__btn {
-    &--theme-classic {
-      border-radius: 50%;
+    @media (min-width: 992px) and (max-width: 1200px) {
+      max-width: 16vw;
+    }
+    &--position-top {
+      top: 55%;
     }
   }
 }
 
 .accessory {
-  &__image {
-    position: relative;
-    &--size-flex {
-      max-width: 16vw;
-      @media (max-width: 992px) {
-        max-width: 20.8vw;
-      }
+  &-image {
+    width: 203px;
+    height: 198px;
+    max-width: 16vw;
+    @media (max-width: 992px) {
+      max-width: 20.8vw;
     }
-    &--slide-left {
-      right: 5vw;
+    &--position-left {
+      position: relative;
+      right: 4vw;
       // top: 1vw;
     }
   }
 }
 
 .benefit {
-  position: relative;
-  &--slide-topleft {
+  &-image {
+    width: 191px;
+    height: 191px;
+    max-width: 10.5vw;
+    @media (max-width: 992px) {
+      max-width: 16vw;
+    }
+  }
+  &--position-topleft {
+    position: relative;
     right: 2vw;
     bottom: 3vw;
-  }
-  &__image {
-    &--size-flex {
-      max-width: 9vw;
-      @media (max-width: 992px) {
-        max-width: 16vw;
-      }
-    }
   }
 }
 </style>

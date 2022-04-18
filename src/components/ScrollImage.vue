@@ -5,11 +5,11 @@
     class="scroll-img"
   >
     <img
-      :src="product[0].imagesUrl[1]"
+      :src="product[0].imagesUrl[indexOfImage] || product[0].imageUrl"
       :alt="product[0].title"
       class="scroll-img__item"
     />
-    <!-- {{ product[2].imagesUrl[1] }} -->
+    <!-- {{ imageCategory }} -->
   </div>
   <div
     v-for="(item, index) in productMask"
@@ -17,7 +17,11 @@
     :style="{ height: `${currentHeights[index + 1]}px` }"
     class="scroll-img scroll-img__mask"
   >
-    <img :src="item.imagesUrl[1]" :alt="item.title" class="scroll-img__item" />
+    <img
+      :src="item.imagesUrl[indexOfImage] || item.imageUrl"
+      :alt="item.title"
+      class="scroll-img__item"
+    />
   </div>
 </template>
 
@@ -26,6 +30,10 @@ export default {
   props: {
     product: {
       type: Array,
+      required: true,
+    },
+    imageCategory: {
+      type: String,
       required: true,
     },
   },
@@ -41,6 +49,13 @@ export default {
     productMask() {
       return this.product.filter((item) => item.order !== 1);
     },
+    indexOfImage() {
+      if (this.imageCategory === 'accessory') return 0;
+      if (this.imageCategory === 'feature') return 1;
+      if (this.imageCategory === 'benefit') return 2;
+      if (this.imageCategory === 'main') return false;
+      return false;
+    },
   },
   methods: {
     initHeight() {
@@ -52,16 +67,22 @@ export default {
       this.originalHeight = originalHeight;
     },
     revealMask() {
-      const currentHeight = this.originalHeight - this.topVisible * (this.originalHeight / this.vh);
+      const firstItem = this.calcCurrentHeight(0);
+      const secondItem = this.calcCurrentHeight(1);
+      const thirdItem = this.calcCurrentHeight(2);
 
-      this.currentHeights = [
-        currentHeight,
-        currentHeight + this.originalHeight,
-        currentHeight + this.originalHeight * 2,
-      ];
+      this.currentHeights = [firstItem, secondItem, thirdItem];
 
       this.topVisible = document.documentElement.scrollTop;
       this.vh = window.innerHeight;
+    },
+    calcCurrentHeight(order) {
+      return Math.max(
+        0,
+        this.originalHeight
+          - this.topVisible * (this.originalHeight / this.vh)
+          + this.originalHeight * order,
+      );
     },
   },
   mounted() {
@@ -81,14 +102,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:root {
-  --image-height: "";
-}
-
 .scroll-img {
   position: absolute;
   overflow: hidden;
-  top: 35vh;
+  // top: 35vh;
   &:nth-child(1) {
     z-index: 3;
   }
@@ -99,13 +116,12 @@ export default {
     z-index: 1;
   }
   &__item {
-    max-width: 24.8vw;
-    @media (max-width: 992px) {
-      max-width: 33.8vw;
-    }
-  }
-  &--active {
-    height: var(--image-height);
+    width: 100%;
+    height: auto;
+    // max-width: 24.8vw;
+    // @media (max-width: 992px) {
+    //   max-width: 33.8vw;
+    // }
   }
 }
 </style>

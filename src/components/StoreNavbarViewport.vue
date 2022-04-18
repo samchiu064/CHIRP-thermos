@@ -1,7 +1,7 @@
 <template>
   <ul
     class="
-      nav
+      nav nav--spacing
       flex-column
       position-fixed
       top-50
@@ -9,21 +9,22 @@
       translate-middle-y
       text-end
       fs-8
-      me-3
     "
   >
     <li
       v-for="(item, index) in classicProduct"
       :key="index"
       class="nav-item"
-      :class="`color-${item.color}`"
+      :class="`color-${item.engColor}`"
     >
       <a
         href="#?"
         @click.prevent="switchView(index)"
         class="d-flex justify-content-end align-items-center"
-        ><span class="label" :class="{ active: isActive == index }">胡克綠</span
-        ><span class="bullet" :class="`bg-color-${item.color}`"></span
+        ><span class="label" :class="{ active: isActive == index }">{{
+          item.chtColor
+        }}</span
+        ><span class="bullet" :class="`bg-color-${item.engColor}`"></span
       ></a>
     </li>
   </ul>
@@ -69,6 +70,15 @@ export default {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.nav {
+  &--spacing {
+    margin-right: 1rem;
+    @media (max-width: 576px) {
+      margin-right: 0.5rem;
+    }
+  }
 }
 
 .nav-item {
