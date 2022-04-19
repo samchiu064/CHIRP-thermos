@@ -105,7 +105,6 @@ export default {
 .scroll-img {
   position: absolute;
   overflow: hidden;
-  // top: 35vh;
   &:nth-child(1) {
     z-index: 3;
   }
@@ -118,10 +117,6 @@ export default {
   &__item {
     width: 100%;
     height: auto;
-    // max-width: 24.8vw;
-    // @media (max-width: 992px) {
-    //   max-width: 33.8vw;
-    // }
   }
 }
 </style>

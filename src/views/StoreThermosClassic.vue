@@ -117,10 +117,11 @@
             >※黑空確，友市才部這的我的你是友流子去班終以主這道他好空灣為更</span
           >
         </div>
-        <div class="benefit benefit--position-topleft d-flex align-items-end">
-          <div class="benefit__description">
+        <div class="benefit align-self-end mt-3 me-3 position-relative">
+          <div class="benefit__description position-relative">
             <p class="paragraph paragraph--size-sm">※最長可保溫24小時</p>
           </div>
+
           <div class="benefit-image">
             <ScrollImage
               :product="classicProduct"
@@ -257,7 +258,7 @@ export default {
 // Globe
 ::-moz-selection {
   /* Code for Firefox */
-  background: yellow;
+  // background: yellow;
 }
 
 ::selection {
@@ -297,23 +298,6 @@ export default {
         &::before {
           position: absolute;
           left: -80px;
-        }
-      }
-    }
-    &--color {
-      &-green {
-        &::before {
-          background-color: #4d6d58;
-        }
-      }
-      &-red {
-        &::before {
-          background-color: #cc7e85;
-        }
-      }
-      &-blue {
-        &::before {
-          background-color: #496da5;
         }
       }
     }
@@ -377,10 +361,10 @@ export default {
     &--position-bottomleft {
       top: 35vh;
       @media (max-width: 1200px) {
-        top: 16vh;
+        top: 26vh;
       }
       @media (max-width: 992px) {
-        top: 26vh;
+        top: 35vh;
       }
     }
   }
@@ -439,10 +423,12 @@ export default {
       max-width: 16vw;
     }
   }
-  &--position-topleft {
-    position: relative;
-    right: 2vw;
-    bottom: 3vw;
+  &__description {
+    right: 10vw;
+    bottom: -17vh;
+    @media (max-width: 1200px) {
+      right: 13vw;
+    }
   }
 }
 </style>
