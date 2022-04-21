@@ -1,6 +1,5 @@
 <template>
   <StoreHeader />
-  <router-view />
   <main class="kv bg-light">
     <div class="container-fluid h-100">
       <div class="row align-items-center">

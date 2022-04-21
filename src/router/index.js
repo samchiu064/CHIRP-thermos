@@ -38,6 +38,10 @@ const routes = [
         path: 'classic',
         component: () => import('../views/StoreThermosClassic.vue'),
       },
+      {
+        path: 'classic/details',
+        component: () => import('../views/StoreThermosClassicDetails.vue'),
+      },
     ],
   },
   {

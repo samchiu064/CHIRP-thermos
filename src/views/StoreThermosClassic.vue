@@ -46,9 +46,9 @@
           "
         >
           <ScrollImage
-            :product="classicProduct"
+            :product="products"
             :imageCategory="'feature'"
-            v-if="classicProduct.hasOwnProperty(0)"
+            v-if="products.hasOwnProperty(0)"
           />
         </div>
       </section>
@@ -62,13 +62,13 @@
           "
         >
           <ScrollImage
-            :product="classicProduct"
+            :product="products"
             :imageCategory="'main'"
-            v-if="classicProduct.hasOwnProperty(0)"
+            v-if="products.hasOwnProperty(0)"
           />
         </div>
-        <button
-          type="button"
+        <router-link
+          to="/thermos/classic/details"
           class="
             btn btn-outline-secondary btn--theme-classic btn--position-bottom
             mb-3 mb-sm-4
@@ -78,7 +78,7 @@
           "
         >
           查看更多
-        </button>
+        </router-link>
       </section>
 
       <section
@@ -94,9 +94,9 @@
       >
         <div class="accessory-image accessory-image--position-left">
           <ScrollImage
-            :product="classicProduct"
+            :product="products"
             :imageCategory="'accessory'"
-            v-if="classicProduct.hasOwnProperty(0)"
+            v-if="products.hasOwnProperty(0)"
           />
           <!-- <img
             src="../assets/images/bottle_cap_hookers_green.png"
@@ -124,9 +124,9 @@
 
           <div class="benefit-image">
             <ScrollImage
-              :product="classicProduct"
+              :product="products"
               :imageCategory="'benefit'"
-              v-if="classicProduct.hasOwnProperty(0)"
+              v-if="products.hasOwnProperty(0)"
             />
           </div>
         </div>
@@ -134,122 +134,38 @@
     </article>
     <section class="scroll-block p-0 position-static invisible"></section>
     <section class="scroll-block p-0 position-static invisible"></section>
-    <StoreNavbarViewport :classicProduct="classicProduct" />
+    <StoreNavbarViewport :products="products" />
   </main>
 </template>
 
 <script>
 import ScrollImage from '../components/ScrollImage.vue';
 import StoreNavbarViewport from '../components/StoreNavbarViewport.vue';
-import img1 from '../assets/images/bottle_open_hookers_green.png';
-import img2 from '../assets/images/bottle_open_old_rose.png';
-import img3 from '../assets/images/bottle_open_blue_younder.png';
+import getDataMixin from '../mixins/getDataMixin';
 
 export default {
   components: {
     ScrollImage,
     StoreNavbarViewport,
   },
+  mixins: [getDataMixin],
   data() {
     return {
       origin: [],
-      classicProduct: [],
-      tempArr: [
-        {
-          title: '胡克綠保溫瓶',
-          url: img1,
-          order: 1,
-          color: 'classic-green',
-        },
-        {
-          title: '灰玫紅保溫瓶"',
-          url: img2,
-          order: 2,
-          color: 'classic-red',
-        },
-        {
-          title: '灰丁寧藍保溫瓶',
-          url: img3,
-          order: 3,
-          color: 'classic-blue',
-        },
-      ],
-      tempMask: [
-        {
-          title: '灰玫紅保溫瓶"',
-          url: img2,
-          order: 2,
-        },
-        {
-          title: '灰丁寧藍保溫瓶',
-          url: img3,
-          order: 3,
-        },
-      ],
+      products: [],
     };
   },
-  computed: {},
   methods: {
-    getProducts() {
-      this.$http
-        .get(
-          `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products`,
-        )
-        .then((res) => {
-          if (res.data.success) {
-            this.origin = res.data.products; // Save origin data
-            this.classicProduct = this.origin.filter(
-              (item) => item.category === 'thermos',
-            );
-          }
-          this.addProperty();
-          this.sortProduct();
-          console.log(this.classicProduct);
-        });
-    },
-    addProperty() {
-      this.classicProduct.forEach((item) => {
-        const startIndex = item.title.indexOf('-') + 2;
-        const chineseName = item.title.slice(startIndex, item.length);
-
-        this.addColor(item, chineseName);
-        this.addOrder(item, chineseName);
-      });
-    },
-    convertColor(chineseName) {
-      if (chineseName === '胡克綠') return 'classic-green';
-      if (chineseName === '灰玫紅') return 'classic-red';
-      if (chineseName === '灰丁寧藍') return 'classic-blue';
-      return false;
-    },
-    convertOrder(chineseName) {
-      if (chineseName === '胡克綠') return 1;
-      if (chineseName === '灰玫紅') return 2;
-      if (chineseName === '灰丁寧藍') return 3;
-      return false;
-    },
-    addColor(item, chineseName) {
-      Object.defineProperty(item, 'chtColor', {
-        value: chineseName,
-        writable: false,
-      });
-      Object.defineProperty(item, 'engColor', {
-        value: this.convertColor(chineseName),
-        writable: false,
-      });
-    },
-    addOrder(item, chineseName) {
-      Object.defineProperty(item, 'order', {
-        value: this.convertOrder(chineseName),
-        writable: false,
-      });
-    },
-    sortProduct() {
-      this.classicProduct.sort((a, b) => a.order - b.order);
+    async initData() {
+      await this.$_getDataMixin_getProducts();
+      this.$_getDataMixin_filterCategory('thermos');
+      this.$_getDataMixin_addProperty('color');
+      this.$_getDataMixin_addProperty('order');
+      this.$_getDataMixin_sortProduct();
     },
   },
   created() {
-    this.getProducts();
+    this.initData();
   },
 };
 </script>

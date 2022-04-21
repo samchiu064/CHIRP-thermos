@@ -12,7 +12,7 @@
     "
   >
     <li
-      v-for="(item, index) in classicProduct"
+      v-for="(item, index) in products"
       :key="index"
       class="nav-item"
       :class="`color-${item.engColor}`"
@@ -33,7 +33,7 @@
 <script>
 export default {
   props: {
-    classicProduct: {
+    products: {
       type: Array,
       required: true,
     },

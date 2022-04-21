@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-light position-fixed vw-100 top-0 end-0 left-0">
+  <header class="position-fixed vw-100 top-0 end-0 left-0">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <div class="navbar__nav--pages">
