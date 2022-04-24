@@ -1,5 +1,5 @@
 <template>
-  <header class="vw-100 top-0 end-0 left-0" :class="[positionType]">
+  <header class="vw-100 top-0 end-0 left-0 mb-1" :class="[positionType]">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <div class="navbar__nav--pages">

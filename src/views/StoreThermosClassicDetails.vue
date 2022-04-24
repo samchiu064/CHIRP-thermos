@@ -1,6 +1,6 @@
 <template>
   <StoreHeader />
-  <main class="container">
+  <main class="container bg-white p-3 p-md-5">
     <section class="row row-cols-1 row-cols-md-2">
       <div class="col text-center">
         <img src="https://fakeimg.pl/300x200/200" alt="test" class="w-90" />
@@ -75,14 +75,15 @@
         <div class="mt-4 mb-5 text-center text-md-start">
           <button
             type="button"
-            class="btn btn-outline-secondary rounded-pill w-42 py-2"
+            class="btn btn-outline-secondary rounded-pill w-45 py-2"
           >
             立即購買
           </button>
           <button
             type="button"
-            class="btn btn-dark rounded-pill w-42 ms-4 py-2"
+            class="btn btn-dark rounded-pill w-45 ms-4 py-2"
           >
+            <i class="bi bi-cart-dash text-white me-1"></i>
             加入購物車
           </button>
         </div>
