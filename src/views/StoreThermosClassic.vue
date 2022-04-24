@@ -1,4 +1,5 @@
 <template>
+  <StoreHeader :positionType="'position-fixed'" />
   <main class="container-fluid showcase h-100">
     <article
       class="
@@ -139,12 +140,14 @@
 </template>
 
 <script>
+import StoreHeader from '../components/StoreHeader.vue';
 import ScrollImage from '../components/ScrollImage.vue';
 import StoreNavbarViewport from '../components/StoreNavbarViewport.vue';
 import getDataMixin from '../mixins/getDataMixin';
 
 export default {
   components: {
+    StoreHeader,
     ScrollImage,
     StoreNavbarViewport,
   },

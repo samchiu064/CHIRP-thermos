@@ -1,48 +1,88 @@
 <template>
+  <StoreHeader />
   <main class="container">
     <section class="row row-cols-1 row-cols-md-2">
-      <div class="col">
-        <img src="https://fakeimg.pl/300x200/200" alt="test" />
+      <div class="col text-center">
+        <img src="https://fakeimg.pl/300x200/200" alt="test" class="w-90" />
       </div>
       <div class="col">
-        <h2>單色不鏽鋼保溫瓶 -胡克綠</h2>
-        <h3 style="display: none">價格</h3>
-        <span>NT $600</span>
-        <p>
-          高取或數有相個。看己的一，身家一海上少國多思住車面分
-          不毛五工品還觀草？我流力境由立教媽心施制臺內童見親而來，高香起
-          過覺眾示到部身、讀分務女生切相來室一次言物去賽動的清同別操物，此像？
-        </p>
-        <div>
-          <h3>顏色</h3>
-          <ul>
-            <li>胡克綠</li>
-            <li>灰玫紅</li>
-            <li>灰丁寧藍</li>
-          </ul>
+        <div class="text-center text-md-start m-auto mx-md-0">
+          <h2 class="mt-2 mt-md-0">單色不鏽鋼保溫瓶 - 胡克綠</h2>
+          <h3 style="display: none">價格</h3>
+          <span class="fs-3 fw-bolder">NT $600</span>
+          <p class="mt-3 mb-4">
+            高取或數有相個。看己的一，身家一海上少國多思住車面分
+            不毛五工品還觀草？我流力境由立教媽心施制臺內童見親而來，高香起
+            過覺眾示到部身、讀分務女生切相來室一次言物去賽動的清同別操物，此像？
+          </p>
         </div>
 
         <div>
-          <h3>配送方式</h3>
-          <ul>
-            <li>宅配配送</li>
+          <h3 class="fs-6 fw-bolder">顏色</h3>
+          <ul class="nav">
+            <li class="nav-item m-3 mb-1 text-center">
+              <i
+                type="button"
+                class="
+                  btn
+                  bg-color-classic-green
+                  p-3
+                  rounded-circle
+                  d-inline-block
+                "
+              ></i>
+              <p class="mt-1">胡克綠</p>
+            </li>
+            <li class="nav-item m-3 mb-1 text-center">
+              <i
+                class="bg-color-classic-red p-3 rounded-circle d-inline-block"
+              ></i>
+              <p>灰玫紅</p>
+            </li>
+            <li class="nav-item m-3 mb-1 text-center">
+              <i
+                class="bg-color-classic-blue p-3 rounded-circle d-inline-block"
+              ></i>
+              <p>灰丁寧藍</p>
+            </li>
           </ul>
         </div>
 
-        <div>
-          <h3>數量</h3>
-          <i class="bi bi-dash"></i>
-          <label for="qty">
-            <input type="number" id="qty" />
+        <div class="mt-3 mb-4">
+          <h3 class="fs-6 fw-bolder">配送方式</h3>
+          <label for="home-delivery" class="ps-3">
+            <input type="radio" name="homeDelivery" id="home-delivery" />
+            宅配配送
           </label>
-          <i class="bi bi-plus"></i>
-          <span>庫存充足</span>
         </div>
-        <div>
-          <button type="button" class="btn btn-outline-primary">
+
+        <div class="mt-3">
+          <h3 class="fs-6 fw-bolder">數量</h3>
+          <button class="btn bi bi-dash fs-3 text-black-50"></button>
+          <!-- <i class="bi bi-dash"></i> -->
+          <label for="qty" class="w-25 align-middle">
+            <input
+              type="text"
+              class="rounded-pill form-control text-center w-100 text-black-50"
+              id="qty"
+              value="1"
+              min="0"
+            />
+          </label>
+          <button class="btn bi bi-plus fs-3 text-black-50"></button>
+          <span class="align-middle">庫存充足</span>
+        </div>
+        <div class="mt-4 mb-5 text-center text-md-start">
+          <button
+            type="button"
+            class="btn btn-outline-secondary rounded-pill w-42 py-2"
+          >
             立即購買
           </button>
-          <button type="button" class="btn btn-outline-secondary">
+          <button
+            type="button"
+            class="btn btn-dark rounded-pill w-42 ms-4 py-2"
+          >
             加入購物車
           </button>
         </div>
@@ -91,22 +131,27 @@
       </nav>
       <div class="col tab-content" id="nav-tabContent">
         <div
-          class="tab-pane fade show active"
+          class="tab-pane fade show active border border-top-0 p-3"
           id="nav-home"
           role="tabpanel"
           aria-labelledby="nav-details-tab"
         >
-          <ul>
-            <li>容量(cc)：480</li>
-            <li>長Ｘ寬Ｘ高(cm)：6.6x7.2x21.8</li>
-            <li>重量(kg)：0.19</li>
-            <li>保溫效力(6小時)：68oc以上</li>
-            <li>保冷效力(6小時)：8oc以下</li>
-            <li>外蓋/本體材質：PP/不鏽鋼SUS304</li>
-          </ul>
+          <dl>
+            <dt>產品規格</dt>
+            <dd>
+              <ul>
+                <li>容量(cc)：480</li>
+                <li>長Ｘ寬Ｘ高(cm)：6.6x7.2x21.8</li>
+                <li>重量(kg)：0.19</li>
+                <li>保溫效力(6小時)：68oc以上</li>
+                <li>保冷效力(6小時)：8oc以下</li>
+                <li>外蓋/本體材質：PP/不鏽鋼SUS304</li>
+              </ul>
+            </dd>
+          </dl>
         </div>
         <div
-          class="tab-pane fade"
+          class="tab-pane fade border border-top-0 p-3"
           id="nav-profile"
           role="tabpanel"
           aria-labelledby="nav-delivery-tab"
@@ -128,18 +173,21 @@
           </dl>
         </div>
         <div
-          class="tab-pane fade"
+          class="tab-pane fade border border-top-0 p-3"
           id="nav-contact"
           role="tabpanel"
           aria-labelledby="nav-refund-tab"
         >
-          <p>
-            消費者可以依照消費者保護法的規定，享有商品貨到次日起七天猶豫期的權益。但猶豫期並非試用期，請留意，您所退回的商品必須回復原狀（須回復至商品到貨時的原始狀態）
-            並且保持完整包裝（包括商品本體、配件、贈品、保證書、原廠包裝及所有附隨文件或資料的完整性），切勿缺漏任何配件或損毀原廠外盒。<br />
-            若因您要求退貨或換貨、或因本公司無法接受您全部或部分之訂單、或因契約解除或失其效力，而需為您辦理退款事宜時，您同意本公司得代您處理發票或折讓單等相關法令所要
-            求之單據，以利本公司為您辦理退款。<br />
-            本公司收到您所提出的申請後，若經確認無誤，將依消費者保護法之相關規定，返還您已支付之對價（含信用卡交易），退款日當天會再發送E-mail通知函給您。
-          </p>
+          <dl>
+            <dt>退款須知</dt>
+            <dd>
+              消費者可以依照消費者保護法的規定，享有商品貨到次日起七天猶豫期的權益。但猶豫期並非試用期，請留意，您所退回的商品必須回復原狀（須回復至商品到貨時的原始狀態）
+              並且保持完整包裝（包括商品本體、配件、贈品、保證書、原廠包裝及所有附隨文件或資料的完整性），切勿缺漏任何配件或損毀原廠外盒。<br />
+              若因您要求退貨或換貨、或因本公司無法接受您全部或部分之訂單、或因契約解除或失其效力，而需為您辦理退款事宜時，您同意本公司得代您處理發票或折讓單等相關法令所要
+              求之單據，以利本公司為您辦理退款。<br />
+              本公司收到您所提出的申請後，若經確認無誤，將依消費者保護法之相關規定，返還您已支付之對價（含信用卡交易），退款日當天會再發送E-mail通知函給您。
+            </dd>
+          </dl>
         </div>
       </div>
     </section>
@@ -148,11 +196,12 @@
 </template>
 
 <script>
+import StoreHeader from '../components/StoreHeader.vue';
 import getDataMixin from '../mixins/getDataMixin';
 import StoreProductCard from '../components/StoreProductCard.vue';
 
 export default {
-  components: { StoreProductCard },
+  components: { StoreHeader, StoreProductCard },
   mixins: [getDataMixin],
   data() {
     return {
@@ -160,6 +209,9 @@ export default {
       products: [],
       tempProduct: {},
     };
+  },
+  watch: {
+    // this.tempProduct = this.products[0];
   },
   methods: {
     async initData() {
@@ -178,8 +230,11 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 78vw;
-  background-color: white;
-  margin-top: 8rem;
+  // margin-top: 8rem;
+}
+
+.outline-selected {
+  border: 2px solid white;
+  outline: 2px solid #212529;
 }
 </style>
