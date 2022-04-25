@@ -1,5 +1,5 @@
 <template>
-  <header class="vw-100 top-0 end-0 left-0 mb-1" :class="[positionType]">
+  <header class="w-100 top-0 end-0 left-0 mb-1" :class="[positionType]">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <div class="navbar__nav--pages">
@@ -63,7 +63,7 @@
               aria-expanded="false"
             >
               <span class="d-none">Shopping Cart</span>
-              <i class="bi bi-bag"></i>
+              <i class="bi bi-cart2"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="cart">
               <li><a class="dropdown-item" href="#">Action</a></li>

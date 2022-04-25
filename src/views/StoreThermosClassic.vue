@@ -144,6 +144,7 @@ import StoreHeader from '../components/StoreHeader.vue';
 import ScrollImage from '../components/ScrollImage.vue';
 import StoreNavbarViewport from '../components/StoreNavbarViewport.vue';
 import getDataMixin from '../mixins/getDataMixin';
+import 'vue-loading-skeleton/dist/style.css';
 
 export default {
   components: {
@@ -156,6 +157,7 @@ export default {
     return {
       origin: [],
       products: [],
+      isLoading: true,
     };
   },
   methods: {
@@ -169,6 +171,7 @@ export default {
   },
   created() {
     this.initData();
+    // this.isLoading = false;
   },
 };
 </script>

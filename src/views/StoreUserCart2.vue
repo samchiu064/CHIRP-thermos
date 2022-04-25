@@ -13,7 +13,7 @@
     <tbody>
       <tr v-for="(item, key) in products" :key="item + key">
         <td>
-          <img width="200" :src="item.imageUrl" alt="" />
+          <img width="25" :src="item.imageUrl" alt="" />
         </td>
         <td>{{ item.title }}</td>
         <td>{{ item.price }}</td>
