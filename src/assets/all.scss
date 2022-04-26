@@ -3,6 +3,14 @@
 
 // 2. Include any default variable overrides here
 
+// Adjust font-weight for Noto Sans Traditional Chinese
+$font-weight-lighter: 100 !default;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default; // custom
+$font-weight-bold: 700 !default;
+$font-weight-bolder: 900 !default;
+
 // 3. Include remainder of required Bootstrap stylesheets
 @import './helpers/bootstrap/variables';
 @import '~bootstrap/scss/mixins';
@@ -11,11 +19,18 @@
 
 // Then add additional custom code here
 
+.fw-medium {
+  font-weight: 500;
+}
+
 .w-15 {
   width: 15% !important;
 }
 .w-45 {
   width: 45% !important;
+}
+.w-70 {
+  width: 70% !important;
 }
 .w-90 {
   width: 90% !important;

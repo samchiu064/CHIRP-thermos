@@ -9,7 +9,7 @@
         <div class="text-center text-md-start m-auto mx-md-0">
           <h2 class="mt-2 mt-md-0">單色不鏽鋼保溫瓶 - 胡克綠</h2>
           <h3 style="display: none">價格</h3>
-          <span class="fs-3 fw-bolder">NT $600</span>
+          <span class="fs-3 fw-bold">NT $600</span>
           <p class="mt-3 mb-4">
             高取或數有相個。看己的一，身家一海上少國多思住車面分
             不毛五工品還觀草？我流力境由立教媽心施制臺內童見親而來，高香起
@@ -18,7 +18,7 @@
         </div>
 
         <div>
-          <h3 class="fs-6 fw-bolder">顏色</h3>
+          <h3 class="fs-6 fw-bold">顏色</h3>
           <ul class="nav">
             <li class="nav-item m-3 mb-1 text-center">
               <i
@@ -49,7 +49,7 @@
         </div>
 
         <div class="mt-3 mb-4">
-          <h3 class="fs-6 fw-bolder">配送方式</h3>
+          <h3 class="fs-6 fw-bold">配送方式</h3>
           <label for="home-delivery" class="ps-3">
             <input type="radio" name="homeDelivery" id="home-delivery" />
             宅配配送
@@ -57,7 +57,7 @@
         </div>
 
         <div class="mt-3">
-          <h3 class="fs-6 fw-bolder">數量</h3>
+          <h3 class="fs-6 fw-bold">數量</h3>
           <button class="btn bi bi-dash fs-3 text-black-50"></button>
           <!-- <i class="bi bi-dash"></i> -->
           <label for="qty" class="w-25 align-middle">
