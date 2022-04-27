@@ -1,64 +1,74 @@
 <template>
   <main class="container p-3 p-md-5 bg-white">
-    <div class="row mb-5">
-      <div class="col">
-        <div class="position-relative m-4">
-          <div class="progress" style="height: 10px">
-            <div
-              class="progress-bar bg-black"
-              role="progressbar"
-              style="width: 0%"
-              aria-valuenow="0"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div class="bullet">
-            <button
-              type="button"
-              class="
-                position-absolute
-                top-50
-                start-0
-                translate-middle
-                btn btn-sm btn-dark
-                rounded-pill
-              "
-              style="width: 2rem; height: 2rem"
-            >
-              1
-            </button>
-            <button
-              type="button"
-              class="
-                position-absolute
-                top-50
-                start-50
-                translate-middle
-                btn btn-sm btn-light
-                bg-color-gray
-                rounded-pill
-              "
-              style="width: 2rem; height: 2rem"
-            >
-              2
-            </button>
-            <button
-              type="button"
-              class="
-                position-absolute
-                top-50
-                start-100
-                translate-middle
-                btn btn-sm btn-light
-                bg-color-gray
-                rounded-pill
-              "
-              style="width: 2rem; height: 2rem"
-            >
-              3
-            </button>
-          </div>
+    <div class="row mb-6 justify-content-center">
+      <div class="col-10 position-relative m-4">
+        <div class="progress" style="height: 6px">
+          <div
+            class="progress-bar bg-secondary"
+            role="progressbar"
+            style="width: 50%"
+            aria-valuenow="50"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div class="bullet">
+          <button
+            type="button"
+            class="
+              position-absolute
+              top-50
+              start-0
+              translate-middle
+              btn btn-sm btn-secondary
+              rounded-pill
+            "
+            style="width: 2rem; height: 2rem"
+          >
+            1
+          </button>
+          <button
+            type="button"
+            class="
+              position-absolute
+              top-50
+              start-50
+              translate-middle
+              btn btn-sm btn-light
+              rounded-pill
+            "
+            style="width: 2rem; height: 2rem"
+          >
+            2
+          </button>
+          <button
+            type="button"
+            class="
+              position-absolute
+              top-50
+              start-100
+              translate-middle
+              btn btn-sm btn-light
+              rounded-pill
+            "
+            style="width: 2rem; height: 2rem"
+          >
+            3
+          </button>
+        </div>
+        <div class="word">
+          <p class="position-absolute top-100 start-0 translate-middle-x mt-4">
+            購物車
+          </p>
+          <p class="position-absolute top-100 start-50 translate-middle-x mt-4">
+            填寫訂單明細
+          </p>
+          <p
+            class="position-absolute top-100 start-100 translate-middle-x mt-4"
+            style="width: 4rem"
+          >
+            確認訂單
+          </p>
         </div>
       </div>
     </div>
@@ -100,17 +110,17 @@
                     justify-content-start
                     align-items-center
                     flex-column flex-md-row
-                    mt-4
+                    mt-3
                   "
                 >
                   <img
                     src="https://fakeimg.pl/89x86/200"
                     alt="img"
-                    class="figure-img img-fluid rounded"
+                    class="figure-img img-fluid rounded mx-3"
                   />
                   <figcaption>
-                    <p class="fs-6 fw-light m-0 ps-3">胡克綠</p>
-                    <h2 class="fs-6 ps-3">單色不鏽鋼保溫瓶</h2>
+                    <p class="fs-6 fw-light m-0">胡克綠</p>
+                    <h2 class="fs-6">單色不鏽鋼保溫瓶</h2>
                   </figcaption>
                 </figure>
               </td>
