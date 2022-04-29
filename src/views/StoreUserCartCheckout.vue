@@ -5,20 +5,20 @@
     </div>
     <div class="row">
       <StoreUserCartPaymentForm />
-      <StoreUserCartCartOrder />
+      <StoreUserCartOrder />
     </div>
   </div>
 </template>
 
 <script>
 import StoreUserCartProgressBar from '../components/StoreUserCartProgressBar.vue';
-import StoreUserCartCartOrder from '../components/StoreUserCartCartOrder.vue';
+import StoreUserCartOrder from '../components/StoreUserCartOrder.vue';
 import StoreUserCartPaymentForm from '../components/StoreUserCartPaymentForm.vue';
 
 export default {
   components: {
     StoreUserCartProgressBar,
-    StoreUserCartCartOrder,
+    StoreUserCartOrder,
     StoreUserCartPaymentForm,
   },
 };

@@ -64,7 +64,7 @@
           'btn-light': !enableStepsArray.includes(3),
         }"
         style="width: 2rem; height: 2rem"
-        @click="this.$router.push({ name: 'confirmation' })"
+        @click="this.$router.push({ name: 'summary' })"
       >
         3
       </button>

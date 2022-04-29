@@ -60,9 +60,9 @@ const routes = [
         component: () => import('../views/StoreUserCartCheckout.vue'),
       },
       {
-        path: 'cart/confirmation',
-        name: 'confirmation',
-        component: () => import('../views/StoreUserCartConfirmation.vue'),
+        path: 'cart/summary',
+        name: 'summary',
+        component: () => import('../views/StoreUserCartSummary.vue'),
       },
       {
         path: 'product/:productId',

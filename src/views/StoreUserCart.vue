@@ -4,22 +4,24 @@
       <StoreUserCartProgressBar :percentage="50" :enableStepsArray="[1]" />
     </div>
     <div class="row">
-      <StoreUserCartCartList />
-      <StoreUserCartCartOrder />
+      <div class="col-12 col-lg-8">
+        <StoreUserCartProductTable />
+      </div>
+      <StoreUserCartOrder />
     </div>
   </main>
 </template>
 
 <script>
 import StoreUserCartProgressBar from '../components/StoreUserCartProgressBar.vue';
-import StoreUserCartCartList from '../components/StoreUserCartCartList.vue';
-import StoreUserCartCartOrder from '../components/StoreUserCartCartOrder.vue';
+import StoreUserCartProductTable from '../components/StoreUserCartProductTable.vue';
+import StoreUserCartOrder from '../components/StoreUserCartOrder.vue';
 
 export default {
   components: {
     StoreUserCartProgressBar,
-    StoreUserCartCartList,
-    StoreUserCartCartOrder,
+    StoreUserCartProductTable,
+    StoreUserCartOrder,
   },
 };
 </script>
