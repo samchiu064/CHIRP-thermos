@@ -7,8 +7,20 @@
         <th class="d-none d-md-table-cell fw-normal" scope="col" width="180">
           數量
         </th>
-        <th class="d-none d-md-table-cell fw-normal" scope="col">變更明細</th>
-        <th class="d-none d-md-table-cell fw-normal" scope="col">折扣後價格</th>
+        <th
+          v-if="!readonly"
+          class="d-none d-md-table-cell fw-normal"
+          scope="col"
+        >
+          變更明細
+        </th>
+        <th
+          v-if="readonly"
+          class="d-none d-md-table-cell fw-normal"
+          scope="col"
+        >
+          小計
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -42,9 +54,12 @@
             </figcaption>
           </figure>
         </td>
-        <td>NT$ 600</td>
+        <td class="col-12 col-md-auto">NT$ 600</td>
         <td>
-          <button class="btn bi bi-dash fs-3 text-black-50"></button>
+          <button
+            v-if="!readonly"
+            class="btn bi bi-dash fs-3 text-black-50"
+          ></button>
           <label for="qty" class="w-25 align-middle">
             <input
               type="text"
@@ -54,25 +69,41 @@
               min="0"
             />
           </label>
-          <button class="btn bi bi-plus fs-3 text-black-50"></button>
+          <button
+            v-if="!readonly"
+            class="btn bi bi-plus fs-3 text-black-50"
+          ></button>
         </td>
-        <td>
+        <td v-if="!readonly">
           <button type="button" class="btn bi bi-trash"></button>
         </td>
-        <td>NT$ 600</td>
+        <td v-if="readonly" class="col-12 col-md-auto">NT$ 600</td>
       </tr>
     </tbody>
-    <tfoot class="border-top">
+    <tfoot v-if="readonly" class="border-top">
       <tr>
-        <td colspan="4" class="text-end fw-bold">本訂單須付款金額</td>
-        <td class="fw-bold">NT$ 1,200元</td>
+        <td colspan="4" class="text-end fw-medium">
+          折扣<span class="fw-medium ps-3">- NT$ 240元</span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" class="text-end fw-bold">
+          本訂單須支付金額<span class="fw-bold ps-3"> NT$ 1,200元</span>
+        </td>
       </tr>
     </tfoot>
   </table>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

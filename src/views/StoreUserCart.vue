@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="col-12 col-lg-8">
-        <StoreUserCartProductTable />
+        <StoreUserCartProductTable :readonly="false" />
       </div>
       <StoreUserCartOrder />
     </div>

@@ -10,21 +10,30 @@
     </div>
     <div class="row">
       <div class="col">
-        <StoreUserCartProductTable />
+        <StoreUserCartProductTable :readonly="true" />
       </div>
     </div>
-    <div class="row"><div class="col">3</div></div>
+    <div class="row">
+      <div class="col"><StoreUserCartDeliveryInfo /></div>
+    </div>
   </div>
 </template>
 
 <script>
 import StoreUserCartProgressBar from '../components/StoreUserCartProgressBar.vue';
 import StoreUserCartProductTable from '../components/StoreUserCartProductTable.vue';
+import StoreUserCartDeliveryInfo from '../components/StoreUserCartDeliveryInfo.vue';
 
 export default {
   components: {
     StoreUserCartProgressBar,
     StoreUserCartProductTable,
+    StoreUserCartDeliveryInfo,
+  },
+  data() {
+    return {
+      // editable: true,
+    };
   },
 };
 </script>
