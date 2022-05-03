@@ -114,8 +114,12 @@
             mx-3
           "
         >
-          <button type="button" class="btn btn-dark w-100 rounded-pill">
-            結帳
+          <button
+            type="button"
+            class="btn btn-dark w-100 rounded-pill"
+            @click="this.$router.push({ name: nextPage })"
+          >
+            下一步
           </button>
         </li>
       </ul>
@@ -124,7 +128,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    nextPage: {
+      type: String,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

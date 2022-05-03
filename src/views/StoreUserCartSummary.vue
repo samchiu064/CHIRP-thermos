@@ -3,9 +3,11 @@
     <div class="row mb-6 justify-content-center">
       <StoreUserCartProgressBar :percentage="100" :enableStepsArray="[1, 2]" />
     </div>
-    <div class="row">
+    <div v-if="isCreated" class="row py-5">
       <div class="col">
-        <p><i class="bi bi-check2-circle"></i> 我們收到您的訂單了！</p>
+        <p class="fs-1 text-center">
+          <i class="bi bi-check2-circle text-success"></i> 我們收到您的訂單了！
+        </p>
       </div>
     </div>
     <div class="row">
@@ -15,6 +17,22 @@
     </div>
     <div class="row">
       <div class="col"><StoreUserCartDeliveryInfo /></div>
+    </div>
+    <div v-if="!isCreated" class="row justify-content-center mt-3">
+      <div class="col-6 col-lg-3">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill w-100 py-2"
+          @click="this.$router.push({ name: 'checkout' })"
+        >
+          上一步
+        </button>
+      </div>
+      <div class="col-6 col-lg-3">
+        <button type="button" class="btn btn-dark rounded-pill w-100 py-2">
+          確認訂單
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +50,7 @@ export default {
   },
   data() {
     return {
-      // editable: true,
+      isCreated: false,
     };
   },
 };

@@ -230,10 +230,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  // margin-top: 8rem;
-}
-
 .outline-selected {
   border: 2px solid white;
   outline: 2px solid #212529;
