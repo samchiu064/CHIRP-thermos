@@ -44,6 +44,10 @@ $font-weight-bolder: 900 !default;
   font-size: 0.75rem;
 }
 
+.mh-70 {
+  max-height: 70vh;
+}
+
 .color-classic {
   &-green {
     color: #4d6d58;

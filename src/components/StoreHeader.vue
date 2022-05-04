@@ -29,7 +29,7 @@
         >LOGO</a
       >
       <div class="ms-auto me-0 d-flex">
-        <div class="dropdown">
+        <!-- <div class="dropdown">
           <a
             class="nav-link"
             href="#"
@@ -45,24 +45,8 @@
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
           </ul>
-        </div>
-        <div class="dropdown">
-          <a
-            class="nav-link"
-            href="#"
-            id="cart"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <span class="d-none">Shopping Cart</span>
-            <i class="bi bi-cart2"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="cart">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-          </ul>
-        </div>
+        </div> -->
+        <StoreHeaderMiniCart />
       </div>
     </nav>
     <div class="bg-dark collapse text-center" id="navbar__mobile-content">
@@ -73,11 +57,11 @@
 </template>
 
 <script>
-// import StoreHeaderMiniCart from './StoreHeaderMiniCart.vue';
+import StoreHeaderMiniCart from './StoreHeaderMiniCart.vue';
 
 export default {
   components: {
-    // StoreHeaderMiniCart,
+    StoreHeaderMiniCart,
   },
   props: {
     positionType: {
@@ -103,11 +87,6 @@ export default {
 .bi {
   font-size: 24px;
   color: #707070;
-}
-
-.dropdown-menu {
-  left: auto;
-  right: 0;
 }
 
 header {
