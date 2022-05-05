@@ -1,6 +1,6 @@
 <template>
   <header class="container-fluid p-0" :class="[positionType]">
-    <nav class="navbar navbar-expand-lg navbar-light mx-1 px-2">
+    <nav class="navbar navbar-expand-lg navbar-light mx-1 p-3">
       <router-link to="/thermos/classic" class="nav-link d-none d-lg-block"
         >經典款</router-link
       >

@@ -48,6 +48,14 @@ $font-weight-bolder: 900 !default;
   max-height: 70vh;
 }
 
+.start-75 {
+  left: 75% !important;
+}
+
+.top-28 {
+  top: 28% !important;
+}
+
 .color-classic {
   &-green {
     color: #4d6d58;
