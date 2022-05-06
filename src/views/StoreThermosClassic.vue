@@ -53,6 +53,7 @@
           />
         </div>
       </section>
+
       <section class="col-12 col-md-4 merchandise p-0">
         <div
           class="
@@ -99,10 +100,6 @@
             :imageCategory="'accessory'"
             v-if="products.hasOwnProperty(0)"
           />
-          <!-- <img
-            src="../assets/images/bottle_cap_hookers_green.png"
-            alt="胡克綠保溫瓶瓶蓋"
-          /> -->
         </div>
 
         <div class="accessory__description align-self-start me-4 mt-4">
@@ -144,7 +141,6 @@ import StoreHeader from '../components/StoreHeader.vue';
 import ScrollImage from '../components/ScrollImage.vue';
 import StoreNavbarViewport from '../components/StoreNavbarViewport.vue';
 import getDataMixin from '../mixins/getDataMixin';
-import 'vue-loading-skeleton/dist/style.css';
 
 export default {
   components: {
