@@ -19,10 +19,26 @@ $font-weight-bolder: 900 !default;
 
 // Then add additional custom code here
 
+// Font-weight
 .fw-medium {
   font-weight: 500;
 }
 
+// Font-size
+.fs-7 {
+  font-size: 0.875rem;
+}
+
+.fs-8 {
+  font-size: 0.75rem;
+}
+
+// Font line-height
+.lh-md {
+  line-height: 1.5 !important;
+}
+
+// Sizing
 .w-15 {
   width: 15% !important;
 }
@@ -36,31 +52,29 @@ $font-weight-bolder: 900 !default;
   width: 90% !important;
 }
 
-.fs-7 {
-  font-size: 0.875rem;
-}
-
-.fs-8 {
-  font-size: 0.75rem;
-}
-
 .mh-70 {
   max-height: 70vh;
 }
 
+// Position
 .start-75 {
   left: 75% !important;
 }
 
-.bottom-8 {
-  bottom: 8% !important;
+.start-neg2 {
+  left: -2%;
+}
+
+.end-neg5 {
+  right: -5%;
 }
 
 .top-28 {
   top: 28% !important;
 }
 
-.color-classic {
+// Color
+.text-classic {
   &-green {
     color: #4d6d58;
   }
@@ -70,9 +84,12 @@ $font-weight-bolder: 900 !default;
   &-blue {
     color: #496da5;
   }
+  &-black {
+    color: #383838;
+  }
 }
 
-.bg-color-classic {
+.bg-classic {
   &-green {
     background-color: #4d6d58;
   }
@@ -84,8 +101,32 @@ $font-weight-bolder: 900 !default;
   }
 }
 
-.bg-color {
-  &-gray {
-    background-color: #F4F4F6;
+.btn-outline-classic{
+  &-green {
+    color: #4d6d58;
+    border-color: #4d6d58;
+    &:hover {
+      color: #fff;
+      background-color: #4d6d58;
+      border-color: #4d6d58;
+    }
+  }
+  &-red {
+    color: #cc7e85;
+    border-color: #cc7e85;
+    &:hover {
+      color: #fff;
+      background-color: #cc7e85;
+      border-color: #cc7e85;
+    }
+  }
+  &-blue {
+    color: #496da5;
+    border-color: #496da5;
+    &:hover {
+      color: #fff;
+      background-color: #496da5;
+      border-color: #496da5;
+    }
   }
 }

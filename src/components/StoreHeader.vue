@@ -49,10 +49,14 @@
         <StoreHeaderMiniCart />
       </div>
     </nav>
-    <div class="bg-dark collapse text-center" id="navbar__mobile-content">
+    <nav class="bg-dark collapse text-center" id="navbar__mobile-content">
       <a href="javascript;" class="nav-link text-white">item01</a>
       <a href="javascript;" class="nav-link text-white">item02</a>
-    </div>
+    </nav>
+    <!-- <div
+      class="position-absolute top-0 left-0 w-100 bg-black"
+      style="height: 5px"
+    ></div> -->
   </header>
 </template>
 

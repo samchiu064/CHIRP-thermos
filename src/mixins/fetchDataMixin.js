@@ -32,8 +32,14 @@ function addOrder(item, chineseName) {
 }
 
 export default {
+  data() {
+    return {
+      origin: [],
+      products: [],
+    };
+  },
   methods: {
-    $_getDataMixin_getProducts() {
+    $_fetchDataMixin_getProducts() {
       return this.$http
         .get(
           `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products`,
@@ -45,12 +51,12 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    $_getDataMixin_filterCategory(categoryName) {
+    $_fetchDataMixin_filterCategory(categoryName) {
       this.products = this.origin.filter(
         (item) => item.category === categoryName,
       );
     },
-    $_getDataMixin_addProperty(propertyName) {
+    $_fetchDataMixin_addProperty(propertyName) {
       this.products.forEach((item) => {
         const startIndex = item.title.indexOf('-') + 2;
         const chineseName = item.title.slice(startIndex, item.length);
@@ -64,7 +70,7 @@ export default {
         }
       });
     },
-    $_getDataMixin_sortProduct() {
+    $_fetchDataMixin_sortProduct() {
       this.products.sort((a, b) => a.order - b.order);
     },
   },

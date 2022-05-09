@@ -3,13 +3,17 @@
   <main class="container bg-white p-3 p-md-5">
     <section class="row row-cols-1 row-cols-md-2">
       <div class="col text-center">
-        <img src="https://fakeimg.pl/300x200/200" alt="test" class="w-90" />
+        <img
+          :src="this.tempProduct.imageUrl"
+          alt="保溫瓶圖片"
+          class="img-box"
+        />
       </div>
       <div class="col">
         <div class="text-center text-md-start m-auto mx-md-0">
-          <h2 class="mt-2 mt-md-0">單色不鏽鋼保溫瓶 - 胡克綠</h2>
+          <h2 class="mt-2 mt-md-0">{{ this.tempProduct.title }}</h2>
           <h3 style="display: none">價格</h3>
-          <span class="fs-3 fw-bold">NT $600</span>
+          <span class="fs-3 fw-bold">NT ${{ this.tempProduct.price }}</span>
           <p class="mt-3 mb-4">
             高取或數有相個。看己的一，身家一海上少國多思住車面分
             不毛五工品還觀草？我流力境由立教媽心施制臺內童見親而來，高香起
@@ -20,30 +24,18 @@
         <div>
           <h3 class="fs-6 fw-bold">顏色</h3>
           <ul class="nav">
-            <li class="nav-item m-3 mb-1 text-center">
-              <i
+            <li
+              v-for="(item, index) in products"
+              :key="index"
+              class="nav-item m-3 mb-1 text-center"
+            >
+              <button
                 type="button"
-                class="
-                  btn
-                  bg-color-classic-green
-                  p-3
-                  rounded-circle
-                  d-inline-block
-                "
-              ></i>
-              <p class="mt-1">胡克綠</p>
-            </li>
-            <li class="nav-item m-3 mb-1 text-center">
-              <i
-                class="bg-color-classic-red p-3 rounded-circle d-inline-block"
-              ></i>
-              <p>灰玫紅</p>
-            </li>
-            <li class="nav-item m-3 mb-1 text-center">
-              <i
-                class="bg-color-classic-blue p-3 rounded-circle d-inline-block"
-              ></i>
-              <p>灰丁寧藍</p>
+                class="btn bg-classic-green p-3 rounded-circle d-inline-block"
+                :class="`bg-${this.products[index].engColor}`"
+                @click.prevent="switchProduct(item)"
+              ></button>
+              <p class="mt-1">{{ this.products[index].chtColor }}</p>
             </li>
           </ul>
         </div>
@@ -59,13 +51,12 @@
         <div class="mt-3">
           <h3 class="fs-6 fw-bold">數量</h3>
           <button class="btn bi bi-dash fs-3 text-black-50"></button>
-          <!-- <i class="bi bi-dash"></i> -->
           <label for="qty" class="w-25 align-middle">
             <input
               type="text"
               class="rounded-pill form-control text-center w-100 text-black-50"
               id="qty"
-              value="1"
+              v-model="this.tempProduct.qty"
               min="0"
             />
           </label>
@@ -198,16 +189,14 @@
 
 <script>
 import StoreHeader from '../components/StoreHeader.vue';
-import getDataMixin from '../mixins/getDataMixin';
+import fetchDataMixin from '../mixins/fetchDataMixin';
 import StoreProductCard from '../components/StoreProductCard.vue';
 
 export default {
   components: { StoreHeader, StoreProductCard },
-  mixins: [getDataMixin],
+  mixins: [fetchDataMixin],
   data() {
     return {
-      origin: [],
-      products: [],
       tempProduct: {},
     };
   },
@@ -216,11 +205,19 @@ export default {
   },
   methods: {
     async initData() {
-      await this.$_getDataMixin_getProducts();
-      this.$_getDataMixin_filterCategory('thermos');
-      this.$_getDataMixin_addProperty('color');
-      this.$_getDataMixin_addProperty('order');
-      this.$_getDataMixin_sortProduct();
+      await this.$_fetchDataMixin_getProducts();
+      this.$_fetchDataMixin_filterCategory('thermos');
+      this.$_fetchDataMixin_addProperty('color');
+      this.$_fetchDataMixin_addProperty('order');
+      this.$_fetchDataMixin_sortProduct();
+    },
+    switchProduct(item) {
+      console.log(item);
+      this.tempProduct.title = item.title;
+      this.tempProduct.imageUrl = item.imageUrl;
+      this.tempProduct.id = item.id;
+      this.tempProduct.description = item.description;
+      this.tempProduct.price = item.price;
     },
   },
   created() {
@@ -233,5 +230,10 @@ export default {
 .outline-selected {
   border: 2px solid white;
   outline: 2px solid #212529;
+}
+
+.img-box {
+  max-width: 620px;
+  max-height: 610px;
 }
 </style>
