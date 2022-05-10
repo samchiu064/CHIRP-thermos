@@ -1,8 +1,10 @@
 <template>
   <StoreHeader />
   <main class="container bg-white p-3 p-md-5">
-    <section class="row row-cols-1 row-cols-md-2">
-      <div class="col text-center">
+    <section class="row row-cols-1 row-cols-md-2 mb-2">
+      <div
+        class="col text-center d-flex align-items-center justify-content-center"
+      >
         <img
           :src="this.tempProduct.imageUrl"
           alt="保溫瓶圖片"
@@ -15,9 +17,7 @@
           <h3 style="display: none">價格</h3>
           <span class="fs-3 fw-bold">NT ${{ this.tempProduct.price }}</span>
           <p class="mt-3 mb-4">
-            高取或數有相個。看己的一，身家一海上少國多思住車面分
-            不毛五工品還觀草？我流力境由立教媽心施制臺內童見親而來，高香起
-            過覺眾示到部身、讀分務女生切相來室一次言物去賽動的清同別操物，此像？
+            {{ this.tempProduct.description }}
           </p>
         </div>
 
@@ -43,25 +43,44 @@
         <div class="mt-3 mb-4">
           <h3 class="fs-6 fw-bold">配送方式</h3>
           <label for="home-delivery" class="ps-3">
-            <input type="radio" name="homeDelivery" id="home-delivery" />
+            <input
+              type="radio"
+              name="homeDelivery"
+              id="home-delivery"
+              checked
+            />
             宅配配送
           </label>
         </div>
 
         <div class="mt-3">
           <h3 class="fs-6 fw-bold">數量</h3>
-          <button class="btn bi bi-dash fs-3 text-black-50"></button>
+          <button
+            class="btn bi bi-dash fs-3 text-black-50"
+            :disabled="this.tempProduct.unit === 0"
+            @click="decreaseQty()"
+          ></button>
           <label for="qty" class="w-25 align-middle">
             <input
-              type="text"
-              class="rounded-pill form-control text-center w-100 text-black-50"
+              type="number"
+              class="rounded form-control text-center w-100 text-black-50"
               id="qty"
-              v-model="this.tempProduct.qty"
-              min="0"
+              min="1"
+              v-model.number="this.tempProduct.qty"
+              :disabled="this.tempProduct.unit === 0"
             />
           </label>
-          <button class="btn bi bi-plus fs-3 text-black-50"></button>
-          <span class="align-middle">庫存充足</span>
+          <button
+            class="btn bi bi-plus fs-3 text-black-50"
+            :disabled="this.tempProduct.unit === 0"
+            @click="addQty()"
+          ></button>
+          <span v-if="this.tempProduct.unit" class="align-middle"
+            >庫存充足</span
+          >
+          <span v-else-if="this.tempProduct.unit === 0" class="align-middle"
+            >庫存不足</span
+          >
         </div>
         <div class="mt-4 mb-5 text-center text-md-start">
           <button
@@ -197,11 +216,16 @@ export default {
   mixins: [fetchDataMixin],
   data() {
     return {
-      tempProduct: {},
+      tempProduct: {
+        title: '單色不鏽鋼保溫瓶 - 胡克綠',
+        imageUrl:
+          'https://storage.googleapis.com/vue-course-api.appspot.com/samchiu064-api/1650008053965.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=ItQvp2nC167foacul3Lh1SVOVstnA0qu5GBXVenxVfwijpE1Tb2%2B%2FGMIut2E1m98Tgg8w3BrQa9J%2Bnxbo%2BNAkKW8%2B1oK7A2qiWnPSJfcnasg9F6ABZyuIueKWuvCPp2npw2IY%2FK0cwWCFnFZ8tHQIhUNwaIfXYZy%2FETJjUNTNnsabZ2KZ6C0m%2FPCE00HCfYcrgIbiJr9%2F28Cw%2FndGkwAz7j81Iiht9E145ia1SYamoDkLAe%2BVVykOgpIvYEczVct%2BfEFylX1AD25eDjqTIDB7rqui8XzaLbpSfdA95t0W2yVfuLeSoJtzJlHHf6AEKPIZ8qVzbh1yUzHfNzJcWq8fQ%3D%3D',
+        description:
+          '高取或數有相個。看己的一，身家一海上少國多思住車面分 不毛五工品還觀草？我流力境由立教媽心施制臺內童見親而來，高香起 過覺眾示到部身、讀分務女生切相來室一次言物去賽動的清同別操物，此像？',
+        price: 600,
+        qty: 1,
+      },
     };
-  },
-  watch: {
-    // this.tempProduct = this.products[0];
   },
   methods: {
     async initData() {
@@ -218,6 +242,14 @@ export default {
       this.tempProduct.id = item.id;
       this.tempProduct.description = item.description;
       this.tempProduct.price = item.price;
+      this.tempProduct.unit = Number(item.unit); // Origin type: String
+    },
+    addQty() {
+      this.tempProduct.qty += 1;
+    },
+    decreaseQty() {
+      if (this.tempProduct.qty <= 1) return;
+      this.tempProduct.qty -= 1;
     },
   },
   created() {
@@ -234,6 +266,21 @@ export default {
 
 .img-box {
   max-width: 620px;
-  max-height: 610px;
+  max-height: 509px;
+  @media (max-width: 576px) {
+    max-height: 360px;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 </style>
