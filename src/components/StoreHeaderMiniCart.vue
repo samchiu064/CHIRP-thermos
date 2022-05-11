@@ -14,7 +14,7 @@
         "
       >
         <!-- L:75 T:28 -->
-        1
+        0
         <span class="visually-hidden">unread messages</span>
       </span>
     </button>
@@ -78,15 +78,6 @@
                 class="btn btn-secondary w-45 ms-2 mb-3"
                 >結帳</router-link
               >
-              <!-- <button
-                type="button"
-                class="btn btn-outline-secondary w-45 mr-2 mb-3"
-              >
-                查看購物車
-              </button>
-              <button type="button" class="btn btn-secondary w-45 ms-2 mb-3">
-                結帳
-              </button> -->
             </div>
           </div>
         </div>

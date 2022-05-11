@@ -240,6 +240,7 @@ export default {
       if (this.tempProduct.qty <= 1) return;
       this.tempProduct.qty -= 1;
     },
+    addToCart() {},
   },
   created() {
     this.initData();
