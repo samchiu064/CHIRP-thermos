@@ -55,26 +55,14 @@
 
         <div class="mt-3">
           <h3 class="fs-6 fw-bold">數量</h3>
-          <button
-            class="btn bi bi-dash fs-3 text-black-50"
-            :disabled="this.tempProduct.unit === 0"
-            @click="decreaseQty()"
-          ></button>
-          <label for="qty" class="w-25 align-middle">
-            <input
-              type="number"
-              class="rounded form-control text-center w-100 text-black-50"
-              id="qty"
-              min="1"
-              v-model.number="this.tempProduct.qty"
-              :disabled="this.tempProduct.unit === 0"
-            />
-          </label>
-          <button
-            class="btn bi bi-plus fs-3 text-black-50"
-            :disabled="this.tempProduct.unit === 0"
-            @click="addQty()"
-          ></button>
+          <StoreInputProductQuantity
+            :unit="this.tempProduct.unit"
+            :qty="this.tempProduct.qty"
+            @decreaseQty="decreaseQty"
+            @increaseQty="increaseQty"
+            @update:value="(newValue) => (this.tempProduct.qty = newValue)"
+          />
+
           <span v-if="this.tempProduct.unit" class="align-middle"
             >庫存充足</span
           >
@@ -210,9 +198,10 @@
 import StoreHeader from '../components/StoreHeader.vue';
 import fetchDataMixin from '../mixins/fetchDataMixin';
 import StoreProductCard from '../components/StoreProductCard.vue';
+import StoreInputProductQuantity from '../components/StoreInputProductQuantity.vue';
 
 export default {
-  components: { StoreHeader, StoreProductCard },
+  components: { StoreHeader, StoreProductCard, StoreInputProductQuantity },
   mixins: [fetchDataMixin],
   data() {
     return {
@@ -244,7 +233,7 @@ export default {
       this.tempProduct.price = item.price;
       this.tempProduct.unit = Number(item.unit); // Origin type: String
     },
-    addQty() {
+    increaseQty() {
       this.tempProduct.qty += 1;
     },
     decreaseQty() {
@@ -270,17 +259,5 @@ export default {
   @media (max-width: 576px) {
     max-height: 360px;
   }
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
 }
 </style>
