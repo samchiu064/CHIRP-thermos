@@ -80,6 +80,7 @@
           <button
             type="button"
             class="btn btn-dark rounded-pill w-45 ms-4 py-2"
+            @click="addToCart(this.tempProduct.id, this.tempProduct.qty)"
           >
             <i class="bi bi-cart-dash text-white me-1"></i>
             加入購物車
@@ -199,6 +200,12 @@ import StoreHeader from '../components/StoreHeader.vue';
 import fetchDataMixin from '../mixins/fetchDataMixin';
 import StoreProductCard from '../components/StoreProductCard.vue';
 import StoreInputProductQuantity from '../components/StoreInputProductQuantity.vue';
+import {
+  apiGetCartList,
+  apiPostCartItem,
+  // apiPutCartItemDetail,
+  // apiDeleteCartItem,
+} from '../../api/client';
 
 export default {
   components: { StoreHeader, StoreProductCard, StoreInputProductQuantity },
@@ -240,10 +247,21 @@ export default {
       if (this.tempProduct.qty <= 1) return;
       this.tempProduct.qty -= 1;
     },
-    addToCart() {},
+    getCartList() {
+      apiGetCartList()
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    },
+    addToCart(productId, qty) {
+      const data = { data: { product_id: productId, qty } };
+      apiPostCartItem(data)
+        .then((res) => console.log(res))
+        .catch((res) => console.log(res));
+    },
   },
   created() {
     this.initData();
+    this.getCartList();
   },
 };
 </script>

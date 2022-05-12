@@ -1,31 +1,31 @@
-const userRequest = axios.create({
-  baseURL: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/`,
-});
+import {
+  getCartList,
+  postCartItem,
+  putCartItemDetail,
+  deleteCartItem,
+  deleteCartAll,
+} from './clientCart';
 
-// Products related
-export const getProductListByPage = (page) =>
-  userRequest.get(`/products?page=${page}`);
-export const getProductListAll = () => userRequest.get('/products/all');
-export const getProductDetail = (productId) =>
-  userRequest.get(`/product/${productId}`);
+import { postCheckout } from './clientCheckout';
+import { postCouponApply } from './clientCoupon';
+import { getOrderList, getOrderListById, postOrder } from './clientOrder';
 
-// Cart related
-export const getCartList = () => userRequest.get('/cart');
-export const postAddToCart = (data) => userRequest.get('/cart');
-export const putEditCart = (data, productId) =>
-  userRequest.put(`/cart/${productId}`, data);
-export const deleteRemoveCartItem = (productId) =>
-  userRequest.delete(`/cart/${productId}`);
-export const deleteRemoveCartAll = () => userRequest.delete('/carts');
+import {
+  getProductListByPage,
+  getProductListAll,
+  getProductDetail,
+} from './clientProduct';
 
-// Coupons related
-export const postApplyCoupon = (data) => userRequest.post('/coupon', data);
-
-// Orders related
-export const postCreateOrder = (data) => userRequest.post('/order', data);
-export const getOrderList = (page) => userRequest.get(`/orders?page=${page}`);
-export const getOrderListById = (orderId) =>
-  userRequest.get(`/order/${orderId}`);
-
-// Checkout related
-export const postCheckout = (orderId) => userRequest.post(`/pay/${orderId}`);
+export const apiGetCartList = getCartList;
+export const apiPostCartItem = postCartItem;
+export const apiPutCartItemDetail = putCartItemDetail;
+export const apiDeleteCartItem = deleteCartItem;
+export const apiDeleteCartAll = deleteCartAll;
+export const apiPostCheckout = postCheckout;
+export const apiPostCouponApply = postCouponApply;
+export const apiGetOrderList = getOrderList;
+export const apiGetOrderListById = getOrderListById;
+export const apiPostOrder = postOrder;
+export const apiGetProductListByPage = getProductListByPage;
+export const apiGetProductListAll = getProductListAll;
+export const apiGetProductDetail = getProductDetail;

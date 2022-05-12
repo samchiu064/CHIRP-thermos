@@ -87,11 +87,27 @@
 </template>
 
 <script>
+import {
+  apiGetCartList,
+  // apiPutCartItemDetail,
+  // apiDeleteCartItem,
+} from '../../api/client';
+
 export default {
   data() {
     return {
       show: false,
     };
+  },
+  methods: {
+    getCartList() {
+      apiGetCartList()
+        .then((res) => console.log(res))
+        .catch((res) => console.log(res));
+    },
+  },
+  created() {
+    this.getCartList();
   },
 };
 </script>
