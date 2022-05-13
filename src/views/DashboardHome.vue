@@ -3,20 +3,20 @@
   <DashboardNavbar />
   <div class="container-fluid mt-3 position-relative">
     <router-view></router-view>
-    <ToastContainer />
+    <DashboardToastContainer />
   </div>
 </template>
 
 <script>
 import DashboardNavbar from '../components/DashboardNavbar.vue';
 import emitter from '../methods/emitter';
-import ToastContainer from '../components/DashboardToastContainer.vue';
+import DashboardToastContainer from '../components/DashboardToastContainer.vue';
 import pushMessageState from '../methods/pushMessageState';
 
 export default {
   components: {
     DashboardNavbar,
-    ToastContainer,
+    DashboardToastContainer,
   },
   provide: {
     emitter,

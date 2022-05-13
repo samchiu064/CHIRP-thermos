@@ -1,5 +1,4 @@
 <template>
-  <StoreHeader />
   <main class="container bg-white p-3 p-md-5">
     <section class="row row-cols-1 row-cols-md-2 mb-2">
       <div
@@ -80,9 +79,17 @@
           <button
             type="button"
             class="btn btn-dark rounded-pill w-45 ms-4 py-2"
+            :disabled="this.status.loadingItem === this.tempProduct.id"
             @click="addToCart(this.tempProduct.id, this.tempProduct.qty)"
           >
-            <i class="bi bi-cart-dash text-white me-1"></i>
+            <div
+              v-if="this.status.loadingItem === this.tempProduct.id"
+              class="spinner-border spinner-border-sm text-light"
+              role="status"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <i v-else class="bi bi-cart-dash text-white me-1"></i>
             加入購物車
           </button>
         </div>
@@ -196,7 +203,6 @@
 </template>
 
 <script>
-import StoreHeader from '../components/StoreHeader.vue';
 import fetchDataMixin from '../mixins/fetchDataMixin';
 import StoreProductCard from '../components/StoreProductCard.vue';
 import StoreInputProductQuantity from '../components/StoreInputProductQuantity.vue';
@@ -208,19 +214,13 @@ import {
 } from '../../api/client';
 
 export default {
-  components: { StoreHeader, StoreProductCard, StoreInputProductQuantity },
+  components: { StoreProductCard, StoreInputProductQuantity },
   mixins: [fetchDataMixin],
   data() {
     return {
-      tempProduct: {
-        title: '單色不鏽鋼保溫瓶 - 胡克綠',
-        imageUrl:
-          'https://storage.googleapis.com/vue-course-api.appspot.com/samchiu064-api/1650008053965.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=ItQvp2nC167foacul3Lh1SVOVstnA0qu5GBXVenxVfwijpE1Tb2%2B%2FGMIut2E1m98Tgg8w3BrQa9J%2Bnxbo%2BNAkKW8%2B1oK7A2qiWnPSJfcnasg9F6ABZyuIueKWuvCPp2npw2IY%2FK0cwWCFnFZ8tHQIhUNwaIfXYZy%2FETJjUNTNnsabZ2KZ6C0m%2FPCE00HCfYcrgIbiJr9%2F28Cw%2FndGkwAz7j81Iiht9E145ia1SYamoDkLAe%2BVVykOgpIvYEczVct%2BfEFylX1AD25eDjqTIDB7rqui8XzaLbpSfdA95t0W2yVfuLeSoJtzJlHHf6AEKPIZ8qVzbh1yUzHfNzJcWq8fQ%3D%3D',
-        description:
-          '高取或數有相個。看己的一，身家一海上少國多思住車面分 不毛五工品還觀草？我流力境由立教媽心施制臺內童見親而來，高香起 過覺眾示到部身、讀分務女生切相來室一次言物去賽動的清同別操物，此像？',
-        price: 600,
-        qty: 1,
-      },
+      tempProduct: {},
+      cart: [],
+      status: { loadingItem: '' },
     };
   },
   methods: {
@@ -247,21 +247,27 @@ export default {
       if (this.tempProduct.qty <= 1) return;
       this.tempProduct.qty -= 1;
     },
+    addToCart(productId, qty) {
+      this.status.loadingItem = productId;
+      const data = { product_id: productId, qty };
+      apiPostCartItem({ data })
+        .then((res) => {
+          this.status.loadingItem = '';
+          console.log(res);
+        })
+        .catch((res) => console.log(res));
+    },
     getCartList() {
       apiGetCartList()
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    },
-    addToCart(productId, qty) {
-      const data = { data: { product_id: productId, qty } };
-      apiPostCartItem(data)
-        .then((res) => console.log(res))
+        .then((res) => {
+          this.cart = res.data.data;
+          console.log(res.data.data);
+        })
         .catch((res) => console.log(res));
     },
   },
   created() {
     this.initData();
-    this.getCartList();
   },
 };
 </script>

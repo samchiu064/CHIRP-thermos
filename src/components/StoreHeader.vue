@@ -1,5 +1,5 @@
 <template>
-  <header class="container-fluid p-0" :class="[positionType]">
+  <header class="container-fluid p-0 bg-light" :class="positionType">
     <nav class="navbar navbar-expand-lg navbar-light mx-1 p-3">
       <router-link to="/thermos/classic" class="nav-link d-none d-lg-block"
         >經典款</router-link
@@ -46,7 +46,7 @@
             <li><a class="dropdown-item" href="#">Another action</a></li>
           </ul>
         </div> -->
-        <StoreHeaderMiniCart />
+        <StoreHeaderMiniCart @getCartList="getCartList" />
       </div>
     </nav>
     <nav class="bg-dark collapse text-center" id="navbar__mobile-content">
@@ -67,21 +67,28 @@ export default {
   components: {
     StoreHeaderMiniCart,
   },
-  props: {
-    positionType: {
-      type: String,
-      default: 'position-relative',
-    },
-  },
   data() {
     return {
       isActive: false,
     };
   },
+  computed: {
+    positionType() {
+      if (this.$route.name === 'home') return 'position-fixed';
+      if (this.$route.name === 'thermosClassic') return 'position-fixed';
+      return 'position-relative';
+    },
+  },
   methods: {
     toggleHamburger() {
       this.isActive = !this.isActive;
     },
+    getCartList() {
+      this.$emit('getCartList');
+    },
+  },
+  mounted() {
+    console.log(this.$route);
   },
 };
 </script>

@@ -35,11 +35,18 @@ const routes = [
     component: () => import('../views/StoreThermos.vue'),
     children: [
       {
+        path: '',
+        name: 'thermos',
+        redirect: () => '/thermos/classic',
+      },
+      {
         path: 'classic',
+        name: 'thermosClassic',
         component: () => import('../views/StoreThermosClassic.vue'),
       },
       {
         path: 'classic/details',
+        name: 'thermosClassicDetails',
         component: () => import('../views/StoreThermosClassicDetails.vue'),
       },
     ],

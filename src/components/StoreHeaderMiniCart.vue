@@ -38,23 +38,31 @@
         </div>
         <!-- card-item -->
         <div class="card border-0" style="max-width: 540px">
-          <div class="row g-0 align-items-center">
-            <div class="col-5">
+          <div
+            v-for="(item, index) in this.cart.carts"
+            :key="item + index"
+            class="row g-0 align-items-center"
+          >
+            <div
+              class="col-5 border text-center"
+              style="max-width: 114px; max-height: 112px"
+            >
               <img
-                src="https://fakeimg.pl/104x102/200"
-                class="img-thumbnail rounded"
+                :src="item.product.imageUrl"
+                class="img-fluid p-2 rounded"
                 alt="..."
+                style="max-height: 112px"
               />
             </div>
             <div class="col-7">
               <div class="card-body">
-                <span class="card-text">胡克綠</span>
-                <h5 class="card-title fs-6">單色不鏽鋼保溫瓶</h5>
-                <p class="card-text m-0">NT $600</p>
-                <span class="card-text"> 數量： 1 </span>
+                <h5 class="card-title fs-6">{{ item.product.title }}</h5>
+                <p class="card-text m-0">NT ${{ item.product.price }}</p>
+                <span class="card-text"> 數量： {{ item.qty }} </span>
                 <button
                   type="button ms-auto"
                   class="btn bi bi-trash align-middle ms-4"
+                  @click="deleteCartItem(item.id)"
                 ></button>
               </div>
             </div>
@@ -90,22 +98,38 @@
 import {
   apiGetCartList,
   // apiPutCartItemDetail,
-  // apiDeleteCartItem,
+  apiDeleteCartItem,
 } from '../../api/client';
 
 export default {
   data() {
     return {
       show: false,
+      cart: {},
     };
+  },
+  watch: {
+    cart() {
+      // this.getCartList();
+    },
   },
   methods: {
     getCartList() {
       apiGetCartList()
-        .then((res) => console.log(res))
+        .then((res) => {
+          this.cart = res.data.data;
+          console.log(res.data.data);
+        })
         .catch((res) => console.log(res));
     },
+    async deleteCartItem(productId) {
+      await apiDeleteCartItem(productId)
+        .then((res) => console.log(res))
+        .catch((res) => console.log(res));
+      this.getCartList();
+    },
   },
+
   created() {
     this.getCartList();
   },

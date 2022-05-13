@@ -1,5 +1,4 @@
 <template>
-  <StoreHeader :positionType="'position-fixed'" />
   <main class="kv bg-light">
     <div class="container-fluid h-100">
       <div class="row align-items-center">
@@ -56,13 +55,7 @@
 </template>
 
 <script>
-import StoreHeader from '../components/StoreHeader.vue';
-
-export default {
-  components: {
-    StoreHeader,
-  },
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

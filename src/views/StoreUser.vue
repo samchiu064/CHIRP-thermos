@@ -1,18 +1,14 @@
 <template>
-  <div class="bg-light">
-    <StoreHeader />
-    <router-view />
-    <StoreFooter />
-  </div>
+  <router-view />
+  <StoreFooter />
 </template>
 
 <script>
-import StoreHeader from '../components/StoreHeader.vue';
+// import StoreHeader from '../components/StoreHeader.vue';
 import StoreFooter from '../components/StoreFooter.vue';
 
 export default {
   components: {
-    StoreHeader,
     StoreFooter,
   },
 };
