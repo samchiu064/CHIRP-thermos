@@ -203,23 +203,20 @@
 </template>
 
 <script>
+import { apiPostCartItem } from '@/api/client';
 import fetchDataMixin from '../mixins/fetchDataMixin';
 import StoreProductCard from '../components/StoreProductCard.vue';
 import StoreInputProductQuantity from '../components/StoreInputProductQuantity.vue';
-import {
-  apiGetCartList,
-  apiPostCartItem,
-  // apiPutCartItemDetail,
-  // apiDeleteCartItem,
-} from '../../api/client';
 
 export default {
   components: { StoreProductCard, StoreInputProductQuantity },
   mixins: [fetchDataMixin],
+  emits: ['getCartList'],
   data() {
     return {
-      tempProduct: {},
-      cart: [],
+      tempProduct: {
+        qty: 1,
+      },
       status: { loadingItem: '' },
     };
   },
@@ -230,9 +227,9 @@ export default {
       this.$_fetchDataMixin_addProperty('color');
       this.$_fetchDataMixin_addProperty('order');
       this.$_fetchDataMixin_sortProduct();
+      this.switchProduct(this.products[0]);
     },
     switchProduct(item) {
-      console.log(item);
       this.tempProduct.title = item.title;
       this.tempProduct.imageUrl = item.imageUrl;
       this.tempProduct.id = item.id;
@@ -247,23 +244,20 @@ export default {
       if (this.tempProduct.qty <= 1) return;
       this.tempProduct.qty -= 1;
     },
-    addToCart(productId, qty) {
+    async addToCart(productId, qty) {
       this.status.loadingItem = productId;
       const data = { product_id: productId, qty };
-      apiPostCartItem({ data })
+      await apiPostCartItem({ data })
         .then((res) => {
           this.status.loadingItem = '';
           console.log(res);
         })
         .catch((res) => console.log(res));
+
+      this.getCartList();
     },
     getCartList() {
-      apiGetCartList()
-        .then((res) => {
-          this.cart = res.data.data;
-          console.log(res.data.data);
-        })
-        .catch((res) => console.log(res));
+      this.$emit('getCartList'); // Refresh cart list
     },
   },
   created() {

@@ -46,7 +46,7 @@
             <li><a class="dropdown-item" href="#">Another action</a></li>
           </ul>
         </div> -->
-        <StoreHeaderMiniCart @getCartList="getCartList" />
+        <StoreHeaderMiniCart :cart="cart" @getCartList="getCartList" />
       </div>
     </nav>
     <nav class="bg-dark collapse text-center" id="navbar__mobile-content">
@@ -67,6 +67,13 @@ export default {
   components: {
     StoreHeaderMiniCart,
   },
+  props: {
+    cart: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  emits: ['getCartList'],
   data() {
     return {
       isActive: false,

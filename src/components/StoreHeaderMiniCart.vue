@@ -3,33 +3,16 @@
     <button id="cart" class="btn" type="button" @click="show = !show">
       <i class="bi bi-cart fs-4"></i>
       <span
-        class="
-          position-absolute
-          top-28
-          start-75
-          translate-middle
-          badge
-          rounded-pill
-          bg-danger
-        "
+        class="position-absolute top-28 start-75 translate-middle badge rounded-pill bg-danger"
       >
-        <!-- L:75 T:28 -->
-        0
+        {{ this.cart.carts?.length }}
         <span class="visually-hidden">unread messages</span>
       </span>
     </button>
     <Transition>
       <div
         v-if="show"
-        class="
-          container-fluid
-          border
-          position-absolute
-          end-50
-          bg-white
-          overflow-auto
-          mh-70
-        "
+        class="container-fluid border position-absolute end-50 bg-white overflow-auto mh-70"
         style="width: 20rem"
       >
         <!-- cart=title -->
@@ -57,13 +40,23 @@
             <div class="col-7">
               <div class="card-body">
                 <h5 class="card-title fs-6">{{ item.product.title }}</h5>
-                <p class="card-text m-0">NT ${{ item.product.price }}</p>
-                <span class="card-text"> 數量： {{ item.qty }} </span>
+                <p class="card-text m-0">NT$ {{ item.product.price }}</p>
+                <span class="card-text align-middle">
+                  數量： {{ item.qty }}
+                </span>
                 <button
-                  type="button ms-auto"
-                  class="btn bi bi-trash align-middle ms-4"
+                  v-if="this.status.loadingItem !== item.id"
+                  type="button"
+                  class="btn bi bi-trash float-end"
                   @click="deleteCartItem(item.id)"
                 ></button>
+                <div
+                  v-if="this.status.loadingItem === item.id"
+                  class="spinner-border spinner-border-sm text-dark float-end m-2"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
               </div>
             </div>
           </div>
@@ -72,7 +65,7 @@
         <div class="row border-top">
           <div class="col-12 py-2 d-flex justify-content-between">
             <p>合計</p>
-            <p class="fw-medium">NT$ 1,200</p>
+            <p class="fw-medium">NT$ {{ this.cart.total }}</p>
           </div>
           <div class="col-12">
             <div class="btn-group w-100">
@@ -95,43 +88,37 @@
 </template>
 
 <script>
-import {
-  apiGetCartList,
-  // apiPutCartItemDetail,
-  apiDeleteCartItem,
-} from '../../api/client';
+import { apiDeleteCartItem } from '@/api/client';
 
 export default {
+  props: {
+    cart: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  emits: ['getCartList'],
   data() {
     return {
       show: false,
-      cart: {},
+      status: { loadingItem: '' },
     };
   },
-  watch: {
-    cart() {
-      // this.getCartList();
-    },
-  },
   methods: {
-    getCartList() {
-      apiGetCartList()
+    async deleteCartItem(productId) {
+      this.status.loadingItem = productId;
+      await apiDeleteCartItem(productId)
         .then((res) => {
-          this.cart = res.data.data;
-          console.log(res.data.data);
+          this.status.loadingItem = '';
+          console.log(res);
         })
         .catch((res) => console.log(res));
-    },
-    async deleteCartItem(productId) {
-      await apiDeleteCartItem(productId)
-        .then((res) => console.log(res))
-        .catch((res) => console.log(res));
+
       this.getCartList();
     },
-  },
-
-  created() {
-    this.getCartList();
+    getCartList() {
+      this.$emit('getCartList');
+    },
   },
 };
 </script>

@@ -3,19 +3,55 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: () => import('../views/StoreHome.vue'),
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('../views/DashboardLogin.vue'),
+    name: 'StoreView',
+    component: () => import('../views/StoreView.vue'),
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: () => import('../views/StoreHome.vue'),
+      },
+      {
+        path: 'thermos/classic',
+        name: 'thermosClassic',
+        component: () => import('../views/StoreThermosClassic.vue'),
+      },
+      {
+        path: 'thermos/classic/details',
+        name: 'thermosClassicDetails',
+        component: () => import('../views/StoreThermosClassicDetails.vue'),
+      },
+      {
+        path: 'user/cart',
+        name: 'cart',
+        component: () => import('../views/StoreUserCart.vue'),
+      },
+      {
+        path: 'user/cart/checkout',
+        name: 'checkout',
+        component: () => import('../views/StoreUserCartCheckout.vue'),
+      },
+      {
+        path: 'user/cart/summary',
+        name: 'summary',
+        component: () => import('../views/StoreUserCartSummary.vue'),
+      },
+      {
+        path: 'product/:productId',
+        component: () => import('../views/StoreProduct.vue'),
+      },
+    ],
   },
   {
     path: '/dashboard',
-    name: 'dashboard',
-    component: () => import('../views/DashboardHome.vue'),
+    name: 'DashboardView',
+    component: () => import('../views/DashboardView.vue'),
     children: [
+      {
+        path: '',
+        name: 'dashboard',
+        component: () => import('../views/DashboardHome.vue'),
+      },
       {
         path: 'products',
         component: () => import('../views/DashboardProducts.vue'),
@@ -28,52 +64,10 @@ const routes = [
         path: 'coupons',
         component: () => import('../views/DashboardCoupons.vue'),
       },
-    ],
-  },
-  {
-    path: '/thermos',
-    component: () => import('../views/StoreThermos.vue'),
-    children: [
       {
-        path: '',
-        name: 'thermos',
-        redirect: () => '/thermos/classic',
-      },
-      {
-        path: 'classic',
-        name: 'thermosClassic',
-        component: () => import('../views/StoreThermosClassic.vue'),
-      },
-      {
-        path: 'classic/details',
-        name: 'thermosClassicDetails',
-        component: () => import('../views/StoreThermosClassicDetails.vue'),
-      },
-    ],
-  },
-  {
-    path: '/user',
-    name: 'user',
-    component: () => import('../views/StoreUser.vue'),
-    children: [
-      {
-        path: 'cart',
-        name: 'cart',
-        component: () => import('../views/StoreUserCart.vue'),
-      },
-      {
-        path: 'cart/checkout',
-        name: 'checkout',
-        component: () => import('../views/StoreUserCartCheckout.vue'),
-      },
-      {
-        path: 'cart/summary',
-        name: 'summary',
-        component: () => import('../views/StoreUserCartSummary.vue'),
-      },
-      {
-        path: 'product/:productId',
-        component: () => import('../views/StoreProduct.vue'),
+        path: '/login',
+        name: 'login',
+        component: () => import('../views/DashboardLogin.vue'),
       },
     ],
   },
