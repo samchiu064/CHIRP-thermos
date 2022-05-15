@@ -5,6 +5,7 @@ const userRequest = axios.create({
 });
 
 // Products related
+export const getProductList = () => userRequest.get('/products');
 export const getProductListByPage = (page) => userRequest.get(`/products?page=${page}`);
 export const getProductListAll = () => userRequest.get('/products/all');
 export const getProductDetail = (productId) => userRequest.get(`/product/${productId}`);

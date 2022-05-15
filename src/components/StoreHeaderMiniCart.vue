@@ -65,7 +65,9 @@
         <div class="row border-top">
           <div class="col-12 py-2 d-flex justify-content-between">
             <p>合計</p>
-            <p class="fw-medium">NT$ {{ this.cart.total }}</p>
+            <p class="fw-medium">
+              NT$ {{ this.cart.total.toLocaleString('en-us') }}
+            </p>
           </div>
           <div class="col-12">
             <div class="btn-group w-100">

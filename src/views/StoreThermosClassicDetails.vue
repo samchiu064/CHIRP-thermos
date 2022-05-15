@@ -14,7 +14,9 @@
         <div class="text-center text-md-start m-auto mx-md-0">
           <h2 class="mt-2 mt-md-0">{{ this.tempProduct.title }}</h2>
           <h3 style="display: none">價格</h3>
-          <span class="fs-3 fw-bold">NT ${{ this.tempProduct.price }}</span>
+          <span class="fs-3 fw-bold"
+            >NT ${{ this.tempProduct.price?.toLocaleString('en-us') }}</span
+          >
           <p class="mt-3 mb-4">
             {{ this.tempProduct.description }}
           </p>
@@ -96,53 +98,9 @@
       </div>
     </section>
     <section class="row row-cols-1">
-      <nav class="col">
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button
-            class="nav-link active"
-            id="nav-details-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-home"
-            type="button"
-            role="tab"
-            aria-controls="nav-home"
-            aria-selected="true"
-          >
-            商品詳情
-          </button>
-          <button
-            class="nav-link"
-            id="nav-delivery-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-profile"
-            type="button"
-            role="tab"
-            aria-controls="nav-profile"
-            aria-selected="false"
-          >
-            運送資訊
-          </button>
-          <button
-            class="nav-link"
-            id="nav-refund-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-contact"
-            type="button"
-            role="tab"
-            aria-controls="nav-contact"
-            aria-selected="false"
-          >
-            退款政策
-          </button>
-        </div>
-      </nav>
-      <div class="col tab-content" id="nav-tabContent">
-        <div
-          class="tab-pane fade show active border border-top-0 p-3"
-          id="nav-home"
-          role="tabpanel"
-          aria-labelledby="nav-details-tab"
-        >
+      <StoreTabsProductDetail>
+        <template #titleFirstTab>商品詳情</template>
+        <template #firstTab>
           <dl>
             <dt>產品規格</dt>
             <dd>
@@ -155,14 +113,10 @@
                 <li>外蓋/本體材質：PP/不鏽鋼SUS304</li>
               </ul>
             </dd>
-          </dl>
-        </div>
-        <div
-          class="tab-pane fade border border-top-0 p-3"
-          id="nav-profile"
-          role="tabpanel"
-          aria-labelledby="nav-delivery-tab"
+          </dl></template
         >
+        <template #titleSecondTab>運送資訊</template>
+        <template #secondTab>
           <dl>
             <dt>寄送時間</dt>
             <dd>
@@ -177,14 +131,10 @@
             <dd>
               限台灣本島與離島地區註，部分離島地區包括連江馬祖、綠島、蘭嶼、琉球鄉…等貨件，將送至到岸船公司碼頭，需請收貨人自行至碼頭取貨。注意！收件地址請勿為郵政信箱。
             </dd>
-          </dl>
-        </div>
-        <div
-          class="tab-pane fade border border-top-0 p-3"
-          id="nav-contact"
-          role="tabpanel"
-          aria-labelledby="nav-refund-tab"
+          </dl></template
         >
+        <template #titleThirdTab>退款政策</template>
+        <template #thirdTab>
           <dl>
             <dt>退款須知</dt>
             <dd>
@@ -194,22 +144,30 @@
               求之單據，以利本公司為您辦理退款。<br />
               本公司收到您所提出的申請後，若經確認無誤，將依消費者保護法之相關規定，返還您已支付之對價（含信用卡交易），退款日當天會再發送E-mail通知函給您。
             </dd>
-          </dl>
-        </div>
-      </div>
+          </dl></template
+        >
+      </StoreTabsProductDetail>
     </section>
-    <StoreProductCard />
+    <StoreProductCard :products="products" />
   </main>
+  <StoreFooter />
 </template>
 
 <script>
 import { apiPostCartItem } from '@/api/client';
-import fetchDataMixin from '../mixins/fetchDataMixin';
+import StoreFooter from '@/components/StoreFooter.vue';
+import StoreTabsProductDetail from '@/components/StoreTabsProductDetail.vue';
 import StoreProductCard from '../components/StoreProductCard.vue';
 import StoreInputProductQuantity from '../components/StoreInputProductQuantity.vue';
+import fetchDataMixin from '../mixins/fetchDataMixin';
 
 export default {
-  components: { StoreProductCard, StoreInputProductQuantity },
+  components: {
+    StoreProductCard,
+    StoreInputProductQuantity,
+    StoreTabsProductDetail,
+    StoreFooter,
+  },
   mixins: [fetchDataMixin],
   emits: ['getCartList'],
   data() {

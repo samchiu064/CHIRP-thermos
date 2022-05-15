@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import { apiGetProductListByPage } from '@/api/admin';
 import ProductModal from '../components/DashboardModalProduct.vue';
 import DeleteModal from '../components/DashboardModalDelete.vue';
 import ThePagination from '../components/ThePagination.vue';
@@ -88,13 +89,15 @@ export default {
     getProducts(page = 1) {
       this.isLoading = true; // Show loading overlay
 
-      this.$http.get(`${this.apiPath.products}?page=${page}`).then((res) => {
+      // apiGetProductListByPage(page)
+
+      apiGetProductListByPage(page).then((res) => {
         if (res.data.success) {
           this.products = res.data.products;
           this.pagination = res.data.pagination;
         }
         this.isLoading = false; // Hide loading overlay
-        // console.log(res);
+        console.log(res);
       });
     },
     openModal(isNew, item) {

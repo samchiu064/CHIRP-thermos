@@ -11,6 +11,7 @@ import { postCouponApply } from './clientCoupon';
 import { getOrderList, getOrderListById, postOrder } from './clientOrder';
 
 import {
+  getProductList,
   getProductListByPage,
   getProductListAll,
   getProductDetail,
@@ -26,6 +27,7 @@ export const apiPostCouponApply = postCouponApply;
 export const apiGetOrderList = getOrderList;
 export const apiGetOrderListById = getOrderListById;
 export const apiPostOrder = postOrder;
+export const apiGetProductList = getProductList;
 export const apiGetProductListByPage = getProductListByPage;
 export const apiGetProductListAll = getProductListAll;
 export const apiGetProductDetail = getProductDetail;

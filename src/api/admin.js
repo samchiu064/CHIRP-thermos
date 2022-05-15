@@ -3,15 +3,13 @@ import {
   postCouponItem,
   putCouponItemDetail,
   deleteCoupon,
-} from './adminCoupon.js';
-
+} from './adminCoupon';
 import {
   getOrderList,
   putOrderItemDetail,
   deleteOrder,
   deleteOrderAll,
-} from './adminOrder.js';
-
+} from './adminOrder';
 import {
   getProductListByPage,
   getProductListAll,
