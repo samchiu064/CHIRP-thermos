@@ -204,8 +204,7 @@ export default {
     },
     async addToCart(productId, qty) {
       this.status.loadingItem = productId;
-      const data = { product_id: productId, qty };
-      await apiPostCartItem({ data })
+      await apiPostCartItem({ data: { product_id: productId, qty } })
         .then((res) => {
           this.status.loadingItem = '';
           console.log(res);

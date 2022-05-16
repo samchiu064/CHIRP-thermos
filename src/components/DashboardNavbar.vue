@@ -37,11 +37,12 @@
 </template>
 
 <script>
+import { apiPostUserLogout } from '@/api/admin';
+
 export default {
   methods: {
     logout() {
-      const api = `${process.env.VUE_APP_API}/logout`;
-      this.$http.post(api).then((res) => {
+      apiPostUserLogout().then((res) => {
         if (res.data.success) {
           console.log(res);
           document.cookie = `hexToken=;expires= ${new Date(0).toGMTString()}`;

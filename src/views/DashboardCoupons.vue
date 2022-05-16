@@ -43,6 +43,12 @@
 </template>
 
 <script>
+import {
+  apiGetCouponList,
+  apiPostCouponItem,
+  apiPutCouponItemDetail,
+  apiDeleteCoupon,
+} from '@/api/admin';
 import CouponModal from '../components/DashboardModalCoupon.vue';
 import DeleteModal from '../components/DashboardModalDelete.vue';
 import ThePagination from '../components/ThePagination.vue';
@@ -74,51 +80,61 @@ export default {
       this.$refs.deleteModal.showModal();
       this.isNew = isNew;
     },
-    updateCoupon(formattedItem) {
-      const apiPath = this.isNew
-        ? this.apiPath.coupon
-        : `${this.apiPath.coupon}/${this.tempCoupon.id}`;
-      const httpMethod = this.isNew ? 'post' : 'put';
-
+    async updateCoupon(formattedItem) {
       this.isLoading = true;
-      this.$http[httpMethod](apiPath, { data: formattedItem }).then((res) => {
-        this.isLoading = false;
-        this.pushMessageState(res, '優惠券資料更新');
+      // 建立優惠券
+      if (this.isNew) {
+        await apiPostCouponItem({ data: formattedItem })
+          .then((res) => {
+            console.log(res);
+            this.pushMessageState(res, '優惠券資料建立');
+          })
+          .catch((err) => console.log(err));
+      }
+      // 更新優惠券
+      if (!this.isNew) {
+        await apiPutCouponItemDetail({ data: formattedItem })
+          .then((res) => {
+            console.log(res);
+            this.pushMessageState(res, '優惠券資料更新');
+          })
+          .catch((err) => console.log(err));
+      }
 
-        console.log('res', res);
-        this.getCoupons();
-        this.$refs.couponModal.hideModal();
-      });
+      this.isLoading = false;
+      this.$refs.couponModal.hideModal();
+      this.getCoupons();
     },
-    deleteCoupon() {
-      const apiPath = `${this.apiPath.coupon}/${this.tempCoupon.id}`;
-      const httpMethod = 'delete';
-
+    async deleteCoupon() {
       this.isLoading = true;
-      this.$http[httpMethod](apiPath).then((res) => {
-        this.isLoading = false;
-        this.pushMessageState(res, '優惠券資料刪除');
+      // 刪除優惠券
+      await apiDeleteCoupon(this.tempCoupon.id)
+        .then((res) => {
+          console.log(res);
+          this.pushMessageState(res, '優惠券資料刪除');
+        })
+        .catch((err) => console.log(err));
 
-        console.log(res);
-        this.getCoupons();
-        this.$refs.deleteModal.hideModal();
-      });
+      this.isLoading = false;
+      this.$refs.deleteModal.hideModal();
+      this.getCoupons();
     },
-    getCoupons(page = 1) {
-      const apiPath = `${this.apiPath.coupons}?page=${page}`;
-      const httpMethod = 'get';
-
+    async getCoupons(page = 1) {
       this.isLoading = true;
-      this.$http[httpMethod](apiPath).then((res) => {
-        this.isLoading = false;
+      // 取得優惠券資料
+      await apiGetCouponList(page)
+        .then((res) => {
+          console.log(res);
+          this.coupons = res.data.coupons;
+          this.pagination = res.data.pagination;
 
-        this.coupons = res.data.coupons;
-        this.pagination = res.data.pagination;
+          this.coupons.forEach((coupon, index) => {
+            this.coupons[index].due_date = this.getCurrentDate(coupon.due_date);
+          });
+        })
+        .catch((err) => console.log(err));
 
-        this.coupons.forEach((coupon, index) => {
-          this.coupons[index].due_date = this.getCurrentDate(coupon.due_date);
-        });
-      });
+      this.isLoading = false;
     },
     getCurrentDate(unixtimestamp) {
       const date = new Date(unixtimestamp);

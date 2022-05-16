@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['plugin:vue/vue3-essential', '@vue/airbnb'],
+  extends: ['plugin:vue/vue3-essential', '@vue/airbnb', 'prettier'],
   parserOptions: {
     parser: '@babel/eslint-parser',
   },
@@ -18,6 +18,6 @@ module.exports = {
         ignorePropertyModificationsFor: ['req', 'request', 'res', 'response'],
       },
     ],
-    'implicit-arrow-linebreak': 'off',
+    // 'implicit-arrow-linebreak': 'off',
   },
 };

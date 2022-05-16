@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-const userRequest = axios.create({
+const uploadRequest = axios.create({
   baseURL: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/`,
 });
 
-// Upload-image related
-export const postUploadImage = (data) => userRequest.post('/upload', data);
+export const postUploadImage = (data) => uploadRequest.post('/upload', data);

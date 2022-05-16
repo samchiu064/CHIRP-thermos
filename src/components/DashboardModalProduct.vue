@@ -175,11 +175,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-outline-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
             取消
           </button>
           <button
@@ -196,7 +192,8 @@
 </template>
 
 <script>
-import modalMixin from '@/mixins/modalMixin';
+import { apiPostUploadImage } from "@/api/admin";
+import modalMixin from "@/mixins/modalMixin";
 
 export default {
   mixins: [modalMixin],
@@ -224,21 +221,21 @@ export default {
     uploadFile(type, key) {
       const index = key - 1; // Array index starting from zero
 
-      const uploadedFile = type === 'major'
-        ? this.$refs.majorImageInput.files[0]
-        : this.$refs.minorImageInput[index].files[0];
+      const uploadedFile =
+        type === "major"
+          ? this.$refs.majorImageInput.files[0]
+          : this.$refs.minorImageInput[index].files[0];
 
       const formData = new FormData(); // 2. 轉成 form-data格式
-      formData.append('file-to-upload', uploadedFile);
+      formData.append("file-to-upload", uploadedFile);
 
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/upload`;
-      const httpMethod = 'post';
-      this.$http[httpMethod](url, formData).then((res) => {
-        if (!res.data.success) return;
-
-        if (type === 'major') this.tempProduct.imageUrl = res.data.imageUrl;
-        if (type === 'minor') this.tempProduct.imagesUrl[index] = res.data.imageUrl;
-      });
+      apiPostUploadImage(formData)
+        .then((res) => {
+          if (!res.data.success) return;
+          if (type === "major") this.tempProduct.imageUrl = res.data.imageUrl;
+          if (type === "minor") this.tempProduct.imagesUrl[index] = res.data.imageUrl;
+        })
+        .catch((err) => console.log(err));
     },
   },
 };

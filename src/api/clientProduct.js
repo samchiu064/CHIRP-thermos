@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const userRequest = axios.create({
+const productRequest = axios.create({
   baseURL: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/`,
 });
 
 // Products related
-export const getProductList = () => userRequest.get('/products');
-export const getProductListByPage = (page) => userRequest.get(`/products?page=${page}`);
-export const getProductListAll = () => userRequest.get('/products/all');
-export const getProductDetail = (productId) => userRequest.get(`/product/${productId}`);
+export const getProductList = () => productRequest.get('/products');
+export const getProductListByPage = (page) => productRequest.get(`/products?page=${page}`);
+export const getProductListAll = () => productRequest.get('/products/all');
+export const getProductDetail = (productId) => productRequest.get(`/product/${productId}`);

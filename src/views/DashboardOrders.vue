@@ -35,14 +35,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      apiPath: {
-        order: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/order`,
-        orders: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/orders`,
-      },
-    };
-  },
   methods: {
     addOrder() {},
   },

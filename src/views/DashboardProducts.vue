@@ -60,7 +60,12 @@
 </template>
 
 <script>
-import { apiGetProductListByPage } from '@/api/admin';
+import {
+  apiGetProductListByPage,
+  apiPostProductItem,
+  apiPutProductItemDetail,
+  apiDeleteProduct,
+} from '@/api/admin';
 import ProductModal from '../components/DashboardModalProduct.vue';
 import DeleteModal from '../components/DashboardModalDelete.vue';
 import ThePagination from '../components/ThePagination.vue';
@@ -79,26 +84,21 @@ export default {
       tempProduct: {},
       isNew: false,
       isLoading: false,
-      apiPath: {
-        product: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product`,
-        products: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products`,
-      },
     };
   },
   methods: {
-    getProducts(page = 1) {
+    async getProducts(page = 1) {
       this.isLoading = true; // Show loading overlay
-
-      // apiGetProductListByPage(page)
-
-      apiGetProductListByPage(page).then((res) => {
-        if (res.data.success) {
-          this.products = res.data.products;
-          this.pagination = res.data.pagination;
-        }
-        this.isLoading = false; // Hide loading overlay
-        console.log(res);
-      });
+      await apiGetProductListByPage(page)
+        .then((res) => {
+          if (res.data.success) {
+            this.products = res.data.products;
+            this.pagination = res.data.pagination;
+            console.log(res);
+          }
+        })
+        .catch((err) => console.log(err));
+      this.isLoading = false; // Hide loading overlay
     },
     openModal(isNew, item) {
       // Case 1: Add a new product (is NOT new); Case 2: Edit the product (is New)
@@ -110,38 +110,45 @@ export default {
       this.tempProduct = item;
       this.$refs.deleteModal.showModal();
     },
-    updateProduct(item) {
+    async updateProduct(item) {
       this.tempProduct = item;
       this.isLoading = true; // Show loading overlay
+      // 建立產品
+      if (this.isNew) {
+        await apiPostProductItem({ data: this.tempProduct })
+          .then((res) => {
+            console.log('商品建立結果', res);
+            this.pushMessageState(res, '產品資料更新');
+          })
+          .catch((err) => console.log(err));
+      }
+      // 更新產品
+      if (!this.isNew) {
+        await apiPutProductItemDetail({ data: this.tempProduct }, item.id)
+          .then((res) => {
+            console.log('商品更新結果', res);
+            this.pushMessageState(res, '產品資料更新');
+          })
+          .catch((err) => console.log(err));
+      }
 
-      const api = this.isNew
-        ? this.apiPath.product
-        : `${this.apiPath.product}/${item.id}`;
-      const httpMethod = this.isNew ? 'post' : 'put';
-      const productComponent = this.$refs.productModal;
-
-      console.log(item);
-
-      this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
-        console.log('更新結果', res);
-        this.isLoading = false; // Show loading overlay
-        this.pushMessageState(res, '產品資料更新');
-
-        this.getProducts();
-        productComponent.hideModal();
-      });
+      this.isLoading = false;
+      this.$refs.productModal.hideModal();
+      this.getProducts();
     },
-    deleteProduct(item) {
+    async deleteProduct(item) {
       this.isLoading = true; // Show loading overlay
 
-      this.$http.delete(`${this.apiPath.product}/${item.id}`).then((res) => {
-        this.isLoading = false; // Loading effect off
-        this.pushMessageState(res, '產品資料刪除');
+      await apiDeleteProduct(item.id)
+        .then((res) => {
+          console.log(res);
+          this.pushMessageState(res, '產品資料刪除');
+        })
+        .catch((err) => console.log(err));
 
-        console.log(res);
-        this.$refs.deleteModal.hideModal();
-        this.getProducts();
-      });
+      this.isLoading = false; // Loading effect off
+      this.$refs.deleteModal.hideModal();
+      this.getProducts();
     },
   },
   created() {
