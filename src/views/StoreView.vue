@@ -1,11 +1,13 @@
 <template>
   <StoreHeader :cart="cart" @getCartList="getCartList" />
-  <div class="bg-light"><router-view @getCartList="getCartList" /></div>
+  <div class="bg-light">
+    <router-view @getCartList="getCartList" :cart="cart" />
+  </div>
 </template>
 
 <script>
-import { apiGetCartList } from '@/api/client';
-import StoreHeader from '../components/StoreHeader.vue';
+import { apiGetCartList } from "@/api/client";
+import StoreHeader from "../components/StoreHeader.vue";
 
 export default {
   components: { StoreHeader },

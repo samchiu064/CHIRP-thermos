@@ -1,21 +1,24 @@
 <template>
-  <main class="container bg-white p-3 p-md-5">
+  <main class="container p-3 p-md-5">
     <section class="row row-cols-1 row-cols-md-2 mb-2">
-      <div
-        class="col text-center d-flex align-items-center justify-content-center"
-      >
-        <img
-          :src="this.tempProduct.imageUrl"
-          alt="保溫瓶圖片"
-          class="img-box"
-        />
+      <div class="col">
+        <Transition mode="out-in">
+          <div class="text-center d-flex align-items-center justify-content-center">
+            <img
+              :src="this.tempProduct.imageUrl"
+              :key="this.tempProduct.id"
+              alt="保溫瓶圖片"
+              class="img-box"
+            />
+          </div>
+        </Transition>
       </div>
       <div class="col">
         <div class="text-center text-md-start m-auto mx-md-0">
           <h2 class="mt-2 mt-md-0">{{ this.tempProduct.title }}</h2>
           <h3 style="display: none">價格</h3>
           <span class="fs-3 fw-bold"
-            >NT ${{ this.tempProduct.price?.toLocaleString('en-us') }}</span
+            >NT ${{ this.tempProduct.price?.toLocaleString("en-us") }}</span
           >
           <p class="mt-3 mb-4">
             {{ this.tempProduct.description }}
@@ -44,12 +47,7 @@
         <div class="mt-3 mb-4">
           <h3 class="fs-6 fw-bold">配送方式</h3>
           <label for="home-delivery" class="ps-3">
-            <input
-              type="radio"
-              name="homeDelivery"
-              id="home-delivery"
-              checked
-            />
+            <input type="radio" name="homeDelivery" id="home-delivery" checked />
             宅配配送
           </label>
         </div>
@@ -64,18 +62,11 @@
             @update:value="(newValue) => (this.tempProduct.qty = newValue)"
           />
 
-          <span v-if="this.tempProduct.unit" class="align-middle"
-            >庫存充足</span
-          >
-          <span v-else-if="this.tempProduct.unit === 0" class="align-middle"
-            >庫存不足</span
-          >
+          <span v-if="this.tempProduct.unit" class="align-middle">庫存充足</span>
+          <span v-else-if="this.tempProduct.unit === 0" class="align-middle">庫存不足</span>
         </div>
         <div class="mt-4 mb-5 text-center text-md-start">
-          <button
-            type="button"
-            class="btn btn-outline-secondary rounded-pill w-45 py-2"
-          >
+          <button type="button" class="btn btn-outline-secondary rounded-pill w-45 py-2">
             立即購買
           </button>
           <button
@@ -119,9 +110,7 @@
         <template #secondTab>
           <dl>
             <dt>寄送時間</dt>
-            <dd>
-              宅配配送全台灣24h到貨；超商取貨全台灣72h到貨。全年無休，週末假日照常出貨。
-            </dd>
+            <dd>宅配配送全台灣24h到貨；超商取貨全台灣72h到貨。全年無休，週末假日照常出貨。</dd>
             <dt>運送方式</dt>
             <dd>
               透過宅配送達。除網頁另有特別標示外，均為常溫配送。<br />
@@ -148,42 +137,36 @@
         >
       </StoreTabsProductDetail>
     </section>
-    <StoreProductCard :products="products" />
   </main>
-  <StoreFooter />
 </template>
 
 <script>
-import { apiPostCartItem } from '@/api/client';
-import StoreFooter from '@/components/StoreFooter.vue';
-import StoreTabsProductDetail from '@/components/StoreTabsProductDetail.vue';
-import StoreProductCard from '../components/StoreProductCard.vue';
-import StoreInputProductQuantity from '../components/StoreInputProductQuantity.vue';
-import fetchDataMixin from '../mixins/fetchDataMixin';
+import { apiPostCartItem } from "@/api/client";
+import StoreTabsProductDetail from "@/components/StoreTabsProductDetail.vue";
+import StoreInputProductQuantity from "../components/StoreInputProductQuantity.vue";
+import fetchDataMixin from "../mixins/fetchDataMixin";
 
 export default {
   components: {
-    StoreProductCard,
     StoreInputProductQuantity,
     StoreTabsProductDetail,
-    StoreFooter,
   },
   mixins: [fetchDataMixin],
-  emits: ['getCartList'],
+  emits: ["getCartList"],
   data() {
     return {
       tempProduct: {
         qty: 1,
       },
-      status: { loadingItem: '' },
+      status: { loadingItem: "", isLoading: false },
     };
   },
   methods: {
     async initData() {
       await this.$_fetchDataMixin_getProducts();
-      this.$_fetchDataMixin_filterCategory('thermos');
-      this.$_fetchDataMixin_addProperty('color');
-      this.$_fetchDataMixin_addProperty('order');
+      this.$_fetchDataMixin_filterCategory("thermos");
+      this.$_fetchDataMixin_addProperty("color");
+      this.$_fetchDataMixin_addProperty("order");
       this.$_fetchDataMixin_sortProduct();
       this.switchProduct(this.products[0]);
     },
@@ -206,7 +189,7 @@ export default {
       this.status.loadingItem = productId;
       await apiPostCartItem({ data: { product_id: productId, qty } })
         .then((res) => {
-          this.status.loadingItem = '';
+          this.status.loadingItem = "";
           console.log(res);
         })
         .catch((res) => console.log(res));
@@ -214,7 +197,7 @@ export default {
       this.getCartList();
     },
     getCartList() {
-      this.$emit('getCartList'); // Refresh cart list
+      this.$emit("getCartList"); // Refresh cart list
     },
   },
   created() {
@@ -235,5 +218,15 @@ export default {
   @media (max-width: 576px) {
     max-height: 360px;
   }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

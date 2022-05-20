@@ -1,12 +1,10 @@
 <template>
   <header class="container-fluid p-0 bg-light" :class="positionType">
     <nav class="navbar navbar-expand-lg navbar-light mx-1 p-3">
-      <router-link to="/thermos/classic" class="nav-link d-none d-lg-block"
-        >經典款</router-link
-      >
-      <router-link to="/user/cart" class="nav-link d-none d-lg-block"
-        >關於我們</router-link
-      >
+      <router-link to="/thermos/classic" class="nav-link d-none d-lg-block">經典款</router-link>
+      <router-link to="/user/cart" class="nav-link d-none d-lg-block">配件選購</router-link>
+      <router-link to="/user/cart" class="nav-link d-none d-lg-block">聯絡我們</router-link>
+      <router-link to="/user/cart" class="nav-link d-none d-lg-block">常見問題</router-link>
       <button
         class="navbar-toggler navbar__mobile-toggler"
         type="button"
@@ -23,11 +21,7 @@
           <i class="line"></i>
         </div>
       </button>
-      <a
-        class="navbar-brand position-absolute top-50 start-50 translate-middle"
-        href="#"
-        >LOGO</a
-      >
+      <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#">LOGO</a>
       <div class="ms-auto me-0 d-flex">
         <!-- <div class="dropdown">
           <a
@@ -61,7 +55,7 @@
 </template>
 
 <script>
-import StoreHeaderMiniCart from './StoreHeaderMiniCart.vue';
+import StoreHeaderMiniCart from "./StoreHeaderMiniCart.vue";
 
 export default {
   components: {
@@ -73,7 +67,7 @@ export default {
       default: () => {},
     },
   },
-  emits: ['getCartList'],
+  emits: ["getCartList"],
   data() {
     return {
       isActive: false,
@@ -81,9 +75,9 @@ export default {
   },
   computed: {
     positionType() {
-      if (this.$route.name === 'home') return 'position-fixed';
-      if (this.$route.name === 'thermosClassic') return 'position-fixed';
-      return 'position-relative';
+      if (this.$route.name === "home") return "position-fixed";
+      if (this.$route.name === "thermosClassic") return "position-fixed";
+      return "position-relative";
     },
   },
   methods: {
@@ -91,7 +85,7 @@ export default {
       this.isActive = !this.isActive;
     },
     getCartList() {
-      this.$emit('getCartList');
+      this.$emit("getCartList");
     },
   },
   mounted() {

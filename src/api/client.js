@@ -1,7 +1,7 @@
 import {
   getCartList,
   postCartItem,
-  putCartItemDetail,
+  putCartItem,
   deleteCartItem,
   deleteCartAll,
 } from './clientCart';
@@ -19,7 +19,7 @@ import {
 
 export const apiGetCartList = getCartList;
 export const apiPostCartItem = postCartItem;
-export const apiPutCartItemDetail = putCartItemDetail;
+export const apiPutCartItem = putCartItem;
 export const apiDeleteCartItem = deleteCartItem;
 export const apiDeleteCartAll = deleteCartAll;
 export const apiPostCheckout = postCheckout;

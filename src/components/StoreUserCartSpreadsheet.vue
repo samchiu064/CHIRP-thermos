@@ -4,29 +4,13 @@
       <h4 class="card-header fs-6 py-2 text-center">您的訂單</h4>
       <ul class="list-group list-group-flush">
         <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-center
-            py-3
-            px-0
-            mx-3
-          "
+          class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
         >
           <h5 class="fs-6 m-0 fw-normal">小計</h5>
-          <p class="fs-6 m-0 fw-medium">NT $1,200</p>
+          <p class="fs-6 m-0 fw-medium">NT ${{ cart.total?.toLocaleString("en-us") }}</p>
         </li>
         <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-center
-            py-3
-            px-0
-            mx-3
-          "
+          class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
         >
           <h5 class="fs-6 m-0 fw-normal">運費</h5>
           <p class="fs-6 m-0 fw-medium">免運費</p>
@@ -53,9 +37,13 @@
             >
               <div class="accordion-body">
                 <ul class="list-group-flush ps-0">
-                  <li class="d-flex justify-content-between ps-2">
-                    <p>#FREESHIPPING2022</p>
-                    <p>已套用折扣碼</p>
+                  <li
+                    v-for="(item, index) in couponList"
+                    :key="item + index"
+                    class="d-flex justify-content-between ps-2"
+                  >
+                    <p>{{ item }}</p>
+                    <p>已套用</p>
                   </li>
                   <li class="d-flex justify-content-between ps-2">
                     <input
@@ -63,56 +51,33 @@
                       type="text"
                       placeholder="請輸入折扣碼"
                       aria-label="折扣碼輸入處"
+                      v-model="couponCode"
+                      @click="() => (this.isInvalid = false)"
                     />
-                    <button type="button" class="btn btn-outline-secondary">
+                    <button type="button" class="btn btn-outline-secondary" @click="applyCoupon()">
                       套用
                     </button>
                   </li>
                 </ul>
+                <p v-if="isInvalid" class="text-danger fs-7 ps-3 m-0">無效的優惠券</p>
               </div>
             </div>
           </div>
         </li>
         <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-center
-            pt-3
-            px-0
-            mx-3
-            border-bottom-0
-          "
+          class="list-group-item d-flex justify-content-between align-items-center pt-3 px-0 mx-3 border-bottom-0"
         >
-          <h5 class="fs-6 m-0 fw-normal">折扣</h5>
-          <p class="fs-6 m-0 fw-medium">- NT$240</p>
+          <h5 class="fs-6 m-0">折扣</h5>
+          <p class="fs-6 m-0 fw-medium">NT$ {{ discount?.toLocaleString("en-us") }}</p>
         </li>
         <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-center
-            pb-3
-            px-0
-            mx-3
-            border-bottom-0
-          "
+          class="list-group-item d-flex justify-content-between align-items-center pb-3 px-0 mx-3 border-bottom-0"
         >
           <h5 class="fs-5 m-0 fw-bold">總計</h5>
-          <p class="fs-5 m-0 fw-bold">NT $960</p>
+          <p class="fs-5 m-0 fw-bold">NT ${{ cart.final_total?.toLocaleString("en-us") }}</p>
         </li>
         <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-center
-            py-3
-            px-0
-            mx-3
-          "
+          class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
         >
           <button
             type="button"
@@ -128,15 +93,49 @@
 </template>
 
 <script>
+import { apiPostCouponApply } from "@/api/client";
+
 export default {
   props: {
     nextPage: {
       type: String,
       required: true,
     },
+    cart: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  data() {
+    return {
+      couponCode: "",
+      couponList: [],
+      isInvalid: false,
+    };
+  },
+  computed: {
+    discount() {
+      return this.cart.final_total - this.cart.total;
+    },
+  },
+  methods: {
+    async applyCoupon() {
+      const code = this.couponCode;
+      await apiPostCouponApply({ data: { code } })
+        .then((res) => {
+          if (res.data.success) {
+            if (this.couponList.includes(code)) return; // A code can be used once at a time
+            this.couponList.push(code);
+            this.couponCode = "";
+          } else {
+            this.isInvalid = true;
+          }
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

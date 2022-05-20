@@ -34,7 +34,12 @@ export default {
       default: 1,
     },
   },
-  emits: ['increaseQty', 'decreaseQty', 'update:value'],
+  emits: ["increaseQty", "decreaseQty", "update:value"],
+  data() {
+    return {
+      productQty: 0,
+    };
+  },
 };
 </script>
 
@@ -47,7 +52,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 </style>

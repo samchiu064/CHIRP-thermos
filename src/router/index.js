@@ -23,18 +23,25 @@ const routes = [
       },
       {
         path: 'user/cart',
-        name: 'cart',
+        name: 'usercart',
         component: () => import('../views/StoreUserCart.vue'),
-      },
-      {
-        path: 'user/cart/checkout',
-        name: 'checkout',
-        component: () => import('../views/StoreUserCartCheckout.vue'),
-      },
-      {
-        path: 'user/cart/summary',
-        name: 'summary',
-        component: () => import('../views/StoreUserCartSummary.vue'),
+        children: [
+          {
+            path: '',
+            name: 'cart',
+            component: () => import('../views/StoreUserCartHome.vue'),
+          },
+          {
+            path: 'payment',
+            name: 'payment',
+            component: () => import('../views/StoreUserCartPayment.vue'),
+          },
+          {
+            path: 'checkout',
+            name: 'checkout',
+            component: () => import('../views/StoreUserCartCheckout.vue'),
+          },
+        ]
       },
       {
         path: 'product/:productId',

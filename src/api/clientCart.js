@@ -7,6 +7,6 @@ const cartRequest = axios.create({
 // Cart related
 export const getCartList = () => cartRequest.get('/cart');
 export const postCartItem = (data) => cartRequest.post('/cart', data);
-export const putCartItemDetail = (data, productId) => cartRequest.put(`/cart/${productId}`, data);
+export const putCartItem = (data, productId) => cartRequest.put(`/cart/${productId}`, data);
 export const deleteCartItem = (productId) => cartRequest.delete(`/cart/${productId}`);
 export const deleteCartAll = () => cartRequest.delete('/carts');
