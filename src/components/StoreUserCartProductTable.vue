@@ -35,14 +35,14 @@
         </td>
         <td class="col-12 col-md-auto p-0">NT$ {{ item.product.price.toLocaleString("en-us") }}</td>
         <td class="col-12 col-md-auto p-0">
-          <StoreInputProductQuantityVue
-            v-if="loadingItem !== item.id"
+          <StoreInputProductQuantity
+            v-if="cartLoadingItem !== item.id"
             :qty="item.qty"
-            @decreaseQty="decreaseQty(item.id, item.qty)"
-            @increaseQty="increaseQty(item.id, item.qty)"
+            :id="item.id"
+            @updateItem="updateCartItem"
           />
           <div
-            v-if="loadingItem === item.id"
+            v-if="cartLoadingItem === item.id"
             class="spinner-border spinner-border-sm"
             role="status"
           >
@@ -71,43 +71,44 @@
 </template>
 
 <script>
-import StoreInputProductQuantityVue from "./StoreInputProductQuantity.vue";
+import { mapState, mapActions } from "pinia";
+import { useCartStore } from "@/stores/cartStore";
+import { statusStore } from "@/stores/statusStore";
+import StoreInputProductQuantity from "./StoreInputProductQuantity.vue";
 
 export default {
   components: {
-    StoreInputProductQuantityVue,
+    StoreInputProductQuantity,
   },
   props: {
     readonly: {
       type: Boolean,
       default: false,
     },
-    cart: {
-      type: Object,
-      default: () => {},
-    },
-    loadingItem: {
-      type: String,
-      default: "",
-    },
   },
-  emits: ["increaseItem", "decreaseItem"],
   data() {
     return {
       tempItem: [],
       status: { isloading: false },
     };
   },
+  computed: {
+    ...mapState(useCartStore, ["cart"]),
+    ...mapState(statusStore, ["cartLoadingItem"]),
+  },
   methods: {
-    increaseQty(itemId, qty) {
-      this.$emit("increaseItem", { itemId, qty });
+    updateCartItem({ id, qty }) {
+      console.log(id, qty);
+      this.updateItem({ id, qty });
+      this.getCartList();
     },
-    decreaseQty(itemId, qty) {
-      this.$emit("decreaseItem", { itemId, qty });
-    },
-    deleteItem(itemId) {
+    deleteCartItem(itemId) {
       this.$emit("deleteItem", itemId);
     },
+    ...mapActions(useCartStore, ["getCartList", "updateItem", "deleteItem"]),
+  },
+  created() {
+    this.getCartList();
   },
 };
 </script>

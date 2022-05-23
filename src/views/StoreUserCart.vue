@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "pinia";
+import { useCartStore } from "@/stores/cartStore";
 import StoreUserCartProgressBar from "../components/StoreUserCartProgressBar.vue";
 import StoreUserCartSpreadsheet from "../components/StoreUserCartSpreadsheet.vue";
 
@@ -20,10 +22,10 @@ export default {
     StoreUserCartSpreadsheet,
   },
   props: {
-    cart: {
-      type: Object,
-      default: () => {},
-    },
+    // cart: {
+    //   type: Object,
+    //   default: () => {},
+    // },
   },
   computed: {
     nextPage() {
@@ -36,9 +38,14 @@ export default {
       if (this.$route.name === "payment") return 100;
       return 50;
     },
+    ...mapState(useCartStore, ["cart", "getUserName"]),
+  },
+  methods: {
+    ...mapActions(useCartStore, ["getCartList"]),
   },
   created() {
     console.log(this.$route);
+    this.getCartList();
   },
 };
 </script>
