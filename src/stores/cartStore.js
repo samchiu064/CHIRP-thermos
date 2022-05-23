@@ -1,10 +1,10 @@
-import { apiGetCartList, apiPutCartItem, apiDeleteCartItem } from "@/api/client";
-import { defineStore } from "pinia";
-import { statusStore } from "./statusStore";
+import { apiGetCartList, apiPutCartItem, apiDeleteCartItem } from '@/api/client';
+import { defineStore } from 'pinia';
+import statusStore from './statusStore';
 
-const status = statusStore;
+const status = statusStore();
 
-export const useCartStore = defineStore("cart", {
+export const useCartStore = defineStore('cart', {
   state: () => ({
     cart: {},
     itemQty: 0,
@@ -35,7 +35,7 @@ export const useCartStore = defineStore("cart", {
         .catch((err) => console.log(err));
 
       this.getCartList(); // Update cart list to refresh data in the table
-      status.cartLoadingItem = "";
+      status.cartLoadingItem = '';
     },
     async deleteItem(itemId) {
       await apiDeleteCartItem(itemId)

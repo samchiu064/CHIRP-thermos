@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "pinia";
-import { useCartStore } from "@/stores/cartStore";
-import { statusStore } from "@/stores/statusStore";
-import StoreUserCartProductTable from "../components/StoreUserCartProductTable.vue";
+import { mapState, mapActions } from 'pinia';
+import { useCartStore } from '@/stores/cartStore';
+import statusStore from '@/stores/statusStore';
+import StoreUserCartProductTable from '../components/StoreUserCartProductTable.vue';
 
 export default {
   components: {
@@ -29,15 +29,15 @@ export default {
   // },
   data() {
     return {
-      status: { loadingItem: "" },
+      status: { loadingItem: '' },
     };
   },
   computed: {
-    ...mapState(useCartStore, ["cart"]),
-    ...mapState(statusStore, ["isLoading"]),
+    ...mapState(useCartStore, ['cart']),
+    ...mapState(statusStore, ['isLoading']),
   },
   methods: {
-    ...mapActions(useCartStore, ["getCartList", "increaseItem", "decreaseItem", "deleteItem"]),
+    ...mapActions(useCartStore, ['getCartList', 'increaseItem', 'decreaseItem', 'deleteItem']),
   },
   created() {
     this.getCartList();

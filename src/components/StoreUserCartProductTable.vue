@@ -38,7 +38,7 @@
           <StoreInputProductQuantity
             v-if="cartLoadingItem !== item.id"
             :qty="item.qty"
-            :id="item.id"
+            :itemId="item.id"
             @updateItem="updateCartItem"
           />
           <div
@@ -73,7 +73,7 @@
 <script>
 import { mapState, mapActions } from "pinia";
 import { useCartStore } from "@/stores/cartStore";
-import { statusStore } from "@/stores/statusStore";
+import statusStore from "@/stores/statusStore";
 import StoreInputProductQuantity from "./StoreInputProductQuantity.vue";
 
 export default {
@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       tempItem: [],
-      status: { isloading: false },
+      // status: { isloading: false },
     };
   },
   computed: {
@@ -97,9 +97,9 @@ export default {
     ...mapState(statusStore, ["cartLoadingItem"]),
   },
   methods: {
-    updateCartItem({ id, qty }) {
-      console.log(id, qty);
-      this.updateItem({ id, qty });
+    updateCartItem({ itemId, qty }) {
+      console.log(itemId, qty);
+      this.updateItem({ itemId, qty });
       this.getCartList();
     },
     deleteCartItem(itemId) {

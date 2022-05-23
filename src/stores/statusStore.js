@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const statusStore = defineStore({
+export default defineStore("statusStore", {
   state: () => ({
     isLoading: false,
     cartLoadingItem: "",

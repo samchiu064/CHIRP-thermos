@@ -2,7 +2,7 @@
   <button
     class="btn bi bi-dash fs-3 text-black-50"
     :disabled="this.unit === 0"
-    @click="$emit('updateItem', { qty: qty - 1, id })"
+    @click="$emit('updateItem', { qty: qty - 1, itemId })"
   ></button>
   <label for="qty" class="w-25 align-middle">
     <input
@@ -18,7 +18,7 @@
   <button
     class="btn bi bi-plus fs-3 text-black-50"
     :disabled="this.unit === 0"
-    @click="$emit('updateItem', { qty: qty + 1, id })"
+    @click="$emit('updateItem', { qty: qty + 1, itemId })"
   ></button>
 </template>
 
@@ -33,7 +33,7 @@ export default {
       type: Number,
       default: 1,
     },
-    id: {
+    itemId: {
       type: String,
       default: "",
     },
