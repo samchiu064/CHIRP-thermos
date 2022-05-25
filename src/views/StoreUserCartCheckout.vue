@@ -9,7 +9,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <StoreUserCartProductTable :cart="cart" :readonly="true" />
+        <StoreUserCartProductTable :cart="cart" :isSummary="true" />
       </div>
     </div>
     <div class="row">
@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import StoreUserCartProductTable from "../components/StoreUserCartProductTable.vue";
-import StoreUserCartDeliveryInfo from "../components/StoreUserCartDeliveryInfo.vue";
+import StoreUserCartProductTable from '../components/StoreUserCartProductTable.vue';
+import StoreUserCartDeliveryInfo from '../components/StoreUserCartDeliveryInfo.vue';
 
 export default {
   components: {

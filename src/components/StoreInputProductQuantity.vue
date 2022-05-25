@@ -1,7 +1,7 @@
 <template>
   <button
     class="btn bi bi-dash fs-3 text-black-50"
-    :disabled="this.unit === 0"
+    :disabled="unit === 0 || cartDeleteItem === itemId"
     @click="$emit('updateItem', { qty: qty - 1, itemId })"
   ></button>
   <label for="qty" class="w-25 align-middle">
@@ -10,19 +10,22 @@
       class="rounded form-control text-center w-100 text-black-50"
       id="qty"
       min="1"
-      :disabled="this.unit === 0"
-      :value="this.qty"
-      @input="$emit('update:value', Number($event.target.value))"
+      :disabled="unit === 0 || cartDeleteItem === itemId"
+      :value="qty"
+      @focusout="$emit('update:value', Number($event.target.value))"
     />
   </label>
   <button
     class="btn bi bi-plus fs-3 text-black-50"
-    :disabled="this.unit === 0"
+    :disabled="unit === 0 || cartDeleteItem === itemId"
     @click="$emit('updateItem', { qty: qty + 1, itemId })"
   ></button>
 </template>
 
 <script>
+import statusStore from '@/stores/statusStore';
+import { mapState } from 'pinia';
+
 export default {
   props: {
     unit: {
@@ -35,10 +38,13 @@ export default {
     },
     itemId: {
       type: String,
-      default: "",
+      default: '',
     },
   },
-  emits: ["updateItem", "update:value"],
+  emits: ['updateItem', 'update:value'],
+  computed: {
+    ...mapState(statusStore, ['cartDeleteItem']),
+  },
 };
 </script>
 
@@ -51,7 +57,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 </style>

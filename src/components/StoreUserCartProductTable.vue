@@ -5,14 +5,18 @@
         <th class="fw-normal" scope="col">商品資訊</th>
         <th class="d-none d-md-table-cell fw-normal" scope="col">商品價格</th>
         <th class="d-none d-md-table-cell fw-normal" scope="col" width="180">數量</th>
-        <th v-if="!readonly" class="d-none d-md-table-cell fw-normal" scope="col">變更明細</th>
-        <th v-if="readonly" class="d-none d-md-table-cell fw-normal" scope="col">小計</th>
+        <th v-if="!isSummary" class="d-none d-md-table-cell fw-normal" scope="col">變更明細</th>
+        <th v-if="isSummary" class="d-none d-md-table-cell fw-normal" scope="col">小計</th>
       </tr>
     </thead>
     <tbody>
       <tr
         v-for="(item, index) in cart.carts"
         :key="item + index"
+        :class="{
+          'td-deleted': cartDeleteItem === item.id,
+          'text-muted': cartDeleteItem === item.id,
+        }"
         class="d-flex d-sm-table-row table-row--divider-light flex-wrap justify-content-center m-2"
       >
         <td class="col-12 col-md-auto text-center text-md-start">
@@ -33,13 +37,14 @@
             </figcaption>
           </figure>
         </td>
-        <td class="col-12 col-md-auto p-0">NT$ {{ item.product.price.toLocaleString("en-us") }}</td>
+        <td class="col-12 col-md-auto p-0">NT$ {{ item.product.price.toLocaleString('en-us') }}</td>
         <td class="col-12 col-md-auto p-0">
           <StoreInputProductQuantity
             v-if="cartLoadingItem !== item.id"
             :qty="item.qty"
             :itemId="item.id"
             @updateItem="updateCartItem"
+            @update:value="(newValue) => updateCartItem({ itemId: item.id, qty: newValue })"
           />
           <div
             v-if="cartLoadingItem === item.id"
@@ -49,13 +54,25 @@
             <span class="visually-hidden">Loading...</span>
           </div>
         </td>
-        <td class="col-12 col-md-auto p-0" v-if="!readonly">
-          <button type="button" class="btn bi bi-trash" @click="deleteItem(item.id)"></button>
+        <td class="col-12 col-md-auto p-0" v-if="!isSummary">
+          <button
+            v-if="cartDeleteItem !== item.id"
+            type="button"
+            class="btn bi bi-trash"
+            @click="deleteItem(item.id)"
+          ></button>
+          <div
+            v-if="cartDeleteItem === item.id"
+            class="spinner-border spinner-border-sm align-middle"
+            role="status"
+          >
+            <span class="visually-hidden">Loading...</span>
+          </div>
         </td>
-        <td v-if="readonly" class="col-12 col-md-auto">NT$ 600</td>
+        <td v-if="isSummary" class="col-12 col-md-auto">NT$ 600</td>
       </tr>
     </tbody>
-    <tfoot v-if="readonly" class="border-top">
+    <tfoot v-if="isSummary" class="border-top">
       <tr>
         <td colspan="4" class="text-end fw-medium">
           折扣<span class="fw-medium ps-3">- NT$ 240元</span>
@@ -71,17 +88,17 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "pinia";
-import { useCartStore } from "@/stores/cartStore";
-import statusStore from "@/stores/statusStore";
-import StoreInputProductQuantity from "./StoreInputProductQuantity.vue";
+import { mapState, mapActions } from 'pinia';
+import { useCartStore } from '@/stores/cartStore';
+import statusStore from '@/stores/statusStore';
+import StoreInputProductQuantity from './StoreInputProductQuantity.vue';
 
 export default {
   components: {
     StoreInputProductQuantity,
   },
   props: {
-    readonly: {
+    isSummary: {
       type: Boolean,
       default: false,
     },
@@ -93,19 +110,19 @@ export default {
     };
   },
   computed: {
-    ...mapState(useCartStore, ["cart"]),
-    ...mapState(statusStore, ["cartLoadingItem"]),
+    ...mapState(useCartStore, ['cart']),
+    ...mapState(statusStore, ['cartLoadingItem', 'cartDeleteItem']),
   },
   methods: {
     updateCartItem({ itemId, qty }) {
-      console.log(itemId, qty);
       this.updateItem({ itemId, qty });
       this.getCartList();
     },
     deleteCartItem(itemId) {
-      this.$emit("deleteItem", itemId);
+      this.deleteItem(itemId);
+      this.getCartList();
     },
-    ...mapActions(useCartStore, ["getCartList", "updateItem", "deleteItem"]),
+    ...mapActions(useCartStore, ['getCartList', 'updateItem', 'deleteItem']),
   },
   created() {
     this.getCartList();
@@ -127,5 +144,8 @@ export default {
   @media (max-width: 576px) {
     max-height: 50vw;
   }
+}
+.td-deleted {
+  background-color: #e9ecef;
 }
 </style>

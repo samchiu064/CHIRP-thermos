@@ -49,16 +49,6 @@ export default {
           }
         })
         .catch((error) => console.log(error));
-      // return this.$http
-      //   .get(
-      //     `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products`,
-      //   )
-      //   .then((res) => {
-      //     if (res.data.success) {
-      //       this.origin = res.data.products; // Save origin data
-      //     }
-      //   })
-      //   .catch((error) => console.log(error));
     },
     $_fetchDataMixin_filterCategory(categoryName) {
       this.products = this.origin.filter((item) => item.category === categoryName);
