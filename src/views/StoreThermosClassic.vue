@@ -1,25 +1,20 @@
 <template>
   <main class="container-fluid vh-100 position-sticky top-0 bg--thermos">
     <section
-      v-for="(item, index) in products"
+      v-for="(item, index) in thermos"
       :key="index"
       class="row overflow-hidden position-absolute top-0 w-100 bg-light"
       style="z-index: 5"
       :style="{
         height: `${this.currentHeights[index]}px`,
-        'z-index': this.products.length - index,
+        'z-index': item.length - index,
       }"
     >
-      <article
-        class="col mt-9 text-classic-black flex-column d-none d-md-flex ps-0"
-      >
+      <article class="col mt-9 text-classic-black flex-column d-none d-md-flex ps-0">
         <div class="ms-auto ps-2">
           <div class="lh-sm d-flex">
-            <span
-              class="badge px-1 me-2"
-              :class="`bg-${this.products[index].engColor}`"
-            >
-              <span class="visually-hidden">{{ this.products.title }}</span>
+            <span class="badge px-1 me-2" :class="item.engColor">
+              <span class="visually-hidden">{{ item.title }}</span>
             </span>
             <h2>
               <span class="d-block">第一行文字字</span>
@@ -33,15 +28,13 @@
             <span class="d-block">散他有年演那臺麼子。</span>
           </p>
           <span class="text-muted" style="max-width: 90%">
-            <span class="d-inline d-lg-block"
-              >※黑空確，友市才部這的我的你是友流子去班終以</span
-            >
+            <span class="d-inline d-lg-block">※黑空確，友市才部這的我的你是友流子去班終以</span>
             <span class="d-inline d-lg-block">主這道他好空灣為更</span>
           </span>
         </div>
         <img
-          :src="this.products[index].imagesUrl[1]"
-          :alt="this.products[index].title + '瓶身圖片'"
+          :src="item.imagesUrl[1]"
+          :alt="item.title + '瓶身圖片'"
           style="max-width: 20.8vw"
           class="img-fluid mt-auto align-self-start"
         />
@@ -49,15 +42,15 @@
       <article class="col-12 col-md-3 text-center vh-100">
         <figure class="figure d-flex flex-column justify-content-center h-100">
           <img
-            :src="this.products[index].imageUrl"
-            :alt="this.products[index].title + '產品圖片'"
+            :src="item.imageUrl"
+            :alt="item.title + '產品圖片'"
             class="figure-img img-fluid align-self-center mt-4"
           />
           <figcaption class="figure-caption">
             <router-link
               to="/thermos/classic/details"
               class="btn rounded-pill py-2 px-4 mt-3"
-              :class="`btn-outline-${this.products[index].engColor}`"
+              :class="`btn-outline-${item.engColor}`"
             >
               查看更多
             </router-link>
@@ -65,28 +58,17 @@
         </figure>
       </article>
       <article
-        class="
-          col
-          d-none d-md-flex
-          flex-column
-          align-items-end
-          mt-8
-          text-classic-black
-          pe-2
-        "
+        class="col d-none d-md-flex flex-column align-items-end mt-8 text-classic-black pe-2"
       >
         <img
-          :src="this.products[index].imagesUrl[0]"
-          :alt="this.products[index].title + '瓶蓋圖片'"
+          :src="item.imagesUrl[0]"
+          :alt="item.title + '瓶蓋圖片'"
           style="max-width: 12vw"
           class="img-fluid mx-auto"
         />
         <div class="ms-auto" dir="rtl">
           <div class="mt-9 lh-sm d-flex">
-            <span
-              class="badge py-4 px-1 ms-2"
-              :class="`bg-${this.products[index].engColor}`"
-            >
+            <span class="badge py-4 px-1 ms-2" :class="item.engColor">
               <span class="visually-hidden">胡克綠保溫瓶</span>
             </span>
             <h2>
@@ -95,9 +77,7 @@
             </h2>
           </div>
           <p>
-            <span class="d-inline d-lg-block"
-              >黑空確，友市才部這的我的你是友流子去班終以主</span
-            >
+            <span class="d-inline d-lg-block">黑空確，友市才部這的我的你是友流子去班終以主</span>
             <span class="d-inline d-lg-block">這道他好</span>
           </p>
           <span class="d-inline d-lg-block text-muted"
@@ -110,8 +90,8 @@
             ※最長可保溫24小時
           </figcaption>
           <img
-            :src="this.products[index].imagesUrl[2]"
-            :alt="this.products[index].title + '保溫效果圖片'"
+            :src="item.imagesUrl[2]"
+            :alt="item.title + '保溫效果圖片'"
             style="max-width: 10.5vw"
             class="figure-img rounded"
           />
@@ -125,6 +105,8 @@
 </template>
 
 <script>
+import { useProductStore } from '@/stores/productStore';
+import { mapState, mapActions } from 'pinia';
 import fetchDataMixin from '../mixins/fetchDataMixin';
 import StoreNavbarFullscreenArticle from '../components/StoreNavbarFullscreenArticle.vue';
 
@@ -140,9 +122,12 @@ export default {
       innerHeight: 0,
     };
   },
+  computed: {
+    ...mapState(useProductStore, ['thermos']),
+  },
   methods: {
     revealSection() {
-      this.products.forEach((e, index) => {
+      this.thermos.forEach((e, index) => {
         this.currentHeights[index] = this.calcCurrentHeight(index);
       });
 
@@ -156,10 +141,7 @@ export default {
       */
       return Math.min(
         this.innerHeight,
-        Math.max(
-          0,
-          this.innerHeight - this.topVisible + this.innerHeight * order,
-        ),
+        Math.max(0, this.innerHeight - this.topVisible + this.innerHeight * order)
       );
     },
     async initData() {
@@ -169,9 +151,11 @@ export default {
       this.$_fetchDataMixin_addProperty('order');
       this.$_fetchDataMixin_sortProduct();
     },
+    ...mapActions(useProductStore, ['getProduct']),
   },
   created() {
-    this.initData();
+    // this.initData();
+    this.getProduct();
     this.innerHeight = window.innerHeight;
   },
   mounted() {

@@ -4,12 +4,30 @@ import { defineStore } from 'pinia';
 
 // const status = statusStore();
 
-export const useProductStore = defineStore({
+export const useProductStore = defineStore('product', {
   state: () => ({
     origin: [],
   }),
   getters: {
-    thermos: (state) => state.origin.filter((item) => item.category === 'thermos'),
+    thermos: (state) =>
+      state.origin
+        .filter((item) => item.category === 'thermos') // Type: Thermos
+        .map((item) => {
+          // Add properties 1.chtColor, 2. engColor
+          const chtColor = item.title.slice(item.title.indexOf('-') + 2, item.length);
+          const colorClassMap = {
+            胡克綠: 'classic-green',
+            灰玫紅: 'classic-red',
+            灰丁寧藍: 'classic-blue',
+          };
+          const engColor = colorClassMap[chtColor] ?? 'unassigned';
+          return {
+            ...item,
+            chtColor,
+            engColor,
+          };
+        })
+        .sort(() => -1),
   },
   actions: {
     async getProduct() {
