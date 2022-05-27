@@ -7,13 +7,13 @@
       style="z-index: 5"
       :style="{
         height: `${this.currentHeights[index]}px`,
-        'z-index': item.length - index,
+        'z-index': thermos.length - index,
       }"
     >
       <article class="col mt-9 text-classic-black flex-column d-none d-md-flex ps-0">
         <div class="ms-auto ps-2">
           <div class="lh-sm d-flex">
-            <span class="badge px-1 me-2" :class="item.engColor">
+            <span class="badge px-1 me-2" :class="`bg-${item.engColor}`">
               <span class="visually-hidden">{{ item.title }}</span>
             </span>
             <h2>
@@ -68,7 +68,7 @@
         />
         <div class="ms-auto" dir="rtl">
           <div class="mt-9 lh-sm d-flex">
-            <span class="badge py-4 px-1 ms-2" :class="item.engColor">
+            <span class="badge py-4 px-1 ms-2" :class="`bg-${item.engColor}`">
               <span class="visually-hidden">胡克綠保溫瓶</span>
             </span>
             <h2>
@@ -101,7 +101,7 @@
   </main>
   <section class="vh-100 p-0"></section>
   <section class="vh-100 p-0"></section>
-  <StoreNavbarFullscreenArticle :products="products" />
+  <StoreNavbarFullscreenArticle :products="thermos" />
 </template>
 
 <script>
@@ -130,7 +130,6 @@ export default {
       this.thermos.forEach((e, index) => {
         this.currentHeights[index] = this.calcCurrentHeight(index);
       });
-
       this.topVisible = document.documentElement.scrollTop;
     },
     calcCurrentHeight(order) {
@@ -143,13 +142,6 @@ export default {
         this.innerHeight,
         Math.max(0, this.innerHeight - this.topVisible + this.innerHeight * order)
       );
-    },
-    async initData() {
-      await this.$_fetchDataMixin_getProducts();
-      this.$_fetchDataMixin_filterCategory('thermos');
-      this.$_fetchDataMixin_addProperty('color');
-      this.$_fetchDataMixin_addProperty('order');
-      this.$_fetchDataMixin_sortProduct();
     },
     ...mapActions(useProductStore, ['getProduct']),
   },
