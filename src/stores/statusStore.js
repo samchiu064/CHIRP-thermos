@@ -4,6 +4,8 @@ export default defineStore('statusStore', {
   state: () => ({
     isLoading: false,
     cartLoadingItem: '',
-    cartDeleteItem: '',
+    cartDeletedItem: '',
+    couponIsApplied: false,
+    couponIsInvalid: false,
   }),
 });

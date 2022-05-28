@@ -40,7 +40,7 @@
             <li><a class="dropdown-item" href="#">Another action</a></li>
           </ul>
         </div> -->
-        <StoreHeaderMiniCart :cart="cart" @getCartList="getCartList" />
+        <StoreHeaderMiniCart />
       </div>
     </nav>
     <nav class="bg-dark collapse text-center" id="navbar__mobile-content">
@@ -55,19 +55,12 @@
 </template>
 
 <script>
-import StoreHeaderMiniCart from "./StoreHeaderMiniCart.vue";
+import StoreHeaderMiniCart from './StoreHeaderMiniCart.vue';
 
 export default {
   components: {
     StoreHeaderMiniCart,
   },
-  props: {
-    cart: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  emits: ["getCartList"],
   data() {
     return {
       isActive: false,
@@ -75,17 +68,14 @@ export default {
   },
   computed: {
     positionType() {
-      if (this.$route.name === "home") return "position-fixed";
-      if (this.$route.name === "thermosClassic") return "position-fixed";
-      return "position-relative";
+      if (this.$route.name === 'home') return 'position-fixed';
+      if (this.$route.name === 'thermosClassic') return 'position-fixed';
+      return 'position-relative';
     },
   },
   methods: {
     toggleHamburger() {
       this.isActive = !this.isActive;
-    },
-    getCartList() {
-      this.$emit("getCartList");
     },
   },
   mounted() {

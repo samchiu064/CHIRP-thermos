@@ -27,7 +27,7 @@ export const useProductStore = defineStore('product', {
             engColor,
           };
         })
-        .sort(() => -1),
+        .sort((a, b) => b.num - a.num),
   },
   actions: {
     async getProduct() {

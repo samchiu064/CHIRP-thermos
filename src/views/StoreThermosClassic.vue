@@ -107,14 +107,12 @@
 <script>
 import { useProductStore } from '@/stores/productStore';
 import { mapState, mapActions } from 'pinia';
-import fetchDataMixin from '../mixins/fetchDataMixin';
 import StoreNavbarFullscreenArticle from '../components/StoreNavbarFullscreenArticle.vue';
 
 export default {
   components: {
     StoreNavbarFullscreenArticle,
   },
-  mixins: [fetchDataMixin],
   data() {
     return {
       currentHeights: [],
@@ -146,7 +144,6 @@ export default {
     ...mapActions(useProductStore, ['getProduct']),
   },
   created() {
-    // this.initData();
     this.getProduct();
     this.innerHeight = window.innerHeight;
   },

@@ -1,7 +1,7 @@
 <template>
   <button
     class="btn bi bi-dash fs-3 text-black-50"
-    :disabled="unit === 0 || cartDeleteItem === itemId"
+    :disabled="unit === 0 || cartDeletedItem === itemId"
     @click="$emit('updateItem', { qty: qty - 1, itemId })"
   ></button>
   <label for="qty" class="w-25 align-middle">
@@ -10,20 +10,21 @@
       class="rounded form-control text-center w-100 text-black-50"
       id="qty"
       min="1"
-      :disabled="unit === 0 || cartDeleteItem === itemId"
+      :disabled="unit === 0 || cartDeletedItem === itemId"
       :value="qty"
       @focusout="$emit('update:value', Number($event.target.value))"
     />
   </label>
   <button
     class="btn bi bi-plus fs-3 text-black-50"
-    :disabled="unit === 0 || cartDeleteItem === itemId"
+    :disabled="unit === 0 || cartDeletedItem === itemId"
     @click="$emit('updateItem', { qty: qty + 1, itemId })"
   ></button>
 </template>
 
 <script>
 import statusStore from '@/stores/statusStore';
+// import { useCartStore } from '@/stores/cartStore';
 import { mapState } from 'pinia';
 
 export default {
@@ -38,12 +39,12 @@ export default {
     },
     itemId: {
       type: String,
-      default: '',
+      default: 'defaultId',
     },
   },
   emits: ['updateItem', 'update:value'],
   computed: {
-    ...mapState(statusStore, ['cartDeleteItem']),
+    ...mapState(statusStore, ['cartDeletedItem']),
   },
 };
 </script>

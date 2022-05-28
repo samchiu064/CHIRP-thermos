@@ -5,8 +5,8 @@
         <Transition mode="out-in">
           <div class="text-center d-flex align-items-center justify-content-center">
             <img
-              :src="this.tempProduct.imageUrl"
-              :key="this.tempProduct.id"
+              :src="tempProduct.imageUrl"
+              :key="tempProduct.id"
               alt="保溫瓶圖片"
               class="img-box"
             />
@@ -15,31 +15,25 @@
       </div>
       <div class="col">
         <div class="text-center text-md-start m-auto mx-md-0">
-          <h2 class="mt-2 mt-md-0">{{ this.tempProduct.title }}</h2>
+          <h2 class="mt-2 mt-md-0">{{ tempProduct.title }}</h2>
           <h3 style="display: none">價格</h3>
-          <span class="fs-3 fw-bold"
-            >NT ${{ this.tempProduct.price?.toLocaleString("en-us") }}</span
-          >
+          <span class="fs-3 fw-bold">NT ${{ tempProduct.price?.toLocaleString('en-us') }}</span>
           <p class="mt-3 mb-4">
-            {{ this.tempProduct.description }}
+            {{ tempProduct.description }}
           </p>
         </div>
 
         <div>
           <h3 class="fs-6 fw-bold">顏色</h3>
           <ul class="nav">
-            <li
-              v-for="(item, index) in products"
-              :key="index"
-              class="nav-item m-3 mb-1 text-center"
-            >
+            <li v-for="(item, index) in thermos" :key="index" class="nav-item m-3 mb-1 text-center">
               <button
                 type="button"
                 class="btn bg-classic-green p-3 rounded-circle d-inline-block"
-                :class="`bg-${this.products[index].engColor}`"
+                :class="`bg-${item.engColor}`"
                 @click.prevent="switchProduct(item)"
               ></button>
-              <p class="mt-1">{{ this.products[index].chtColor }}</p>
+              <p class="mt-1">{{ item.chtColor }}</p>
             </li>
           </ul>
         </div>
@@ -55,15 +49,14 @@
         <div class="mt-3">
           <h3 class="fs-6 fw-bold">數量</h3>
           <StoreInputProductQuantity
-            :unit="this.tempProduct.unit"
-            :qty="this.tempProduct.qty"
-            @decreaseQty="decreaseQty"
-            @increaseQty="increaseQty"
-            @update:value="(newValue) => (this.tempProduct.qty = newValue)"
+            :unit="Number(tempProduct.unit)"
+            :qty="tempProduct.qty"
+            @updateItem="updateItem"
+            @update:value="(newValue) => (tempProduct.qty = newValue)"
           />
 
-          <span v-if="this.tempProduct.unit" class="align-middle">庫存充足</span>
-          <span v-else-if="this.tempProduct.unit === 0" class="align-middle">庫存不足</span>
+          <span v-if="tempProduct.unit" class="align-middle">庫存充足</span>
+          <span v-else-if="tempProduct.unit === 0" class="align-middle">庫存不足</span>
         </div>
         <div class="mt-4 mb-5 text-center text-md-start">
           <button type="button" class="btn btn-outline-secondary rounded-pill w-45 py-2">
@@ -72,11 +65,11 @@
           <button
             type="button"
             class="btn btn-dark rounded-pill w-45 ms-4 py-2"
-            :disabled="this.status.loadingItem === this.tempProduct.id"
-            @click="addToCart(this.tempProduct.id, this.tempProduct.qty)"
+            :disabled="cartLoadingItem === tempProduct.id"
+            @click="addCartItem(tempProduct.id, tempProduct.qty)"
           >
             <div
-              v-if="this.status.loadingItem === this.tempProduct.id"
+              v-if="cartLoadingItem === tempProduct.id"
               class="spinner-border spinner-border-sm text-light"
               role="status"
             >
@@ -141,67 +134,42 @@
 </template>
 
 <script>
-import { apiPostCartItem } from "@/api/client";
-import StoreTabsProductDetail from "@/components/StoreTabsProductDetail.vue";
-import StoreInputProductQuantity from "../components/StoreInputProductQuantity.vue";
-import fetchDataMixin from "../mixins/fetchDataMixin";
+import { mapState, mapActions } from 'pinia';
+import { useProductStore } from '@/stores/productStore';
+import { useCartStore } from '@/stores/cartStore';
+import statusStore from '@/stores/statusStore';
+import StoreTabsProductDetail from '@/components/StoreTabsProductDetail.vue';
+import StoreInputProductQuantity from '../components/StoreInputProductQuantity.vue';
 
 export default {
   components: {
     StoreInputProductQuantity,
     StoreTabsProductDetail,
   },
-  mixins: [fetchDataMixin],
-  emits: ["getCartList"],
   data() {
     return {
-      tempProduct: {
-        qty: 1,
-      },
-      status: { loadingItem: "", isLoading: false },
+      tempProduct: {},
     };
   },
-  methods: {
-    async initData() {
-      await this.$_fetchDataMixin_getProducts();
-      this.$_fetchDataMixin_filterCategory("thermos");
-      this.$_fetchDataMixin_addProperty("color");
-      this.$_fetchDataMixin_addProperty("order");
-      this.$_fetchDataMixin_sortProduct();
-      this.switchProduct(this.products[0]);
-    },
-    switchProduct(item) {
-      this.tempProduct.title = item.title;
-      this.tempProduct.imageUrl = item.imageUrl;
-      this.tempProduct.id = item.id;
-      this.tempProduct.description = item.description;
-      this.tempProduct.price = item.price;
-      this.tempProduct.unit = Number(item.unit); // Origin type: String
-    },
-    increaseQty() {
-      this.tempProduct.qty += 1;
-    },
-    decreaseQty() {
-      if (this.tempProduct.qty <= 1) return;
-      this.tempProduct.qty -= 1;
-    },
-    async addToCart(productId, qty) {
-      this.status.loadingItem = productId;
-      await apiPostCartItem({ data: { product_id: productId, qty } })
-        .then((res) => {
-          this.status.loadingItem = "";
-          console.log(res);
-        })
-        .catch((res) => console.log(res));
-
-      this.getCartList();
-    },
-    getCartList() {
-      this.$emit("getCartList"); // Refresh cart list
-    },
+  computed: {
+    ...mapState(useProductStore, ['thermos']),
+    ...mapState(statusStore, ['cartLoadingItem']),
   },
-  created() {
-    this.initData();
+  methods: {
+    switchProduct(item) {
+      this.tempProduct = { ...item, qty: 1 };
+    },
+    updateItem({ qty }) {
+      const productQty = qty <= 0 ? 1 : qty;
+      this.tempProduct.qty = productQty;
+    },
+    ...mapActions(useProductStore, ['getProduct']),
+    ...mapActions(useCartStore, ['addCartItem']),
+  },
+  async created() {
+    await this.getProduct();
+    // [this.tempProduct] = this.thermos; // init tempProduct
+    this.tempProduct = { ...this.thermos[0], qty: 1 };
   },
 };
 </script>

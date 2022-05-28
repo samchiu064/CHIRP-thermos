@@ -14,8 +14,8 @@
         v-for="(item, index) in cart.carts"
         :key="item + index"
         :class="{
-          'td-deleted': cartDeleteItem === item.id,
-          'text-muted': cartDeleteItem === item.id,
+          'td-deleted': cartDeletedItem === item.id,
+          'text-muted': cartDeletedItem === item.id,
         }"
         class="d-flex d-sm-table-row table-row--divider-light flex-wrap justify-content-center m-2"
       >
@@ -56,13 +56,13 @@
         </td>
         <td class="col-12 col-md-auto p-0" v-if="!isSummary">
           <button
-            v-if="cartDeleteItem !== item.id"
+            v-if="cartDeletedItem !== item.id"
             type="button"
             class="btn bi bi-trash"
-            @click="deleteItem(item.id)"
+            @click="deleteCartItem(item.id)"
           ></button>
           <div
-            v-if="cartDeleteItem === item.id"
+            v-if="cartDeletedItem === item.id"
             class="spinner-border spinner-border-sm align-middle"
             role="status"
           >
@@ -106,23 +106,23 @@ export default {
   data() {
     return {
       tempItem: [],
-      // status: { isloading: false },
     };
   },
   computed: {
     ...mapState(useCartStore, ['cart']),
-    ...mapState(statusStore, ['cartLoadingItem', 'cartDeleteItem']),
+    ...mapState(statusStore, ['cartLoadingItem', 'cartDeletedItem']),
   },
   methods: {
     updateCartItem({ itemId, qty }) {
-      this.updateItem({ itemId, qty });
+      console.log(123);
+      this.updateCartItem({ itemId, qty });
       this.getCartList();
     },
     deleteCartItem(itemId) {
-      this.deleteItem(itemId);
+      this.deleteCartItem(itemId);
       this.getCartList();
     },
-    ...mapActions(useCartStore, ['getCartList', 'updateItem', 'deleteItem']),
+    ...mapActions(useCartStore, ['getCartList', 'updateCartItem', 'deleteCartItem']),
   },
   created() {
     this.getCartList();

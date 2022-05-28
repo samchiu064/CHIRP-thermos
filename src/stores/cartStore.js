@@ -1,4 +1,4 @@
-import { apiGetCartList, apiPutCartItem, apiDeleteCartItem } from '@/api/client';
+import { apiGetCartList, apiPostCartItem, apiPutCartItem, apiDeleteCartItem } from '@/api/client';
 import { defineStore } from 'pinia';
 import statusStore from './statusStore';
 
@@ -24,7 +24,18 @@ export const useCartStore = defineStore('cart', {
         });
       status.isLoading = false;
     },
-    async updateItem({ itemId, qty }) {
+    async addCartItem(productId, qty) {
+      status.cartLoadingItem = productId;
+      await apiPostCartItem({ data: { product_id: productId, qty } })
+        .then((res) => {
+          status.cartLoadingItem = '';
+          console.log(res);
+        })
+        .catch((res) => console.log(res));
+
+      this.getCartList();
+    },
+    async updateCartItem({ itemId, qty }) {
       const newQty = qty <= 0 ? 1 : qty; // CartItem qty should be either 1 or more than 1
 
       status.cartLoadingItem = itemId;
@@ -37,15 +48,15 @@ export const useCartStore = defineStore('cart', {
       this.getCartList(); // Update cart list to refresh data in the table
       status.cartLoadingItem = '';
     },
-    async deleteItem(itemId) {
-      status.cartDeleteItem = itemId;
+    async deleteCartItem(itemId) {
+      status.cartDeletedItem = itemId;
       await apiDeleteCartItem(itemId)
         .then((res) => {
           console.log(res);
         })
         .catch((err) => console.log(err));
       this.getCartList(); // Update cart list to refresh data in the table
-      status.cartDeleteItem = '';
+      status.cartDeletedItem = '';
     },
   },
 });

@@ -7,7 +7,7 @@
           class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
         >
           <h5 class="fs-6 m-0 fw-normal">小計</h5>
-          <p class="fs-6 m-0 fw-medium">NT ${{ cart.total?.toLocaleString("en-us") }}</p>
+          <p class="fs-6 m-0 fw-medium">NT ${{ cart.total?.toLocaleString('en-us') }}</p>
         </li>
         <li
           class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
@@ -52,14 +52,20 @@
                       placeholder="請輸入折扣碼"
                       aria-label="折扣碼輸入處"
                       v-model="couponCode"
-                      @click="() => (this.isInvalid = false)"
+                      @click="
+                        () => {
+                          (couponIsInvalid = false), (couponIsApplied = false);
+                        }
+                      "
                     />
                     <button type="button" class="btn btn-outline-secondary" @click="applyCoupon()">
                       套用
                     </button>
                   </li>
                 </ul>
-                <p v-if="isInvalid" class="text-danger fs-7 ps-3 m-0">無效的優惠券</p>
+                <p v-if="couponIsInvalid || couponIsApplied" class="text-danger fs-7 ps-3 m-0">
+                  {{ errorMessage }}
+                </p>
               </div>
             </div>
           </div>
@@ -68,13 +74,13 @@
           class="list-group-item d-flex justify-content-between align-items-center pt-3 px-0 mx-3 border-bottom-0"
         >
           <h5 class="fs-6 m-0">折扣</h5>
-          <p class="fs-6 m-0 fw-medium">NT$ {{ discount?.toLocaleString("en-us") }}</p>
+          <p class="fs-6 m-0 fw-medium">NT$ {{ discount?.toLocaleString('en-us') }}</p>
         </li>
         <li
           class="list-group-item d-flex justify-content-between align-items-center pb-3 px-0 mx-3 border-bottom-0"
         >
           <h5 class="fs-5 m-0 fw-bold">總計</h5>
-          <p class="fs-5 m-0 fw-bold">NT ${{ cart.final_total?.toLocaleString("en-us") }}</p>
+          <p class="fs-5 m-0 fw-bold">NT ${{ cart.final_total?.toLocaleString('en-us') }}</p>
         </li>
         <li
           class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
@@ -93,7 +99,9 @@
 </template>
 
 <script>
-import { apiPostCouponApply } from "@/api/client";
+import { useCouponStore } from '@/stores/couponStore';
+import statusStore from '@/stores/statusStore';
+import { mapActions, mapWritableState } from 'pinia';
 
 export default {
   props: {
@@ -107,33 +115,22 @@ export default {
     },
   },
   data() {
-    return {
-      couponCode: "",
-      couponList: [],
-      isInvalid: false,
-    };
+    return {};
   },
   computed: {
     discount() {
       return this.cart.final_total - this.cart.total;
     },
+    errorMessage() {
+      if (this.couponIsInvalid) return '無效的優惠券';
+      if (this.couponIsApplied) return '已套用的優惠券';
+      return '';
+    },
+    ...mapWritableState(useCouponStore, ['couponCode', 'couponList']),
+    ...mapWritableState(statusStore, ['couponIsApplied', 'couponIsInvalid']),
   },
   methods: {
-    async applyCoupon() {
-      const code = this.couponCode;
-      await apiPostCouponApply({ data: { code } })
-        .then((res) => {
-          if (res.data.success) {
-            if (this.couponList.includes(code)) return; // A code can be used once at a time
-            this.couponList.push(code);
-            this.couponCode = "";
-          } else {
-            this.isInvalid = true;
-          }
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
-    },
+    ...mapActions(useCouponStore, ['applyCoupon']),
   },
 };
 </script>

@@ -20,7 +20,7 @@
         <button
           type="button"
           class="btn btn-outline-secondary rounded-pill w-100 py-2"
-          @click="this.$router.push({ name: 'checkout' })"
+          @click="this.$router.push({ name: 'payment' })"
         >
           上一步
         </button>

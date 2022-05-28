@@ -2,9 +2,7 @@
   <div class="dropdown position-relative">
     <button id="cart" class="btn" type="button" @click="show = !show">
       <i class="bi bi-cart fs-4"></i>
-      <span
-        class="position-absolute top-28 start-75 translate-middle badge rounded-pill bg-danger"
-      >
+      <span class="position-absolute top-28 start-75 translate-middle badge rounded-pill bg-danger">
         {{ this.cart.carts?.length }}
         <span class="visually-hidden">unread messages</span>
       </span>
@@ -22,14 +20,15 @@
         <!-- card-item -->
         <div class="card border-0" style="max-width: 540px">
           <div
-            v-for="(item, index) in this.cart.carts"
+            v-for="(item, index) in cart.carts"
             :key="item + index"
             class="row g-0 align-items-center"
+            :class="{
+              'td-deleted': cartDeletedItem === item.id,
+              'text-muted': cartDeletedItem === item.id,
+            }"
           >
-            <div
-              class="col-5 border text-center"
-              style="max-width: 114px; max-height: 112px"
-            >
+            <div class="col-5 border text-center" style="max-width: 114px; max-height: 112px">
               <img
                 :src="item.product.imageUrl"
                 class="img-fluid p-2 rounded"
@@ -41,17 +40,15 @@
               <div class="card-body">
                 <h5 class="card-title fs-6">{{ item.product.title }}</h5>
                 <p class="card-text m-0">NT$ {{ item.product.price }}</p>
-                <span class="card-text align-middle">
-                  數量： {{ item.qty }}
-                </span>
+                <span class="card-text align-middle"> 數量： {{ item.qty }} </span>
                 <button
-                  v-if="this.status.loadingItem !== item.id"
+                  v-if="cartDeletedItem !== item.id"
                   type="button"
                   class="btn bi bi-trash float-end"
                   @click="deleteCartItem(item.id)"
                 ></button>
                 <div
-                  v-if="this.status.loadingItem === item.id"
+                  v-if="cartDeletedItem === item.id"
                   class="spinner-border spinner-border-sm text-dark float-end m-2"
                   role="status"
                 >
@@ -65,9 +62,7 @@
         <div class="row border-top">
           <div class="col-12 py-2 d-flex justify-content-between">
             <p>合計</p>
-            <p class="fw-medium">
-              NT$ {{ this.cart.total.toLocaleString('en-us') }}
-            </p>
+            <p class="fw-medium">NT$ {{ cart.total.toLocaleString('en-us') }}</p>
           </div>
           <div class="col-12">
             <div class="btn-group w-100">
@@ -90,37 +85,25 @@
 </template>
 
 <script>
-import { apiDeleteCartItem } from '@/api/client';
+import { useCartStore } from '@/stores/cartStore';
+import { mapState, mapActions } from 'pinia';
+import statusStore from '@/stores/statusStore';
 
 export default {
-  props: {
-    cart: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  emits: ['getCartList'],
   data() {
     return {
       show: false,
-      status: { loadingItem: '' },
     };
   },
+  computed: {
+    ...mapState(useCartStore, ['cart']),
+    ...mapState(statusStore, ['cartDeletedItem']),
+  },
   methods: {
-    async deleteCartItem(productId) {
-      this.status.loadingItem = productId;
-      await apiDeleteCartItem(productId)
-        .then((res) => {
-          this.status.loadingItem = '';
-          console.log(res);
-        })
-        .catch((res) => console.log(res));
-
-      this.getCartList();
-    },
-    getCartList() {
-      this.$emit('getCartList');
-    },
+    ...mapActions(useCartStore, ['getCartList', 'deleteCartItem']),
+  },
+  created() {
+    this.getCartList();
   },
 };
 </script>
@@ -129,6 +112,10 @@ export default {
 .dropdown-menu {
   left: auto;
   right: 0;
+}
+
+.td-deleted {
+  background-color: #e9ecef;
 }
 
 .v-enter-active,
