@@ -18,6 +18,16 @@ module.exports = {
         ignorePropertyModificationsFor: ['req', 'request', 'res', 'response'],
       },
     ],
-    // 'implicit-arrow-linebreak': 'off',
+    'vuejs-accessibility/label-has-for': [
+      'error',
+      {
+        components: ['VLabel'],
+        controlComponents: ['VInput', 'Field'],
+        required: {
+          every: ['nesting', 'id'],
+        },
+        allowChildren: false,
+      },
+    ],
   },
 };
