@@ -32,9 +32,9 @@ const routes = [
             component: () => import('../views/StoreUserCartHome.vue'),
           },
           {
-            path: 'payment',
-            name: 'payment',
-            component: () => import('../views/StoreUserCartPayment.vue'),
+            path: 'order',
+            name: 'order',
+            component: () => import('../views/StoreUserCartOrder.vue'),
           },
           {
             path: 'checkout',

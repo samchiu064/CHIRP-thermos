@@ -9,9 +9,7 @@ export const useCartStore = defineStore('cart', {
     cart: {},
     itemQty: 0,
   }),
-  getters: {
-    getUserName: (state) => `我的名字叫做${state.name}`,
-  },
+  getters: {},
   actions: {
     async getCartList() {
       status.isLoading = true;

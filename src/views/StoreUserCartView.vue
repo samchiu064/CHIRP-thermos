@@ -7,7 +7,7 @@
       />
     </div>
     <div class="row">
-      <router-view :cart="cart"></router-view>
+      <router-view></router-view>
       <StoreUserCartSpreadsheet
         v-if="this.$route.name !== 'checkout'"
         :cart="cart"
@@ -36,23 +36,23 @@ export default {
   },
   computed: {
     nextPage() {
-      if (this.$route.name === 'cart') return 'payment';
-      if (this.$route.name === 'payment') return 'checkout';
+      if (this.$route.name === 'cart') return 'order';
+      if (this.$route.name === 'order') return 'checkout';
       return 'cart';
     },
     progressPercent() {
       if (this.$route.name === 'cart') return 50;
-      if (this.$route.name === 'payment') return 100;
+      if (this.$route.name === 'order') return 100;
       if (this.$route.name === 'checkout') return 100;
       return 50;
     },
     enableStepsArray() {
       if (this.$route.name === 'cart') return [1];
-      if (this.$route.name === 'payment') return [1, 2];
+      if (this.$route.name === 'order') return [1, 2];
       if (this.$route.name === 'checkout') return [1, 2, 3];
       return [1];
     },
-    ...mapState(useCartStore, ['cart', 'getUserName']),
+    ...mapState(useCartStore, ['cart']),
   },
   methods: {
     ...mapActions(useCartStore, ['getCartList']),

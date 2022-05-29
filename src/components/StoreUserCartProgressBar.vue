@@ -31,7 +31,7 @@
           'btn-light': !enableStepsArray.includes(2),
         }"
         style="width: 2rem; height: 2rem"
-        @click="this.$router.push({ name: 'payment' })"
+        @click="this.$router.push({ name: 'order' })"
       >
         2
       </button>

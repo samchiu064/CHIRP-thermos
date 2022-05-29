@@ -5,65 +5,76 @@
       <label for="inputEmail4" class="form-label col-12 px-4 mb-3"
         >Email<i class="asterisk"></i>
         <Field
-          name="email"
+          name="Email欄位"
           type="email"
-          :rules="validateEmail"
+          rules="email"
           class="form-control mt-1"
           id="inputEmail4"
-          placeholder="請填入收件人Email"
-          required
+          placeholder="請填入寄件人Email"
+          v-model="form.user.email"
         />
-        <ErrorMessage name="email" class="text-danger fs-7 ps-2 m-0" />
+        <ErrorMessage name="Email欄位" class="text-danger fs-7 ps-2 m-0" />
       </label>
-      <label for="receiverName" class="form-label col-12 px-4 mb-3">
+      <label for="name" class="form-label col-12 px-4 mb-3">
         收件人名稱<i class="asterisk"></i>
         <Field
-          name="receiverName"
+          name="收件人名稱"
           type="text"
+          rules="max:10"
           class="form-control mt-1"
-          id="receiverName"
+          id="name"
           placeholder="請填入收件人名稱"
-          required
+          v-model="form.user.name"
         />
+        <ErrorMessage name="收件人名稱" class="text-danger fs-7 ps-2 m-0" />
       </label>
-      <label for="receiverPhone" class="form-label col-12 px-4 mb-3">
-        收件人連絡電話<i class="asterisk"></i>
+      <label for="tel" class="form-label col-12 px-4 mb-3">
+        收件人電話<i class="asterisk"></i>
         <Field
-          name="receiverPhone"
+          name="收件人電話"
           type="text"
+          rules="numeric|min:7|max:10"
           class="form-control mt-1"
-          id="receiverPhone"
+          id="tel"
           placeholder="請填入收件人電話"
-          required
+          v-model="form.user.tel"
         />
+        <ErrorMessage name="收件人電話" class="text-danger fs-7 ps-2 m-0" />
       </label>
-      <label for="receiverAddress" class="form-label col-12 px-4 mb-3">
+      <label for="address" class="form-label col-12 px-4 mb-3">
         收件人地址<i class="asterisk"></i>
         <Field
-          name="receiverAddress"
+          name="收件人地址"
           type="text"
+          rules="max:50"
           class="form-control mt-1"
-          id="receiverAddress"
+          id="address"
           placeholder="請填入收件人地址"
-          required
+          v-model="form.user.address"
         />
+        <ErrorMessage name="收件人地址" class="text-danger fs-7 ps-2 m-0" />
       </label>
-      <label for="payment" class="form-check-label col-12 px-4 mb-3">
-        付款方式<i class="asterisk"></i>
-        <div class="form-check mt-2 ms-3">
-          <Field
-            name="paymentMethods"
-            type="radio"
-            class="form-check-input"
-            id="payment"
-            required
-            checked
-          />貨到付款
-        </div>
+      <p class="form-check-label col-12 px-4 mb-1">付款方式<i class="asterisk"></i></p>
+      <label for="COD" class="form-check ms-4 mb-3">
+        <Field
+          name="付款方式"
+          type="radio"
+          rules="required"
+          class="form-check-input"
+          value="貨到付款"
+          id="COD"
+        />貨到付款
+        <ErrorMessage name="付款方式" class="text-danger fs-7 ps-2 m-0" />
       </label>
       <label for="note" class="form-label col-12 mt-2 px-4 mb-3">
         備註
-        <textarea class="form-control mt-1" id="note" placeholder="有什麼想告訴我們嗎？"></textarea>
+        <textarea
+          class="form-control mt-1"
+          id="note"
+          placeholder="有什麼想告訴我們嗎？"
+          maxlength="100"
+          v-model="form.message"
+        ></textarea>
       </label>
       <button type="submit">Submit</button>
     </Form>
@@ -71,13 +82,46 @@
 </template>
 
 <script>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate';
+import { email, required, numeric, min, max } from '@vee-validate/rules';
+import { localize, setLocale } from '@vee-validate/i18n';
+import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
+
+configure({
+  generateMessage: localize({
+    zhTW,
+  }),
+});
+
+setLocale('zhTW');
+
+defineRule('email', email);
+defineRule('required', required);
+defineRule('numeric', numeric);
+defineRule('min', min);
+defineRule('max', max);
+
+// setLocale('ar');
+// setLocale('zh_TW');
 
 export default {
   components: {
     Form,
     Field,
     ErrorMessage,
+  },
+  data() {
+    return {
+      form: {
+        user: {
+          name: '',
+          email: '',
+          tel: '',
+          address: '',
+        },
+        message: '',
+      },
+    };
   },
   methods: {
     onSubmit(values) {

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import StoreUserCartPaymentForm from "../components/StoreUserCartPaymentForm.vue";
+import StoreUserCartPaymentForm from '../components/StoreUserCartPaymentForm.vue';
 
 export default {
   props: {
