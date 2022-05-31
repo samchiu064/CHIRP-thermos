@@ -88,6 +88,7 @@
           <button
             type="button"
             class="btn btn-dark w-100 rounded-pill"
+            :class="{ disabled: !formIsValid && this.$route.name === 'order' }"
             @click="this.$router.push({ name: nextPage })"
           >
             下一步
@@ -112,6 +113,10 @@ export default {
     cart: {
       type: Object,
       default: () => {},
+    },
+    formIsValid: {
+      type: Boolean,
+      default: () => true,
     },
   },
   data() {

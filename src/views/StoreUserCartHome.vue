@@ -21,12 +21,6 @@ export default {
   components: {
     StoreUserCartProductTable,
   },
-  // props: {
-  //   cart: {
-  //     type: Object,
-  //     default: () => {},
-  //   },
-  // },
   data() {
     return {
       status: { loadingItem: '' },

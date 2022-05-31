@@ -9,7 +9,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <StoreUserCartProductTable :cart="cart" :isSummary="true" />
+        <StoreUserCartProductTable :isSummary="true" />
       </div>
     </div>
     <div class="row">
@@ -52,6 +52,7 @@ export default {
       isCreated: false,
     };
   },
+  methods: {},
 };
 </script>
 

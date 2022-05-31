@@ -7,11 +7,24 @@
       />
     </div>
     <div class="row">
-      <router-view></router-view>
+      <router-view
+        :emailValue="form.user.email"
+        :nameValue="form.user.name"
+        :telValue="form.user.tel"
+        :addressValue="form.user.address"
+        :messageValue="form.message"
+        @update:emailValue="(newValue) => (form.user.email = newValue)"
+        @update:nameValue="(newValue) => (form.user.name = newValue)"
+        @update:telValue="(newValue) => (form.user.tel = newValue)"
+        @update:addressValue="(newValue) => (form.user.address = newValue)"
+        @update:messageValue="(newValue) => (form.user.message = newValue)"
+        @validateForm="validateForm"
+      ></router-view>
       <StoreUserCartSpreadsheet
         v-if="this.$route.name !== 'checkout'"
         :cart="cart"
         :nextPage="nextPage"
+        :formIsValid="formIsValid"
       />
     </div>
   </main>
@@ -28,11 +41,19 @@ export default {
     StoreUserCartProgressBar,
     StoreUserCartSpreadsheet,
   },
-  props: {
-    // cart: {
-    //   type: Object,
-    //   default: () => {},
-    // },
+  data() {
+    return {
+      form: {
+        user: {
+          email: '',
+          name: '',
+          tel: '',
+          address: '',
+        },
+        message: '',
+      },
+      formIsValid: false,
+    };
   },
   computed: {
     nextPage() {
@@ -56,6 +77,9 @@ export default {
   },
   methods: {
     ...mapActions(useCartStore, ['getCartList']),
+    validateForm(result) {
+      this.formIsValid = result;
+    },
   },
   created() {
     console.log(this.$route);

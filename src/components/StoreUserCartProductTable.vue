@@ -45,7 +45,8 @@
             :itemId="item.id"
             @updateItem="updateCartItem"
             @update:value="(newValue) => updateCartItem({ itemId: item.id, qty: newValue })"
-          />
+          >
+          </StoreInputProductQuantity>
           <div
             v-if="cartLoadingItem === item.id"
             class="spinner-border spinner-border-sm"
@@ -114,7 +115,6 @@ export default {
   },
   methods: {
     updateCartItem({ itemId, qty }) {
-      console.log(123);
       this.updateCartItem({ itemId, qty });
       this.getCartList();
     },
