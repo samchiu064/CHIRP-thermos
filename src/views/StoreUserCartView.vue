@@ -22,7 +22,6 @@
       ></router-view>
       <StoreUserCartSpreadsheet
         v-if="this.$route.name !== 'checkout'"
-        :cart="cart"
         :nextPage="nextPage"
         :formIsValid="formIsValid"
       />

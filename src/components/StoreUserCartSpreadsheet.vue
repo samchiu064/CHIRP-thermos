@@ -101,18 +101,15 @@
 
 <script>
 import { useCouponStore } from '@/stores/couponStore';
-import statusStore from '@/stores/statusStore';
+import { useCartStore } from '@/stores/cartStore';
 import { mapActions, mapWritableState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 
 export default {
   props: {
     nextPage: {
       type: String,
       required: true,
-    },
-    cart: {
-      type: Object,
-      default: () => {},
     },
     formIsValid: {
       type: Boolean,
@@ -131,6 +128,7 @@ export default {
       if (this.couponIsApplied) return '已套用的優惠券';
       return '';
     },
+    ...mapWritableState(useCartStore, ['cart']),
     ...mapWritableState(useCouponStore, ['couponCode', 'couponList']),
     ...mapWritableState(statusStore, ['couponIsApplied', 'couponIsInvalid']),
   },

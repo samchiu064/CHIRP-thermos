@@ -1,7 +1,8 @@
 <template>
   <button
+    v-if="hasOperators"
     class="btn bi bi-dash fs-3 text-black-50"
-    :disabled="unit === 0 || cartDeletedItem === itemId"
+    :disabled="cartDeletedItem === itemId"
     @click="$emit('updateItem', { qty: qty - 1, itemId })"
   ></button>
   <label for="qty" class="w-25 align-middle">
@@ -10,14 +11,15 @@
       class="rounded form-control text-center w-100 text-black-50"
       id="qty"
       min="1"
-      :disabled="unit === 0 || cartDeletedItem === itemId"
+      :disabled="cartDeletedItem === itemId || !hasOperators"
       :value="qty"
       @focusout="$emit('update:value', Number($event.target.value))"
     />
   </label>
   <button
+    v-if="hasOperators"
     class="btn bi bi-plus fs-3 text-black-50"
-    :disabled="unit === 0 || cartDeletedItem === itemId"
+    :disabled="cartDeletedItem === itemId"
     @click="$emit('updateItem', { qty: qty + 1, itemId })"
   ></button>
 </template>
@@ -29,9 +31,9 @@ import { mapState } from 'pinia';
 
 export default {
   props: {
-    unit: {
-      type: Number,
-      default: 1,
+    hasOperators: {
+      type: Boolean,
+      default: true,
     },
     qty: {
       type: Number,

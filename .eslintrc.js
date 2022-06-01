@@ -22,7 +22,7 @@ module.exports = {
       'error',
       {
         components: ['VLabel'],
-        controlComponents: ['VInput', 'Field'],
+        controlComponents: ['VInput', 'VField'],
         required: {
           every: ['nesting', 'id'],
         },

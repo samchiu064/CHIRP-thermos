@@ -114,14 +114,6 @@ export default {
     ...mapState(statusStore, ['cartLoadingItem', 'cartDeletedItem']),
   },
   methods: {
-    updateCartItem({ itemId, qty }) {
-      this.updateCartItem({ itemId, qty });
-      this.getCartList();
-    },
-    deleteCartItem(itemId) {
-      this.deleteCartItem(itemId);
-      this.getCartList();
-    },
     ...mapActions(useCartStore, ['getCartList', 'updateCartItem', 'deleteCartItem']),
   },
   created() {
