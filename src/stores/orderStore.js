@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-// import { apiPostCouponApply } from '@/api/client';
+import { apiPostOrder } from '@/api/client';
 // import statusStore from './statusStore';
 
 // const status = statusStore();
@@ -15,7 +15,14 @@ export const useOrderStore = defineStore('order', {
       },
       message: '',
     },
+    payment: '',
   }),
   getters: {},
-  actions: {},
+  actions: {
+    async createOrder() {
+      await apiPostOrder({ data: this.form })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    },
+  },
 });

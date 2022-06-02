@@ -7,7 +7,7 @@
           class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
         >
           <h5 class="fs-6 m-0 fw-normal">小計</h5>
-          <p class="fs-6 m-0 fw-medium">NT ${{ cart.total?.toLocaleString('en-us') }}</p>
+          <p class="fs-6 m-0 fw-medium">{{ cart.total?.toLocaleString('en-us') }}</p>
         </li>
         <li
           class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
@@ -74,7 +74,7 @@
           class="list-group-item d-flex justify-content-between align-items-center pt-3 px-0 mx-3 border-bottom-0"
         >
           <h5 class="fs-6 m-0">折扣</h5>
-          <p class="fs-6 m-0 fw-medium">NT$ {{ discount?.toLocaleString('en-us') }}</p>
+          <p class="fs-6 m-0 fw-medium">{{ discount?.toLocaleString('en-us') }}</p>
         </li>
         <li
           class="list-group-item d-flex justify-content-between align-items-center pb-3 px-0 mx-3 border-bottom-0"
@@ -102,7 +102,7 @@
 <script>
 import { useCouponStore } from '@/stores/couponStore';
 import { useCartStore } from '@/stores/cartStore';
-import { mapActions, mapWritableState } from 'pinia';
+import { mapActions, mapState, mapWritableState } from 'pinia';
 import statusStore from '@/stores/statusStore';
 
 export default {
@@ -120,14 +120,12 @@ export default {
     return {};
   },
   computed: {
-    discount() {
-      return this.cart.final_total - this.cart.total;
-    },
     errorMessage() {
       if (this.couponIsInvalid) return '無效的優惠券';
       if (this.couponIsApplied) return '已套用的優惠券';
       return '';
     },
+    ...mapState(useCartStore, ['discount']),
     ...mapWritableState(useCartStore, ['cart']),
     ...mapWritableState(useCouponStore, ['couponCode', 'couponList']),
     ...mapWritableState(statusStore, ['couponIsApplied', 'couponIsInvalid']),

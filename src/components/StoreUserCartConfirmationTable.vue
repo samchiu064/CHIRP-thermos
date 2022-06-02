@@ -9,23 +9,23 @@
       <tbody>
         <tr>
           <th>Email</th>
-          <td>samchiu064@gmail.com</td>
+          <td>{{ form.user.email }}</td>
         </tr>
         <tr>
           <th>收件人名稱</th>
-          <td>收件人</td>
+          <td>{{ form.user.name }}</td>
         </tr>
         <tr>
           <th>收件人聯絡電話</th>
-          <td>0974123567</td>
+          <td>{{ form.user.tel }}</td>
         </tr>
         <tr>
           <th>收件人地址</th>
-          <td>桃園市桃園區1號</td>
+          <td>{{ form.user.address }}</td>
         </tr>
         <tr>
           <th>備註</th>
-          <td></td>
+          <td>{{ form.message }}</td>
         </tr>
         <tr>
           <th>付款狀態</th>
@@ -37,7 +37,14 @@
 </template>
 
 <script>
-export default {};
+import { useOrderStore } from '@/stores/orderStore';
+import { mapState } from 'pinia';
+
+export default {
+  computed: {
+    ...mapState(useOrderStore, ['form']),
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>

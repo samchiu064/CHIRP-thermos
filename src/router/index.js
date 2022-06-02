@@ -29,17 +29,25 @@ const routes = [
           {
             path: '',
             name: 'cart',
-            component: () => import('../views/StoreUserCartHome.vue'),
+            components: {
+              productTable: () => import('@/components/StoreUserCartProductTable.vue'),
+              spreadSheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
+            },
           },
           {
             path: 'order',
             name: 'order',
-            component: () => import('../views/StoreUserCartOrder.vue'),
+            components: {
+              orderForm: () => import('@/components/StoreUserCartOrderForm.vue'),
+              spreadSheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
+            },
           },
           {
             path: 'checkout',
             name: 'checkout',
-            component: () => import('../views/StoreUserCartCheckout.vue'),
+            components: {
+              checkout: () => import('../views/StoreUserCartCheckout.vue'),
+            },
           },
         ],
       },

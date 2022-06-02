@@ -9,7 +9,11 @@ export const useCartStore = defineStore('cart', {
     cart: {},
     itemQty: 0,
   }),
-  getters: {},
+  getters: {
+    discount() {
+      return this.cart.total - this.cart.final_total;
+    },
+  },
   actions: {
     async getCartList() {
       status.isLoading = true;

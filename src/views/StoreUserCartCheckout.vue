@@ -13,7 +13,9 @@
       </div>
     </div>
     <div class="row">
-      <div class="col"><StoreUserCartDeliveryInfo /></div>
+      <div class="col">
+        <StoreUserCartConfirmationTable />
+      </div>
     </div>
     <div v-if="!isCreated" class="row justify-content-center mt-3">
       <div class="col-6 col-lg-3">
@@ -34,12 +36,12 @@
 
 <script>
 import StoreUserCartProductTable from '../components/StoreUserCartProductTable.vue';
-import StoreUserCartDeliveryInfo from '../components/StoreUserCartDeliveryInfo.vue';
+import StoreUserCartConfirmationTable from '../components/StoreUserCartConfirmationTable.vue';
 
 export default {
   components: {
     StoreUserCartProductTable,
-    StoreUserCartDeliveryInfo,
+    StoreUserCartConfirmationTable,
   },
   props: {
     cart: {
@@ -52,7 +54,12 @@ export default {
       isCreated: false,
     };
   },
-  methods: {},
+  methods: {
+    onSubmit(values) {
+      console.log(values);
+      this.$refs.orderForm.submit();
+    },
+  },
 };
 </script>
 

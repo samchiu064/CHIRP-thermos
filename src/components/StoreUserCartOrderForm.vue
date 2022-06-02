@@ -1,6 +1,6 @@
 <template>
-  <div class="col-12 col-lg-8">
-    <VForm ref="orderForm" class="border mb-3" @submit="onSubmit" v-slot="{ meta }">
+  <div>
+    <VForm class="border mb-3" v-slot="{ meta }">
       <div @change="$emit('validateForm', meta.valid)" @blur="$emit('validateForm', meta.valid)">
         <h4 class="fs-6 py-2 bg-light text-center border-bottom">訂單資訊</h4>
         <label for="email" class="form-label col-12 px-4 mb-3"
@@ -64,6 +64,7 @@
             class="form-check-input"
             value="貨到付款"
             id="COD"
+            v-model="payment"
           />貨到付款
           <ErrorMessage name="付款方式" class="text-danger fs-7 ps-2 m-0" />
         </label>
@@ -77,7 +78,6 @@
             v-model="form.message"
           ></textarea>
         </label>
-        <button type="submit">Submit</button>
       </div>
     </VForm>
   </div>
@@ -88,47 +88,13 @@ import { mapWritableState } from 'pinia';
 import { useOrderStore } from '@/stores/orderStore';
 
 export default {
-  // props: {
-  //   emailValue: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   nameValue: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   telValue: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   addressValue: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   messageValue: {
-  //     type: String,
-  //   },
-  // },
-  // emits: [
-  //   'update:emailValue',
-  //   'update:nameValue',
-  //   'update:telValue',
-  //   'update:addressValue',
-  //   'update:messageValue',
-  //   'validateForm',
-  // ],
   data() {
     return {
       values: [],
     };
   },
   computed: {
-    ...mapWritableState(useOrderStore, ['form']),
-  },
-  methods: {
-    onSubmit(values) {
-      console.log(values);
-    },
+    ...mapWritableState(useOrderStore, ['form', 'payment']),
   },
 };
 </script>
