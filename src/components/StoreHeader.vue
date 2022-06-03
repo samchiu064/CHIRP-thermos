@@ -1,10 +1,12 @@
 <template>
   <header class="container-fluid p-0 bg-light" :class="positionType">
     <nav class="navbar navbar-expand-lg navbar-light mx-1 p-3">
-      <router-link to="/thermos/classic" class="nav-link d-none d-lg-block">經典款</router-link>
-      <router-link to="/user/cart" class="nav-link d-none d-lg-block">配件選購</router-link>
-      <router-link to="/user/cart" class="nav-link d-none d-lg-block">聯絡我們</router-link>
-      <router-link to="/user/cart" class="nav-link d-none d-lg-block">常見問題</router-link>
+      <router-link to="/thermos/classic" class="nav-link d-none d-lg-block">商品資訊</router-link>
+      <router-link to="/thermos/classic/details" class="nav-link d-none d-lg-block"
+        >線上訂購</router-link
+      >
+      <router-link to="/user/cart" class="nav-link d-none d-lg-block">客戶服務</router-link>
+      <router-link to="/user/cart" class="nav-link d-none d-lg-block">關於我們</router-link>
       <button
         class="navbar-toggler navbar__mobile-toggler"
         type="button"

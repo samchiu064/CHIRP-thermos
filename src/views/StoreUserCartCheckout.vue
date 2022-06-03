@@ -28,13 +28,17 @@
         </button>
       </div>
       <div class="col-6 col-lg-3">
-        <button type="button" class="btn btn-dark rounded-pill w-100 py-2">確認訂單</button>
+        <button type="button" class="btn btn-dark rounded-pill w-100 py-2" @click="createOrder">
+          確認訂單
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { useOrderStore } from '@/stores/orderStore';
+import { mapActions } from 'pinia';
 import StoreUserCartProductTable from '../components/StoreUserCartProductTable.vue';
 import StoreUserCartConfirmationTable from '../components/StoreUserCartConfirmationTable.vue';
 
@@ -55,10 +59,7 @@ export default {
     };
   },
   methods: {
-    onSubmit(values) {
-      console.log(values);
-      this.$refs.orderForm.submit();
-    },
+    ...mapActions(useOrderStore, ['createOrder']),
   },
 };
 </script>
