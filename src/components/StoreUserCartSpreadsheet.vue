@@ -7,7 +7,7 @@
           class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
         >
           <h5 class="fs-6 m-0 fw-normal">小計</h5>
-          <p class="fs-6 m-0 fw-medium">{{ cart.total?.toLocaleString('en-us') }}</p>
+          <p class="fs-6 m-0 fw-medium">NT$ {{ cart.total?.toLocaleString('en-us') }}</p>
         </li>
         <li
           class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 mx-3"
@@ -23,7 +23,7 @@
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#flush-collapseOne"
-                aria-expanded="false"
+                aria-expanded="true"
                 aria-controls="flush-collapseOne"
               >
                 套用折扣碼
@@ -58,7 +58,7 @@
                         }
                       "
                     />
-                    <button type="button" class="btn btn-outline-secondary" @click="applyCoupon()">
+                    <button type="button" class="btn btn-outline-secondary" @click="addCoupon()">
                       套用
                     </button>
                   </li>
@@ -88,7 +88,9 @@
           <button
             type="button"
             class="btn btn-dark w-100 rounded-pill"
-            :class="{ disabled: !formIsValid && this.$route.name === 'order' }"
+            :disabled="
+              this.cart.carts?.length === 0 || (this.$route.name === 'order' && !formIsValid)
+            "
             @click="this.$router.push({ name: nextPage })"
           >
             下一步
@@ -131,6 +133,11 @@ export default {
     ...mapWritableState(statusStore, ['couponIsApplied', 'couponIsInvalid']),
   },
   methods: {
+    async addCoupon() {
+      await this.applyCoupon();
+      await this.getCartList();
+    },
+    ...mapActions(useCartStore, ['getCartList']),
     ...mapActions(useCouponStore, ['applyCoupon']),
   },
 };

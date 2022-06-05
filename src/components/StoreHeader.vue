@@ -5,7 +5,7 @@
       <router-link to="/thermos/classic/details" class="nav-link d-none d-lg-block"
         >線上訂購</router-link
       >
-      <router-link to="/user/cart" class="nav-link d-none d-lg-block">客戶服務</router-link>
+      <router-link to="/user/cart" class="nav-link d-none d-lg-block">訂單查詢</router-link>
       <router-link to="/user/cart" class="nav-link d-none d-lg-block">關於我們</router-link>
       <button
         class="navbar-toggler navbar__mobile-toggler"
@@ -25,23 +25,6 @@
       </button>
       <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#">LOGO</a>
       <div class="ms-auto me-0 d-flex">
-        <!-- <div class="dropdown">
-          <a
-            class="nav-link"
-            href="#"
-            id="member"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <span class="d-none">Sign in</span>
-            <i class="bi bi-person-circle"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="member">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-          </ul>
-        </div> -->
         <StoreHeaderMiniCart />
       </div>
     </nav>

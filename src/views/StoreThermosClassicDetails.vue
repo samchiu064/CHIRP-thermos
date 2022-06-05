@@ -55,26 +55,24 @@
             <div class="mt-3">
               <h3 class="fs-6 fw-bold">數量</h3>
               <StoreInputProductQuantity
-                v-if="Number(tempProduct.unit) > 0"
                 :qty="tempProduct.qty"
                 @updateItem="updateItem"
                 @update:value="(newValue) => (tempProduct.qty = newValue)"
               />
-              <span v-if="tempProduct.unit" class="align-middle">庫存充足</span>
-              <span v-else class="align-middle">庫存不足</span>
+              <span class="align-middle">庫存充足</span>
             </div>
             <div class="mt-4 mb-5 text-center text-md-start">
               <button
                 type="button"
                 class="btn btn-outline-secondary rounded-pill w-45 py-2"
-                :disabled="Number(tempProduct.unit) === 0"
+                @click="this.$router.push({ name: 'cart' })"
               >
                 立即購買
               </button>
               <button
                 type="button"
                 class="btn btn-dark rounded-pill w-45 ms-4 py-2"
-                :disabled="cartLoadingItem === tempProduct.id || Number(tempProduct.unit) === 0"
+                :disabled="cartLoadingItem === tempProduct.id"
                 @click="addCartItem(tempProduct.id, tempProduct.qty)"
               >
                 <div
@@ -187,7 +185,6 @@ export default {
   },
   async created() {
     await this.getProduct();
-    // [this.tempProduct] = this.thermos; // init tempProduct
     this.tempProduct = { ...this.thermos[0], qty: 1 };
   },
 };

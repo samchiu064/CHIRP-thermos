@@ -2,7 +2,7 @@
   <button
     v-if="hasOperators"
     class="btn bi bi-dash fs-3 text-black-50"
-    :disabled="cartDeletedItem === itemId"
+    :disabled="cartDeletedItem === itemId || qty === 1"
     @click="$emit('updateItem', { qty: qty - 1, itemId })"
   ></button>
   <label for="qty" class="w-25 align-middle">
@@ -13,7 +13,7 @@
       min="1"
       :disabled="cartDeletedItem === itemId || !hasOperators"
       :value="qty"
-      @focusout="$emit('update:value', Number($event.target.value))"
+      @change="$emit('update:value', Number($event.target.value))"
     />
   </label>
   <button

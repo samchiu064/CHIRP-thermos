@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown position-relative">
-    <button id="cart" class="btn" type="button" @click="show = !show">
+    <button id="cart" class="btn" type="button" @click="isShow = !isShow">
       <i class="bi bi-cart fs-4"></i>
       <span class="position-absolute top-28 start-75 translate-middle badge rounded-pill bg-danger">
         {{ this.cart.carts?.length }}
@@ -9,7 +9,7 @@
     </button>
     <Transition>
       <div
-        v-if="show"
+        v-if="isShow"
         class="container-fluid border position-absolute end-50 bg-white overflow-auto mh-70"
         style="width: 20rem"
       >
@@ -19,6 +19,13 @@
         </div>
         <!-- card-item -->
         <div class="card border-0" style="max-width: 540px">
+          <p v-if="this.cart.carts?.length === 0" colspan="4" class="p-2">
+            您的購物車目前沒有任何商品，<router-link
+              to="/thermos/classic/details"
+              class="text-decoration-none"
+              >去購物</router-link
+            >
+          </p>
           <div
             v-for="(item, index) in cart.carts"
             :key="item + index"
@@ -32,7 +39,7 @@
               <img
                 :src="item.product.imageUrl"
                 class="img-fluid p-2 rounded"
-                alt="..."
+                alt="產品圖片"
                 style="max-height: 112px"
               />
             </div>
@@ -69,11 +76,10 @@
               <router-link
                 :to="{ path: '/user/cart' }"
                 class="btn btn-outline-secondary w-45 mr-2 mb-3"
+                @click="isShow = !isShow"
                 >查看購物車</router-link
               >
-              <router-link
-                :to="{ path: '/user/cart/checkout' }"
-                class="btn btn-secondary w-45 ms-2 mb-3"
+              <router-link :to="{ path: '/user/cart/order' }" class="btn btn-dark w-45 ms-2 mb-3"
                 >結帳</router-link
               >
             </div>
@@ -92,7 +98,7 @@ import statusStore from '@/stores/statusStore';
 export default {
   data() {
     return {
-      show: false,
+      isShow: false,
     };
   },
   computed: {
@@ -102,8 +108,8 @@ export default {
   methods: {
     ...mapActions(useCartStore, ['getCartList', 'deleteCartItem']),
   },
-  created() {
-    this.getCartList();
+  async created() {
+    await this.getCartList();
   },
 };
 </script>

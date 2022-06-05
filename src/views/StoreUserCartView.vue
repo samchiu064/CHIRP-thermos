@@ -1,31 +1,30 @@
 <template>
   <main class="container p-3 p-md-5 bg-white">
-    <div class="row mb-6 justify-content-center">
-      <StoreUserCartProgressBar
+    <div class="row justify-content-center">
+      <router-view
+        name="progressBar"
         :percentage="progressPercent"
         :enableStepsArray="enableStepsArray"
+        class="mb-6"
       />
     </div>
     <div class="row">
-      <!-- <router-view @validateForm="validateForm"></router-view> -->
       <router-view name="productTable" :class="columns" />
       <router-view name="orderForm" class="col-12 col-lg-8" @validateForm="validateForm" />
-      <router-view name="confirmationTable" />
+      <router-view name="orderTable" />
       <router-view name="spreadSheet" :nextPage="nextPage" :formIsValid="formIsValid" />
-
-      <router-view name="checkout"></router-view>
     </div>
+    <router-view></router-view>
   </main>
+  <StoreFooter />
 </template>
 
 <script>
-import StoreUserCartProgressBar from '../components/StoreUserCartProgressBar.vue';
-// import StoreUserCartSpreadsheet from '../components/StoreUserCartSpreadsheet.vue';
+import StoreFooter from '@/components/StoreFooter.vue';
 
 export default {
   components: {
-    StoreUserCartProgressBar,
-    // StoreUserCartSpreadsheet,
+    StoreFooter,
   },
   data() {
     return {
@@ -39,9 +38,9 @@ export default {
       return 'cart';
     },
     progressPercent() {
-      if (this.$route.name === 'order') return 100;
+      if (this.$route.name === 'order') return 50;
       if (this.$route.name === 'checkout') return 100;
-      return 50;
+      return 0;
     },
     enableStepsArray() {
       if (this.$route.name === 'order') return [1, 2];
@@ -50,7 +49,7 @@ export default {
     },
     columns() {
       if (this.$route.name === 'checkout') return 'col-12';
-      return 'col-8';
+      return 'col-12 col-lg-8';
     },
   },
   methods: {

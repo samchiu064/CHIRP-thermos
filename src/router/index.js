@@ -30,6 +30,7 @@ const routes = [
             path: '',
             name: 'cart',
             components: {
+              progressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
               productTable: () => import('@/components/StoreUserCartProductTable.vue'),
               spreadSheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
             },
@@ -38,6 +39,7 @@ const routes = [
             path: 'order',
             name: 'order',
             components: {
+              progressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
               orderForm: () => import('@/components/StoreUserCartOrderForm.vue'),
               spreadSheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
             },
@@ -46,8 +48,14 @@ const routes = [
             path: 'checkout',
             name: 'checkout',
             components: {
-              checkout: () => import('../views/StoreUserCartCheckout.vue'),
+              default: () => import('../views/StoreUserCartCheckout.vue'),
+              progressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
             },
+          },
+          {
+            path: 'checkout/:orderId',
+            name: 'checkoutOrder',
+            component: () => import('../views/StoreUserCartCheckoutOrder.vue'),
           },
         ],
       },
