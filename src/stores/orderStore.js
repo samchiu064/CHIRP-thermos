@@ -34,16 +34,21 @@ export const useOrderStore = defineStore('order', {
         .catch((err) => console.log(err));
     },
     async getOrderList(orderId) {
+      if (orderId.length < 20) status.orderIsValid = false;
+
       await apiGetOrderListById(orderId)
         .then((res) => {
           if (res.data.success === true) {
             this.order = res.data.order;
             this.form.message = res.data.order.message;
             this.form.user = { ...res.data.order.user };
+            status.orderIsValid = true;
           }
           console.log(res);
         })
-        .catch((res) => console.log(res));
+        .catch((res) => {
+          console.log(res);
+        });
     },
   },
 });
