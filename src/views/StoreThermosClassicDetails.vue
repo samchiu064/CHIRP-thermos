@@ -65,7 +65,7 @@
               <button
                 type="button"
                 class="btn btn-outline-secondary rounded-pill w-45 py-2"
-                @click="this.$router.push({ name: 'cart' })"
+                @click="purchaseNow(tempProduct.id, tempProduct.qty)"
               >
                 立即購買
               </button>
@@ -179,6 +179,10 @@ export default {
     updateItem({ qty }) {
       const productQty = qty <= 0 ? 1 : qty;
       this.tempProduct.qty = productQty;
+    },
+    async purchaseNow(id, qty) {
+      await this.addCartItem(id, qty);
+      this.$router.push({ name: 'cart' });
     },
     ...mapActions(useProductStore, ['getProduct']),
     ...mapActions(useCartStore, ['addCartItem']),

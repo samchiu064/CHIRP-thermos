@@ -41,6 +41,7 @@ const routes = [
             components: {
               progressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
               orderForm: () => import('@/components/StoreUserCartOrderForm.vue'),
+              // default: () => import('../views/StoreUserCartOrder.vue'),
               spreadSheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
             },
           },
@@ -59,10 +60,16 @@ const routes = [
           },
         ],
       },
-      // {
-      //   path: 'product/:productId',
-      //   component: () => import('../views/StoreProduct.vue'),
-      // },
+      {
+        path: 'order-check',
+        name: 'checkOrder',
+        component: () => import('../views/StoreCheckOrder.vue'),
+      },
+      {
+        path: 'about-us',
+        name: 'aboutUs',
+        component: () => import('../views/StoreAboutUs.vue'),
+      },
     ],
   },
   {
