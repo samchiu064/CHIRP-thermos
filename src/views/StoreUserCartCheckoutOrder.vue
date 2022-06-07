@@ -1,12 +1,15 @@
 <template>
   <div class="row py-2">
     <div class="col">
-      <p class="fs-2 text-center"><i class="bi bi-check2-circle text-success"></i> 訂單建立成功</p>
+      <p class="fs-4 text-center">
+        <i class="bi bi-check2-circle text-success"></i> 訂單建立成功，訂單編號為
+        <span class="text-success">{{ order.id }}</span>
+      </p>
     </div>
   </div>
   <div class="col-lg-6 m-auto">
-    <StoreUserCartOrderList />
-    <StoreUserCartOrderTable />
+    <StoreUserCartOrderList :tempForm="tempForm" />
+    <StoreUserCartOrderTable :order="order" />
   </div>
 
   <div class="row justify-content-center mt-3">
@@ -38,11 +41,23 @@ export default {
     StoreUserCartOrderList,
     StoreUserCartOrderTable,
   },
+  props: {
+    order: {
+      type: Object,
+      default: () => {},
+    },
+    tempForm: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  emits: ['getOrderList'],
   methods: {
     ...mapActions(useCartStore, ['getCartList']),
   },
   created() {
-    this.getCartList();
+    this.getCartList(); // Cart should be refreshed manually after being checked-out
+    this.$emit('getOrderList', this.$route.params.orderId); // Update props: order
   },
 };
 </script>

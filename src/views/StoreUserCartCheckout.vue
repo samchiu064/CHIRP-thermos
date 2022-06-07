@@ -7,10 +7,10 @@
     </div>
     <div class="row">
       <div class="col">
-        <StoreUserCartOrderTable />
+        <StoreUserCartOrderTable :tempForm="tempForm" />
       </div>
     </div>
-    <div v-if="!isCreated" class="row justify-content-center mt-3">
+    <div class="row justify-content-center mt-3">
       <div class="col-6 col-lg-3">
         <button
           type="button"
@@ -40,10 +40,9 @@
 </template>
 
 <script>
-import statusStore from '@/stores/statusStore';
-import { useOrderStore } from '@/stores/orderStore';
-import { useCartStore } from '@/stores/cartStore';
-import { mapActions, mapState } from 'pinia';
+// import { useCartStore } from '@/stores/cartStore';
+// import { mapState } from 'pinia';
+import { apiPostOrder } from '@/api/client';
 import StoreUserCartProductTable from '../components/StoreUserCartProductTable.vue';
 import StoreUserCartOrderTable from '../components/StoreUserCartOrderTable.vue';
 
@@ -52,25 +51,39 @@ export default {
     StoreUserCartProductTable,
     StoreUserCartOrderTable,
   },
+  props: {
+    tempForm: {
+      type: Object,
+      default: () => {},
+    },
+  },
   data() {
     return {
-      isCreated: false,
+      orderId: '',
+      isLoading: false,
     };
   },
-  computed: {
-    ...mapState(useCartStore, ['cart']),
-    ...mapState(useOrderStore, ['orderId']),
-    ...mapState(statusStore, ['isLoading']),
-  },
+  // computed: {
+  //   ...mapState(useCartStore, ['cart']),
+  // },
   methods: {
     async confirmOrder() {
-      await this.createOrder();
+      this.isLoading = true;
+      await apiPostOrder({ data: this.tempForm })
+        .then((res) => {
+          if (res.data.success === true) {
+            this.orderId = res.data.orderId;
+          }
+          this.isLoading = false;
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+
       this.$router.push({ name: 'checkoutOrder', params: { orderId: this.orderId } });
     },
-    ...mapActions(useOrderStore, ['createOrder']),
   },
   created() {
-    if (this.cart.carts.length === 0) this.$router.push({ name: 'cart' });
+    // if (this.cart.carts.length === 0) this.$router.push({ name: 'cart' });
   },
 };
 </script>

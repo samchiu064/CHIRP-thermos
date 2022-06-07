@@ -12,7 +12,8 @@
             class="form-control mt-1"
             id="email"
             placeholder="請填入寄件人Email"
-            v-model="form.user.email"
+            :value="emailValue"
+            @input="$emit('update:emailValue', $event.target.value)"
           />
           <ErrorMessage name="Email欄位" class="text-danger fs-7 ps-2 m-0" />
         </label>
@@ -25,7 +26,8 @@
             class="form-control mt-1"
             id="name"
             placeholder="請填入收件人名稱"
-            v-model="form.user.name"
+            :value="nameValue"
+            @input="$emit('update:nameValue', $event.target.value)"
           />
           <ErrorMessage name="收件人名稱" class="text-danger fs-7 ps-2 m-0" />
         </label>
@@ -38,7 +40,8 @@
             class="form-control mt-1"
             id="tel"
             placeholder="請填入收件人電話"
-            v-model="form.user.tel"
+            :value="telValue"
+            @input="$emit('update:telValue', $event.target.value)"
           />
           <ErrorMessage name="收件人電話" class="text-danger fs-7 ps-2 m-0" />
         </label>
@@ -51,21 +54,23 @@
             class="form-control mt-1"
             id="address"
             placeholder="請填入收件人地址"
-            v-model="form.user.address"
+            :value="addressValue"
+            @input="$emit('update:addressValue', $event.target.value)"
           />
           <ErrorMessage name="收件人地址" class="text-danger fs-7 ps-2 m-0" />
         </label>
         <p class="form-check-label col-12 px-4 mb-1">付款方式<i class="asterisk"></i></p>
         <label for="COD" class="form-check ms-4 mb-3">
-          <VField
-            name="付款方式"
-            type="radio"
-            rules="required"
-            class="form-check-input"
-            value="貨到付款"
-            id="COD"
-            v-model="payment"
-          />貨到付款
+          <VField as="div" name="付款方式" rules="required">
+            <input
+              type="radio"
+              id="COD"
+              class="form-check-input"
+              :checked="paymentMethod === '貨到付款'"
+              :value="paymentMethod"
+              @input="$emit('update:paymentMethod', '貨到付款')"
+            />貨到付款
+          </VField>
           <ErrorMessage name="付款方式" class="text-danger fs-7 ps-2 m-0" />
         </label>
         <label for="note" class="form-label col-12 mt-2 px-4 mb-3">
@@ -75,7 +80,8 @@
             id="note"
             placeholder="有什麼想告訴我們嗎？"
             maxlength="100"
-            v-model="form.message"
+            :value="messageValue"
+            @input="$emit('update:messageValue', $event.target.value)"
           ></textarea>
         </label>
       </div>
@@ -84,18 +90,41 @@
 </template>
 
 <script>
-import { mapWritableState } from 'pinia';
-import { useOrderStore } from '@/stores/orderStore';
-
 export default {
-  data() {
-    return {
-      values: [],
-    };
+  props: {
+    emailValue: {
+      type: String,
+      required: true,
+    },
+    nameValue: {
+      type: String,
+      required: true,
+    },
+    telValue: {
+      type: String,
+      required: true,
+    },
+    addressValue: {
+      type: String,
+      required: true,
+    },
+    messageValue: {
+      type: String,
+    },
+    paymentMethod: {
+      type: String,
+      required: true,
+    },
   },
-  computed: {
-    ...mapWritableState(useOrderStore, ['form', 'payment']),
-  },
+  emits: [
+    'update:emailValue',
+    'update:nameValue',
+    'update:telValue',
+    'update:addressValue',
+    'update:messageValue',
+    'update:paymentMethod',
+    'validateForm',
+  ],
 };
 </script>
 

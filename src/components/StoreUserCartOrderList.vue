@@ -22,18 +22,15 @@
 </template>
 
 <script>
-import { useOrderStore } from '@/stores/orderStore';
-import { mapActions, mapState } from 'pinia';
-
 export default {
-  computed: {
-    ...mapState(useOrderStore, ['order']),
+  props: {
+    order: {
+      type: Object,
+      default: () => {},
+    },
   },
-  methods: {
-    ...mapActions(useOrderStore, ['getOrderList']),
-  },
-  async created() {
-    await this.getOrderList(this.$route.params.orderId);
-  },
+  // async created() {
+  //   if (this.$route.name === 'checkoutOrder') await this.getOrderList(this.$route.params.orderId);
+  // },
 };
 </script>
