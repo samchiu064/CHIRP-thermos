@@ -1,12 +1,30 @@
 <template>
   <header class="container-fluid p-0 bg-light" :class="positionType">
     <nav class="navbar navbar-expand-lg navbar-light mx-1 p-3">
-      <router-link to="/thermos/classic" class="nav-link d-none d-lg-block">商品資訊</router-link>
-      <router-link to="/thermos/classic/details" class="nav-link d-none d-lg-block"
+      <router-link
+        to="/thermos/classic"
+        class="nav-link d-none d-lg-block link-dark underline"
+        :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
+        >商品資訊</router-link
+      >
+      <router-link
+        to="/thermos/classic/details"
+        class="nav-link d-none d-lg-block link-dark underline"
+        :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
         >線上訂購</router-link
       >
-      <router-link to="/user/cart" class="nav-link d-none d-lg-block">訂單查詢</router-link>
-      <router-link to="/user/cart" class="nav-link d-none d-lg-block">關於我們</router-link>
+      <router-link
+        to="/order-check"
+        class="nav-link d-none d-lg-block link-dark underline"
+        :class="{ 'nav-link--selected': this.$route.name === 'checkOrder' }"
+        >訂單查詢</router-link
+      >
+      <router-link
+        to="/about-us"
+        class="nav-link d-none d-lg-block link-dark underline"
+        :class="{ 'nav-link--selected': this.$route.name === 'aboutUs' }"
+        >關於我們</router-link
+      >
       <button
         class="navbar-toggler navbar__mobile-toggler"
         type="button"
@@ -32,10 +50,6 @@
       <a href="javascript;" class="nav-link text-white">item01</a>
       <a href="javascript;" class="nav-link text-white">item02</a>
     </nav>
-    <!-- <div
-      class="position-absolute top-0 left-0 w-100 bg-black"
-      style="height: 5px"
-    ></div> -->
   </header>
 </template>
 
@@ -71,11 +85,6 @@ export default {
 
 <style lang="scss" scoped>
 // Globe
-.bi {
-  font-size: 24px;
-  color: #707070;
-}
-
 header {
   z-index: 1000;
 }
@@ -102,6 +111,43 @@ header {
     &.is-active .line:nth-child(3) {
       transform: translateY(-8px) rotate(-45deg);
     }
+  }
+}
+
+/* stroke */
+.underline {
+  position: relative;
+  &:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '';
+    color: transparent;
+    background: #212529;
+    height: 2px;
+    transition: all 0.5s;
+  }
+  &:hover:after {
+    width: 70%;
+  }
+}
+
+.nav-link--selected {
+  position: relative;
+  &:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 70%;
+    content: '';
+    color: transparent;
+    background: #212529;
+    height: 2px;
   }
 }
 </style>
