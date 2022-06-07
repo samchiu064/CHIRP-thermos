@@ -6,6 +6,7 @@ export default defineStore('statusStore', {
     cartLoadingItem: '',
     cartDeletedItem: '',
     couponIsApplied: false,
-    couponIsInvalid: false,
+    couponIsValid: false,
+    orderIsValid: false,
   }),
 });

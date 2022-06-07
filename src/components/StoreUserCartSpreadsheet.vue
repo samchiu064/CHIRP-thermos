@@ -54,7 +54,7 @@
                       v-model="couponCode"
                       @click="
                         () => {
-                          (couponIsInvalid = false), (couponIsApplied = false);
+                          (couponIsValid = true), (couponIsApplied = false);
                         }
                       "
                     />
@@ -63,9 +63,12 @@
                     </button>
                   </li>
                 </ul>
-                <p v-if="couponIsInvalid || couponIsApplied" class="text-danger fs-7 ps-3 m-0">
+                <span
+                  v-if="(!couponIsValid && couponCode.length !== 0) || couponIsApplied"
+                  class="text-danger fs-7 ps-3 m-0"
+                >
                   {{ errorMessage }}
-                </p>
+                </span>
               </div>
             </div>
           </div>
@@ -123,14 +126,14 @@ export default {
   },
   computed: {
     errorMessage() {
-      if (this.couponIsInvalid) return '無效的優惠券';
+      if (!this.couponIsValid) return '無效的優惠券';
       if (this.couponIsApplied) return '已套用的優惠券';
       return '';
     },
     ...mapState(useCartStore, ['discount']),
     ...mapWritableState(useCartStore, ['cart']),
     ...mapWritableState(useCouponStore, ['couponCode', 'couponList']),
-    ...mapWritableState(statusStore, ['couponIsApplied', 'couponIsInvalid']),
+    ...mapWritableState(statusStore, ['couponIsApplied', 'couponIsValid']),
   },
   methods: {
     async addCoupon() {

@@ -19,11 +19,11 @@ export const useCouponStore = defineStore('coupon', {
             if (this.couponList.includes(code)) {
               status.couponIsApplied = true;
               return;
-            } // A code can be used once at a time
+            } // A voucher code can be used once at a time
             this.couponList.push(code);
             this.couponCode = '';
           } else {
-            status.couponIsInvalid = true;
+            status.couponIsValid = false;
           }
           console.log(res);
         })
