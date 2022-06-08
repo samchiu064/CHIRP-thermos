@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <StoreUserCartOrderTable :tempForm="tempForm" />
+        <StoreUserCartOrderTable :form="tempForm" />
       </div>
     </div>
     <div class="row justify-content-center mt-3">

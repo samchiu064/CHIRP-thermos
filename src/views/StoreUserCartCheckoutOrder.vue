@@ -8,8 +8,8 @@
     </div>
   </div>
   <div class="col-lg-6 m-auto">
-    <StoreUserCartOrderList :tempForm="tempForm" />
-    <StoreUserCartOrderTable :order="order" />
+    <StoreUserCartOrderList :order="order" />
+    <StoreUserCartOrderTable :form="tempForm" />
   </div>
 
   <div class="row justify-content-center mt-3">
@@ -49,6 +49,10 @@ export default {
     tempForm: {
       type: Object,
       default: () => {},
+    },
+    paymentMethod: {
+      type: String,
+      default: '',
     },
   },
   emits: ['getOrderList'],
