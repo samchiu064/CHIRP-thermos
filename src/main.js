@@ -14,8 +14,6 @@ import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 // Bootstrap
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
-// filters
-import { currency } from './methods/filters';
 import App from './App.vue';
 import router from './router';
 
@@ -34,9 +32,6 @@ setLocale('zhTW');
 
 const app = createApp(App);
 
-app.config.globalProperties.$filters = {
-  currency,
-};
 app.use(createPinia());
 app.use(VueAxios, axios);
 app.use(router);
