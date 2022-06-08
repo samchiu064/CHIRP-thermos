@@ -1,51 +1,48 @@
 <template>
   <main class="kv bg-light">
-    <div class="container-fluid h-100">
-      <div class="row align-items-center">
-        <div class="col-12 position-relative">
-          <section class="kv__content">
+    <div class="container-fluid vh-100 overflow-hidden position-relative">
+      <div class="row text-center">
+        <div class="col-12">
+          <section class="kv__content position-absolute top-40 start-50 translate-middle w-100">
             <h1>
               單色不鏽鋼保溫瓶 <br />
               廣口瓶身，堅固耐用 <br />
             </h1>
-            <p>
-              商品可寄送至臺澎金馬地區，目前暫不提供海外運送服務。所有商品皆於臺灣製造。
-            </p>
+            <p>商品可寄送至臺澎金馬地區，目前暫不提供海外運送服務。所有商品皆於臺灣製造。</p>
           </section>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
-          <section class="kv__products">
-            <div class="kv__products-card">
-              <span class="color-dot"></span>
-              <div class="title">胡克綠</div>
-              <div class="body">
+          <section
+            class="kv__product d-flex justify-content-center position-absolute bottom-0 start-50 w-100"
+          >
+            <div class="kv__product-card">
+              <router-link to="/thermos/classic/details/classic-green" class="text-decoration-none">
+                <span class="color-dot bg-classic-green mx-auto my-3"></span>
+                <div class="title fw-bold fs-6 text-classic-green text-center mb-3">胡克綠</div>
                 <img
                   src="../assets/images/Hookers_green_bottle.png"
                   alt="胡克綠保溫瓶"
-                />
-              </div>
+                  class="w-100"
+              /></router-link>
             </div>
-            <div class="kv__products-card">
-              <span class="color-dot"></span>
-              <div class="title">灰玫紅</div>
-              <div class="body">
-                <img
-                  src="../assets/images/Old_rose_bottle.png"
-                  alt="灰玫紅保溫瓶"
-                />
-              </div>
+            <div class="kv__product-card">
+              <router-link to="/thermos/classic/details/classic-red" class="text-decoration-none">
+                <span class="color-dot bg-classic-red mx-auto my-3"></span>
+                <div class="title fw-bold fs-6 text-classic-red text-center mb-3">灰玫紅</div>
+                <img src="../assets/images/Old_rose_bottle.png" alt="灰玫紅保溫瓶" class="w-100"
+              /></router-link>
             </div>
-            <div class="kv__products-card">
-              <span class="color-dot"></span>
-              <div class="title">灰丁寧藍</div>
-              <div class="body">
+            <div class="kv__product-card">
+              <router-link to="/thermos/classic/details/classic-blue" class="text-decoration-none">
+                <span class="color-dot bg-classic-blue mx-auto my-3"></span>
+                <div class="title fw-bold fs-6 text-classic-blue text-center mb-3">灰丁寧藍</div>
                 <img
                   src="../assets/images/Blue_yonder_bottle.png"
                   alt="灰丁寧藍保溫瓶"
-                />
-              </div>
+                  class="w-100"
+              /></router-link>
             </div>
           </section>
         </div>
@@ -60,100 +57,29 @@ export default {};
 
 <style lang="scss" scoped>
 .kv {
-  height: 100vh;
-  overflow: hidden;
-  @media (max-width: 992px) {
-    height: 100vh;
-  }
-  .row {
-    &:nth-child(1) {
-      height: 90%;
-      @media (max-width: 576px) {
-        height: 93%;
-      }
-      .col-12 {
-        bottom: 6rem;
-      }
-    }
-    &:nth-child(2) {
-      height: 10%;
-      background-color: #fff;
-      @media (max-width: 576px) {
-        height: 7%;
-      }
-    }
-  }
-  &__content {
-    text-align: center;
-    p {
-      color: #383838;
-      margin: 15px 20px;
-      font-weight: 400;
-    }
-  }
-  &__products {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    height: 262px;
-    position: relative;
-    left: 50%;
-    bottom: 25vh;
-    transform: translate(-50%, 40px);
-    width: 100%;
-    @media (max-width: 768px) {
-      bottom: 22vh;
-    }
+  &__product {
+    transform: translate(-50%, 60%);
     &-card {
-      font-weight: Bold;
-      font-size: 16px;
-      margin: 0 4vw;
       transition: transform 250ms;
       transition-timing-function: linear;
-      &:nth-child(1) {
-        color: #4d6d58;
-        .color-dot {
-          background-color: #4d6d58;
-        }
-      }
-      &:nth-child(2) {
-        color: #cc7e85;
-        .color-dot {
-          background-color: #cc7e85;
-        }
-      }
-      &:nth-child(3) {
-        color: #496da5;
-        .color-dot {
-          background-color: #496da5;
-        }
-      }
-      .title {
-        margin-bottom: 20px;
+      margin: 3rem;
+      @media (max-width: 768px) {
+        margin: 0.5rem;
       }
       .color-dot {
         display: block;
-        margin: 1rem auto;
-        width: 24px;
-        height: 24px;
+        width: 1.5rem;
+        height: 1.5rem;
         border-radius: 100%;
         @media (max-width: 768px) {
-          width: 16px;
-          height: 16px;
+          width: 1rem;
+          height: 1rem;
         }
       }
       &:hover {
-        // height: 325px;
         transform: translateY(-40px);
         transition: all 0.3s;
         cursor: pointer;
-      }
-    }
-    img {
-      // max-width: 100%;
-      // height: auto;
-      @media (max-width: 992px) {
-        width: 83%;
       }
     }
   }
