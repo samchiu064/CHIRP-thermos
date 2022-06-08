@@ -1,57 +1,73 @@
 <template>
+  <LoadingOverlay :active="isLoading" />
   <table class="table mt-4">
     <thead>
       <tr>
-        <th width="120">購買時間</th>
-        <th width="120">Email</th>
-        <th width="120">購買款項</th>
-        <th width="120">應付金額</th>
-        <th width="100">是否付款</th>
-        <th width="200">編輯</th>
+        <th>購買時間</th>
+        <th>Email</th>
+        <th>購買款項</th>
+        <th>應付金額</th>
+        <th>是否付款</th>
+        <th>編輯</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="(item, index) in orders" :key="item + index">
-        <td>{{ item.create_at }}</td>
+        <td>{{ createdDate(item.create_at) }}</td>
         <td>{{ item.user.email }}</td>
-        <td class="text-right"></td>
-        <td class="text-right"></td>
+        <td class="text-right">
+          <DashboardOrderList :order="item" :form="item.user" />
+        </td>
+        <td class="text-right">{{ item.total.toLocaleString('en-us') }}</td>
         <td>
           <button
+            v-if="item.is_paid"
             type="button"
             class="btn btn-sm btn-outline-success"
+            title="更改為未付款"
             data-bs-toggle="tooltip"
             data-bs-placement="bottom"
-            title="更改為未付款"
+            @click="changePaymentStatus(item.is_paid, item.id)"
           >
-            已付款
+            <span>已付款</span>
           </button>
           <button
+            v-if="!item.is_paid"
             type="button"
             class="btn btn-sm btn-outline-danger"
+            title="更改為已付款"
             data-bs-toggle="tooltip"
             data-bs-placement="bottom"
-            title="更改為已付款"
+            @click="changePaymentStatus(item.is_paid, item.id)"
           >
-            未付款
+            <span>未付款</span>
           </button>
         </td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-outline-danger btn-sm">刪除</button>
+            <button class="btn btn-outline-danger btn-sm" @click="deleteOrder(item.id)">
+              刪除
+            </button>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+  <ThePagination :pages="pagination" @emit-page="getProducts" />
 </template>
 
 <script>
 import statusStore from '@/stores/statusStore';
 import { mapWritableState } from 'pinia';
-import { apiGetOrderList } from '@/api/admin';
+import { apiGetOrderList, apiPutOrderItemDetail, apiDeleteOrder } from '@/api/admin';
+import ThePagination from '@/components/ThePagination.vue';
+import DashboardOrderList from '@/components/DashboardOrderList.vue';
 
 export default {
+  components: {
+    ThePagination,
+    DashboardOrderList,
+  },
   data() {
     return {
       orders: [],
@@ -62,6 +78,16 @@ export default {
     ...mapWritableState(statusStore, ['isLoading']),
   },
   methods: {
+    createdDate(milliseconds) {
+      const date = new Date(milliseconds);
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1);
+      const day = (date.getDate() < 10 ? '0' : '') + date.getDate();
+      const hours = (date.getHours() < 10 ? '0' : '') + date.getHours();
+      const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+      const seconds = (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    },
     async getProducts(page = 1) {
       this.isLoading = true; // Show loading overlay
       await apiGetOrderList(page)
@@ -74,6 +100,25 @@ export default {
         })
         .catch((err) => console.log(err));
       this.isLoading = false; // Hide loading overlay
+    },
+    async changePaymentStatus(status, id) {
+      this.isLoading = true;
+      const isPaid = !status;
+      await apiPutOrderItemDetail({ data: { is_paid: isPaid } }, id)
+        .then((res) => {
+          console.log(res);
+          this.getProducts();
+        })
+        .catch((err) => console.log(err));
+    },
+    async deleteOrder(id) {
+      this.isLoading = true;
+      await apiDeleteOrder(id)
+        .then((res) => {
+          console.log(res);
+          this.getProducts();
+        })
+        .catch((err) => console.log(err));
     },
   },
   created() {
