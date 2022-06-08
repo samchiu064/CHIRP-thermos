@@ -35,12 +35,12 @@
     </div>
     <div class="row justify-content-center m-0 mt-4">
       <div class="col col-lg-6">
-        <StoreUserCartOrderList v-if="orderIsValid" />
+        <StoreUserCartOrderList v-if="orderIsValid" :order="order" />
       </div>
     </div>
     <div class="row justify-content-center m-0">
       <div class="col col-lg-6">
-        <StoreUserCartOrderTable v-if="orderIsValid" />
+        <StoreUserCartOrderTable v-if="orderIsValid" :form="form" />
       </div>
     </div>
   </div>
@@ -49,12 +49,10 @@
 </template>
 
 <script>
-import { useOrderStore } from '@/stores/orderStore';
-import statusStore from '@/stores/statusStore';
-import { mapState, mapActions } from 'pinia';
 import StoreUserCartOrderList from '@/components/StoreUserCartOrderList.vue';
 import StoreUserCartOrderTable from '@/components/StoreUserCartOrderTable.vue';
 import StoreFooter from '@/components/StoreFooter.vue';
+import { apiGetOrderListById } from '@/api/client';
 
 export default {
   components: {
@@ -64,15 +62,34 @@ export default {
   },
   data() {
     return {
+      order: {},
       orderId: '',
+      orderIsValid: false,
     };
   },
   computed: {
-    ...mapState(useOrderStore, ['form', 'order']),
-    ...mapState(statusStore, ['orderIsValid']),
+    form() {
+      const form = {};
+      form.message = this.order.message;
+      form.user = { ...this.order.user };
+      return form;
+    },
   },
   methods: {
-    ...mapActions(useOrderStore, ['getOrderList']),
+    async getOrderList(orderId) {
+      if (orderId.length < 20) this.orderIsValid = false;
+      await apiGetOrderListById(orderId)
+        .then((res) => {
+          if (res.data.success === true) {
+            this.order = res.data.order;
+            this.orderIsValid = true;
+          }
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
   },
 };
 </script>
