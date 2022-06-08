@@ -9,23 +9,23 @@
       <tbody>
         <tr>
           <th class="fw-medium">Email</th>
-          <td>{{ tempForm.user.email }}</td>
+          <td>{{ form.user.email }}</td>
         </tr>
         <tr>
           <th class="fw-medium">收件人名稱</th>
-          <td>{{ tempForm.user.name }}</td>
+          <td>{{ form.user.name }}</td>
         </tr>
         <tr>
           <th class="fw-medium">收件人聯絡電話</th>
-          <td>{{ tempForm.user.tel }}</td>
+          <td>{{ form.user.tel }}</td>
         </tr>
         <tr>
           <th class="fw-medium">收件人地址</th>
-          <td>{{ tempForm.user.address }}</td>
+          <td>{{ form.user.address }}</td>
         </tr>
         <tr>
           <th class="fw-medium">備註</th>
-          <td>{{ tempForm.message }}</td>
+          <td>{{ form.message }}</td>
         </tr>
         <tr>
           <th class="fw-medium">付款狀態</th>
@@ -39,10 +39,13 @@
 <script>
 export default {
   props: {
-    tempForm: {
+    form: {
       type: Object,
       default: () => {},
     },
+  },
+  created() {
+    console.log(this.form);
   },
 };
 </script>
