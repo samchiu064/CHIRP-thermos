@@ -42,7 +42,7 @@
 
 <script>
 import StoreFooter from '@/components/StoreFooter.vue';
-import { apiGetOrderListById, apiPostOrder } from '@/api/client';
+import { apiGetOrderListById } from '@/api/client';
 
 export default {
   components: {
@@ -62,8 +62,6 @@ export default {
       },
       paymentMethod: '',
       formIsValid: false,
-      orderIsVaild: false,
-      isLoading: false,
     };
   },
   computed: {
@@ -106,18 +104,6 @@ export default {
           console.log(res);
         })
         .catch((res) => console.log(res));
-    },
-    async createOrder() {
-      this.isLoading = true;
-      await apiPostOrder({ data: this.form })
-        .then((res) => {
-          if (res.data.success === true) {
-            this.orderId = res.data.orderId;
-          }
-          console.log(res);
-          this.isLoading = false;
-        })
-        .catch((err) => console.log(err));
     },
   },
 };

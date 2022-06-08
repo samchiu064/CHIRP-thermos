@@ -1,8 +1,6 @@
 <template>
   <StoreHeader />
-  <div class="bg-light">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script>
