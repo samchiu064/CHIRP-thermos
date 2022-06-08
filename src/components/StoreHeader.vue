@@ -8,7 +8,7 @@
         >商品資訊</router-link
       >
       <router-link
-        to="/thermos/classic/details"
+        to="/thermos/classic/details/classic-green"
         class="nav-link d-none d-lg-block link-dark underline"
         :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
         >線上訂購</router-link

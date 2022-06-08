@@ -21,7 +21,7 @@
         <div class="card border-0" style="max-width: 540px">
           <p v-if="this.cart.carts?.length === 0" colspan="4" class="p-2">
             您的購物車目前沒有任何商品，<router-link
-              to="/thermos/classic/details"
+              to="/thermos/classic/details/classic-green"
               class="text-decoration-none"
               >去購物</router-link
             >

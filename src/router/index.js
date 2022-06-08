@@ -17,7 +17,7 @@ const routes = [
         component: () => import('../views/StoreThermosClassic.vue'),
       },
       {
-        path: 'thermos/classic/details',
+        path: 'thermos/classic/details/:color',
         name: 'thermosClassicDetails',
         component: () => import('../views/StoreThermosClassicDetails.vue'),
       },
@@ -41,7 +41,6 @@ const routes = [
             components: {
               progressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
               orderForm: () => import('@/components/StoreUserCartOrderForm.vue'),
-              // default: () => import('../views/StoreUserCartOrder.vue'),
               spreadSheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
             },
           },

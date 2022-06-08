@@ -48,7 +48,7 @@
           />
           <figcaption class="figure-caption">
             <router-link
-              to="/thermos/classic/details"
+              :to="`/thermos/classic/details/${item.engColor}`"
               class="btn rounded-pill py-2 px-4 mt-3"
               :class="`btn-outline-${item.engColor}`"
             >

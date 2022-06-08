@@ -4,16 +4,14 @@
       <div class="container p-3 p-md-5">
         <div class="row row-cols-1 row-cols-md-2 mb-2">
           <div class="col">
-            <Transition mode="out-in">
-              <div class="text-center d-flex align-items-center justify-content-center">
-                <img
-                  :src="tempProduct.imageUrl"
-                  :key="tempProduct.id"
-                  alt="保溫瓶圖片"
-                  class="img-box"
-                />
-              </div>
-            </Transition>
+            <div class="text-center d-flex align-items-center justify-content-center">
+              <img
+                :src="tempProduct.imageUrl"
+                :key="tempProduct.id"
+                alt="保溫瓶圖片"
+                class="img-box"
+              />
+            </div>
           </div>
           <div class="col">
             <div class="text-center text-md-start m-auto mx-md-0">
@@ -33,12 +31,12 @@
                   :key="index"
                   class="nav-item m-3 mb-1 text-center"
                 >
-                  <button
-                    type="button"
+                  <router-link
+                    :to="`/thermos/classic/details/${item.engColor}`"
                     class="btn bg-classic-green p-3 rounded-circle d-inline-block"
                     :class="`bg-${item.engColor}`"
                     @click.prevent="switchProduct(item)"
-                  ></button>
+                  ></router-link>
                   <p class="mt-1">{{ item.chtColor }}</p>
                 </li>
               </ul>
@@ -184,12 +182,19 @@ export default {
       await this.addCartItem(id, qty);
       this.$router.push({ name: 'cart' });
     },
+    renderProduct() {
+      if (this.$route.params.color === 'classic-red')
+        this.tempProduct = { ...this.thermos[1], qty: 1 };
+      else if (this.$route.params.color === 'classic-blue')
+        this.tempProduct = { ...this.thermos[2], qty: 1 };
+      else this.tempProduct = { ...this.thermos[0], qty: 1 };
+    },
     ...mapActions(useProductStore, ['getProduct']),
     ...mapActions(useCartStore, ['addCartItem']),
   },
   async created() {
     await this.getProduct();
-    this.tempProduct = { ...this.thermos[0], qty: 1 };
+    this.renderProduct();
   },
 };
 </script>
@@ -206,15 +211,5 @@ export default {
   @media (max-width: 576px) {
     max-height: 360px;
   }
-}
-
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 3s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
 }
 </style>
