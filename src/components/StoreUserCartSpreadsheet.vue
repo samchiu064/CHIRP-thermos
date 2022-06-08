@@ -77,7 +77,7 @@
           class="list-group-item d-flex justify-content-between align-items-center pt-3 px-0 mx-3 border-bottom-0"
         >
           <h5 class="fs-6 m-0">折扣</h5>
-          <p class="fs-6 m-0 fw-medium">{{ discount?.toLocaleString('en-us') }}</p>
+          <p class="fs-6 m-0 fw-medium">- {{ discount?.toLocaleString('en-us') }}</p>
         </li>
         <li
           class="list-group-item d-flex justify-content-between align-items-center pb-3 px-0 mx-3 border-bottom-0"
