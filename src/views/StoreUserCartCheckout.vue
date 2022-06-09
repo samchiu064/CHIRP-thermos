@@ -40,11 +40,9 @@
 </template>
 
 <script>
-// import { useCartStore } from '@/stores/cartStore';
-// import { mapState } from 'pinia';
 import { apiPostOrder } from '@/api/client';
-import StoreUserCartProductTable from '../components/StoreUserCartProductTable.vue';
-import StoreUserCartOrderTable from '../components/StoreUserCartOrderTable.vue';
+import StoreUserCartProductTable from '@/components/StoreUserCartProductTable.vue';
+import StoreUserCartOrderTable from '@/components/StoreUserCartOrderTable.vue';
 
 export default {
   components: {
@@ -63,9 +61,6 @@ export default {
       isLoading: false,
     };
   },
-  // computed: {
-  //   ...mapState(useCartStore, ['cart']),
-  // },
   methods: {
     async confirmOrder() {
       this.isLoading = true;

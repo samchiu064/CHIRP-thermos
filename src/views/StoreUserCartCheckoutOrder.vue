@@ -2,8 +2,8 @@
   <div class="row py-2">
     <div class="col">
       <p class="fs-4 text-center">
-        <i class="bi bi-check2-circle text-success"></i> 訂單建立成功，訂單編號為
-        <span class="text-success">{{ order.id }}</span>
+        <i class="bi bi-check2-circle text-success"></i> 感謝您的購買，您的訂單
+        <span class="text-success">{{ order.id }}</span> 已建立成功
       </p>
     </div>
   </div>
