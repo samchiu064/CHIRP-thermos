@@ -45,7 +45,7 @@
         </td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-outline-danger btn-sm" @click="deleteOrder(item.id)">
+            <button class="btn btn-outline-danger btn-sm" @click="openDeleteModal(item)">
               刪除
             </button>
           </div>
@@ -54,28 +54,29 @@
     </tbody>
   </table>
   <ThePagination :pages="pagination" @emit-page="getProducts" />
+  <DashboardModalDelete ref="deleteModal" :item="tempOrder" @deleteItem="deleteOrder" />
 </template>
 
 <script>
-import statusStore from '@/stores/statusStore';
-import { mapWritableState } from 'pinia';
 import { apiGetOrderList, apiPutOrderItemDetail, apiDeleteOrder } from '@/api/admin';
-import ThePagination from '@/components/ThePagination.vue';
 import DashboardOrderList from '@/components/DashboardOrderList.vue';
+import DashboardModalDelete from '@/components/DashboardModalDelete.vue';
+import ThePagination from '@/components/ThePagination.vue';
 
 export default {
   components: {
     ThePagination,
     DashboardOrderList,
+    DashboardModalDelete,
   },
+  inject: ['pushMessageState'],
   data() {
     return {
       orders: [],
       pagination: {},
+      isLoading: false,
+      tempOrder: {},
     };
-  },
-  computed: {
-    ...mapWritableState(statusStore, ['isLoading']),
   },
   methods: {
     createdDate(milliseconds) {
@@ -107,18 +108,26 @@ export default {
       await apiPutOrderItemDetail({ data: { is_paid: isPaid } }, id)
         .then((res) => {
           console.log(res);
+          this.pushMessageState(res, '訂單狀態更新');
           this.getProducts();
         })
         .catch((err) => console.log(err));
     },
-    async deleteOrder(id) {
+    async deleteOrder(item) {
+      const { id } = item;
       this.isLoading = true;
       await apiDeleteOrder(id)
         .then((res) => {
           console.log(res);
           this.getProducts();
+          this.$refs.deleteModal.hideModal();
+          this.pushMessageState(res, '訂單刪除');
         })
         .catch((err) => console.log(err));
+    },
+    openDeleteModal(item) {
+      this.tempOrder = { ...item, title: '此筆訂單' };
+      this.$refs.deleteModal.showModal();
     },
   },
   created() {

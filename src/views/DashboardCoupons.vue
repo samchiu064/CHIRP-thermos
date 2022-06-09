@@ -37,8 +37,8 @@
       </tr>
     </tbody>
   </table>
-  <CouponModal ref="couponModal" @update-coupon="updateCoupon" :coupon="tempCoupon" />
-  <DeleteModal ref="deleteModal" @delete-item="deleteCoupon" :item="tempCoupon" />
+  <DashboardModalCoupon ref="couponModal" @update-coupon="updateCoupon" :coupon="tempCoupon" />
+  <DashboardModalDelete ref="deleteModal" @deleteItem="deleteCoupon" :item="tempCoupon" />
   <ThePagination :pages="pagination" @emit-page="getCoupons" />
 </template>
 
@@ -49,12 +49,12 @@ import {
   apiPutCouponItemDetail,
   apiDeleteCoupon,
 } from '@/api/admin';
-import CouponModal from '../components/DashboardModalCoupon.vue';
-import DeleteModal from '../components/DashboardModalDelete.vue';
-import ThePagination from '../components/ThePagination.vue';
+import DashboardModalCoupon from '@/components/DashboardModalCoupon.vue';
+import DashboardModalDelete from '@/components/DashboardModalDelete.vue';
+import ThePagination from '@/components/ThePagination.vue';
 
 export default {
-  components: { CouponModal, DeleteModal, ThePagination },
+  components: { DashboardModalCoupon, DashboardModalDelete, ThePagination },
   inject: ['pushMessageState'],
   data() {
     return {
@@ -63,10 +63,6 @@ export default {
       pagination: {},
       isNew: false,
       isLoading: false,
-      apiPath: {
-        coupon: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupon`,
-        coupons: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupons`,
-      },
     };
   },
   methods: {

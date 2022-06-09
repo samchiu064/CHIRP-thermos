@@ -39,8 +39,12 @@
     </tbody>
   </table>
   <ThePagination :pages="pagination" @emit-page="getProducts" />
-  <ProductModal ref="productModal" :product="tempProduct" @update-product="updateProduct" />
-  <DeleteModal ref="deleteModal" :item="tempProduct" @delete-item="deleteProduct" />
+  <DashboardModalProduct
+    ref="productModal"
+    :product="tempProduct"
+    @update-product="updateProduct"
+  />
+  <DashboardModalDelete ref="deleteModal" :item="tempProduct" @deleteItem="deleteProduct" />
 </template>
 
 <script>
@@ -50,17 +54,17 @@ import {
   apiPutProductItemDetail,
   apiDeleteProduct,
 } from '@/api/admin';
-import ProductModal from '../components/DashboardModalProduct.vue';
-import DeleteModal from '../components/DashboardModalDelete.vue';
-import ThePagination from '../components/ThePagination.vue';
+import DashboardModalProduct from '@/components/DashboardModalProduct.vue';
+import DashboardModalDelete from '@/components/DashboardModalDelete.vue';
+import ThePagination from '@/components/ThePagination.vue';
 
 export default {
   components: {
-    ProductModal,
-    DeleteModal,
+    DashboardModalProduct,
+    DashboardModalDelete,
     ThePagination,
   },
-  inject: ['emitter', 'pushMessageState'],
+  inject: ['pushMessageState'],
   data() {
     return {
       products: [],
