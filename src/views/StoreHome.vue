@@ -6,7 +6,7 @@
           <section class="kv__content position-absolute top-40 start-50 translate-middle w-100">
             <h1>
               單色不鏽鋼保溫瓶 <br />
-              廣口瓶身，堅固耐用 <br />
+              輕便保溫，易洗防沾 <br />
             </h1>
             <p>商品可寄送至臺澎金馬地區，目前暫不提供海外運送服務。所有商品皆於臺灣製造。</p>
           </section>

@@ -102,8 +102,8 @@
                     <li>容量(cc)：480</li>
                     <li>長Ｘ寬Ｘ高(cm)：6.6x7.2x21.8</li>
                     <li>重量(kg)：0.19</li>
-                    <li>保溫效力(6小時)：68oc以上</li>
-                    <li>保冷效力(6小時)：8oc以下</li>
+                    <li>保溫效力(24小時)：68oc以上</li>
+                    <li>保冷效力(24小時)：8oc以下</li>
                     <li>外蓋/本體材質：PP/不鏽鋼SUS304</li>
                   </ul>
                 </dd>
@@ -153,7 +153,7 @@ import { useCartStore } from '@/stores/cartStore';
 import statusStore from '@/stores/statusStore';
 import StoreFooter from '@/components/StoreFooter.vue';
 import StoreTabsProductDetail from '@/components/StoreTabsProductDetail.vue';
-import StoreInputProductQuantity from '../components/StoreInputProductQuantity.vue';
+import StoreInputProductQuantity from '@/components/StoreInputProductQuantity.vue';
 
 export default {
   components: {

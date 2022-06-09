@@ -16,20 +16,20 @@
             <span class="badge px-1 me-2" :class="`bg-${item.engColor}`">
               <span class="visually-hidden">{{ item.title }}</span>
             </span>
-            <h2>
-              <span class="d-block">第一行文字字</span>
-              <span class="d-block">第二行文字</span>
-              <span class="d-block">第三行文字文字文字</span>
+            <h2 class="m-0">
+              <span class="d-block">就讓這支在外型</span>
+              <span class="d-block">材質和容量上</span>
+              <span class="d-block">都不馬虎的保溫瓶陪你</span>
             </h2>
           </div>
-          <p>
-            <span class="d-block">後自地作法畫法裡然政：精指條提長</span>
-            <span class="d-block">氣理不走皮開動。電花飛主人各</span>
-            <span class="d-block">散他有年演那臺麼子。</span>
+          <p class="mt-3">
+            <span class="d-block">全瓶身採用３０４可水洗不鏽鋼製成，</span>
+            <span class="d-block">不僅便於攜帶，內部的防沾塗層</span>
+            <span class="d-block">讓您透過簡易的清洗，達到去除污垢的效果。</span>
           </p>
           <span class="text-muted" style="max-width: 90%">
-            <span class="d-inline d-lg-block">※黑空確，友市才部這的我的你是友流子去班終以</span>
-            <span class="d-inline d-lg-block">主這道他好空灣為更</span>
+            <span class="d-inline d-lg-block">※此保溫瓶全零件皆可沖洗，可以清水沖洗後晾乾</span>
+            <span class="d-inline d-lg-block">或以海綿沾中性清潔劑清洗保養。</span>
           </span>
         </div>
         <img
@@ -71,19 +71,19 @@
             <span class="badge py-4 px-1 ms-2" :class="`bg-${item.engColor}`">
               <span class="visually-hidden">胡克綠保溫瓶</span>
             </span>
-            <h2>
-              <span class="d-block">第一行文字字</span>
-              <span class="d-block">第二行文字文字文</span>
+            <h2 class="m-0">
+              <span class="d-block">一體式中栓瓶蓋</span>
+              <span class="d-block">極佳的保冷保溫效力</span>
             </h2>
           </div>
-          <p>
-            <span class="d-inline d-lg-block">黑空確，友市才部這的我的你是友流子去班終以主</span>
-            <span class="d-inline d-lg-block">這道他好</span>
+          <p class="mt-3">
+            <span class="d-inline d-lg-block">一體式上蓋設計可簡易拆卸，讓您從此不再有</span>
+            <span class="d-inline d-lg-block">墊圈老化的困擾。</span>
           </p>
           <span class="d-inline d-lg-block text-muted"
-            >※黑空確，友市才部這的我的你是友流子去班終以</span
+            >經實測此款保溫瓶經過 24 小時後仍保留 70% 的熱度※</span
           >
-          <span class="d-inline d-lg-block text-muted">主這道他好空灣為更</span>
+          <span class="d-inline d-lg-block text-muted"></span>
         </div>
         <figure class="figure me-4 mb-4 mt-auto">
           <figcaption class="figure-caption mb-3 d-inline-block align-bottom">
@@ -107,7 +107,7 @@
 <script>
 import { useProductStore } from '@/stores/productStore';
 import { mapState, mapActions } from 'pinia';
-import StoreNavbarFullscreenArticle from '../components/StoreNavbarFullscreenArticle.vue';
+import StoreNavbarFullscreenArticle from '@/components/StoreNavbarFullscreenArticle.vue';
 
 export default {
   components: {
