@@ -1,8 +1,8 @@
 <template>
-  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" ref="toast">
+  <div class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" ref="toast">
     <div class="toast-header">
       <span class="rounded me-2 p-2" alt="temp" :class="`bg-${statusLight}`"></span>
-      <strong class="me-auto">{{ message.title }}</strong>
+      <strong class="me-auto fw-medium">{{ message.title }}</strong>
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body">{{ message.content }}</div>
@@ -13,7 +13,11 @@
 import Toast from 'bootstrap/js/dist/toast';
 
 export default {
-  props: ['message'],
+  props: {
+    message: {
+      type: Array,
+    },
+  },
   data() {
     return {};
   },

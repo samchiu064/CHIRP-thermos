@@ -13,23 +13,13 @@
         </div>
         <div class="modal-body">
           <p>
-            是否刪除 <b>{{ item.title }}</b
+            是否刪除 <span class="fw-bold">{{ item.title }}</span
             >（刪除後將無法恢復）
           </p>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            取消
-          </button>
-          <button
-            type="button"
-            class="btn bg-danger text-white"
-            @click="$emit('delete-item', item)"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn bg-danger text-white" @click="$emit('deleteItem', item)">
             確認刪除
           </button>
         </div>
@@ -39,19 +29,14 @@
 </template>
 
 <script>
-/*
-  Step to create built-in component
-  1. Complete HTML template (by C/P or customize)
-  2. Complete JS of the component for interacive designs (by import or customize)
-  3. Create an empty object in data for the compoenent, create a component instance
-      in mounted phase and assign it to the object
-*/
 import modalMixin from '@/mixins/modalMixin';
 
 export default {
   mixins: [modalMixin],
   props: {
-    item: {},
+    item: {
+      type: Object,
+    },
   },
   data() {
     return {

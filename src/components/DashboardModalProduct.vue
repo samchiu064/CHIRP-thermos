@@ -192,17 +192,15 @@
 </template>
 
 <script>
-import { apiPostUploadImage } from "@/api/admin";
-import modalMixin from "@/mixins/modalMixin";
+import { apiPostUploadImage } from '@/api/admin';
+import modalMixin from '@/mixins/modalMixin';
 
 export default {
   mixins: [modalMixin],
   props: {
     product: {
       type: Object,
-      default() {
-        return {};
-      },
+      default: () => {},
     },
   },
   data() {
@@ -222,18 +220,18 @@ export default {
       const index = key - 1; // Array index starting from zero
 
       const uploadedFile =
-        type === "major"
+        type === 'major'
           ? this.$refs.majorImageInput.files[0]
           : this.$refs.minorImageInput[index].files[0];
 
       const formData = new FormData(); // 2. 轉成 form-data格式
-      formData.append("file-to-upload", uploadedFile);
+      formData.append('file-to-upload', uploadedFile);
 
       apiPostUploadImage(formData)
         .then((res) => {
           if (!res.data.success) return;
-          if (type === "major") this.tempProduct.imageUrl = res.data.imageUrl;
-          if (type === "minor") this.tempProduct.imagesUrl[index] = res.data.imageUrl;
+          if (type === 'major') this.tempProduct.imageUrl = res.data.imageUrl;
+          if (type === 'minor') this.tempProduct.imagesUrl[index] = res.data.imageUrl;
         })
         .catch((err) => console.log(err));
     },

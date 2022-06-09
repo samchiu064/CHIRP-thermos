@@ -1,5 +1,5 @@
 <template>
-  <div class="toast-container position-absolute top-0 end-0 pe-3 mt-3">
+  <div class="toast-container position-absolute top-0 end-0 pe-3 mt-5">
     <DashboardToastContainerMessage
       v-for="(message, key) in messages"
       :key="key"
@@ -22,9 +22,13 @@ export default {
     };
   },
   mounted() {
-    this.emitter.on('push-messages', (messages) => {
+    this.emitter.on('pushMessages', (messages) => {
       const message = { ...messages };
       this.messages.push(message);
+      // A new message should be cleared when hidden
+      setTimeout(() => {
+        this.messages.shift();
+      }, 6000);
     });
   },
 };
