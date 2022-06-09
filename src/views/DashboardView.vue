@@ -1,13 +1,26 @@
 <template>
   <DashboardNavbar />
+  <DashboardToastContainer />
   <router-view></router-view>
 </template>
 
 <script>
 import DashboardNavbar from '@/components/DashboardNavbar.vue';
+import DashboardToastContainer from '@/components/DashboardToastContainer.vue';
+import emitter from '@/methods/emitter';
+import pushMessageState from '@/methods/pushMessageState';
 
 export default {
-  components: { DashboardNavbar },
+  components: {
+    DashboardNavbar,
+    DashboardToastContainer,
+  },
+  provide() {
+    return {
+      emitter,
+      pushMessageState,
+    };
+  },
 };
 </script>
 
