@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import StoreHeader from '../components/StoreHeader.vue';
+import StoreHeader from '@/components/StoreHeader.vue';
 
 export default {
   components: { StoreHeader },
