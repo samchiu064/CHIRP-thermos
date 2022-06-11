@@ -1,5 +1,5 @@
 <template>
-  <header class="container-fluid p-0 bg-light" :class="positionType">
+  <header class="container-fluid p-0 bg-light pt-2" :class="positionType">
     <nav class="navbar navbar-expand-lg navbar-light mx-1 p-3">
       <router-link
         to="/thermos/classic"
@@ -41,14 +41,38 @@
           <i class="line"></i>
         </div>
       </button>
-      <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#">LOGO</a>
+      <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#">
+        <img src="@/assets/images/logo.png" alt="1" style="max-height: 48px" />
+      </a>
       <div class="ms-auto me-0 d-flex">
         <StoreHeaderMiniCart />
       </div>
     </nav>
-    <nav class="bg-dark collapse text-center" id="navbar__mobile-content">
-      <a href="javascript;" class="nav-link text-white">item01</a>
-      <a href="javascript;" class="nav-link text-white">item02</a>
+    <nav class="bg-dark collapse text-center position-absolute w-100" id="navbar__mobile-content">
+      <router-link
+        to="/thermos/classic"
+        class="nav-link"
+        :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
+        >商品資訊</router-link
+      >
+      <router-link
+        to="/thermos/classic/details/classic-green"
+        class="nav-link"
+        :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
+        >線上訂購</router-link
+      >
+      <router-link
+        to="/order-check"
+        class="nav-link"
+        :class="{ 'nav-link--selected': this.$route.name === 'checkOrder' }"
+        >訂單查詢</router-link
+      >
+      <router-link
+        to="/about-us"
+        class="nav-link"
+        :class="{ 'nav-link--selected': this.$route.name === 'aboutUs' }"
+        >關於我們</router-link
+      >
     </nav>
   </header>
 </template>
@@ -126,7 +150,7 @@ header {
     width: 0%;
     content: '';
     color: transparent;
-    background: #212529;
+    background: #343f49;
     height: 2px;
     transition: all 0.5s;
   }
@@ -135,19 +159,26 @@ header {
   }
 }
 
-.nav-link--selected {
-  position: relative;
-  &:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 70%;
-    content: '';
-    color: transparent;
-    background: #212529;
-    height: 2px;
+.nav-link {
+  &--selected {
+    position: relative;
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 70%;
+      content: '';
+      color: transparent;
+      background: #343f49;
+      height: 2px;
+    }
   }
+}
+
+#navbar__mobile-content {
+  max-height: calc(100vh - 86.34px);
+  // transition: max-height 3s;
 }
 </style>

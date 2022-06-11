@@ -22,7 +22,8 @@
           <p v-if="this.cart.carts?.length === 0" colspan="4" class="p-2">
             您的購物車目前沒有任何商品，<router-link
               to="/thermos/classic/details/classic-green"
-              class="text-decoration-none"
+              class="text-decoration-none link-dark"
+              @click="isShow = !isShow"
               >去購物</router-link
             >
           </p>
@@ -51,7 +52,7 @@
                 <button
                   v-if="cartDeletedItem !== item.id"
                   type="button"
-                  class="btn bi bi-trash float-end"
+                  class="btn bi bi-trash float-end btn-deleted"
                   @click="deleteCartItem(item.id)"
                 ></button>
                 <div
@@ -124,11 +125,17 @@ export default {
   background-color: #e9ecef;
 }
 
+.btn-deleted {
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #f8f9fa !important;
+  }
+}
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;
 }
-
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
