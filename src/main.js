@@ -8,12 +8,14 @@ import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 // Axios
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-// Loading
+// Loading Overlay
 import Loading from 'vue3-loading-overlay';
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 // Bootstrap
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
+// Vue progress-bar
+import VueProgressBar from '@aacassandra/vue3-progressbar';
 import App from './App.vue';
 import router from './router';
 
@@ -30,11 +32,26 @@ configure({
 });
 setLocale('zhTW');
 
+const options = {
+  color: '#4d6d58',
+  failedColor: '#CC7E85',
+  thickness: '5px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s',
+    termination: 300,
+  },
+  autoRevert: true,
+  location: 'top',
+  inverse: false,
+};
+
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(VueAxios, axios);
 app.use(router);
+app.use(VueProgressBar, options);
 app.component('LoadingOverlay', Loading);
 app.component('VForm', Form);
 app.component('VField', Field);
