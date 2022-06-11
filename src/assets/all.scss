@@ -93,6 +93,30 @@ $font-weight-bolder: 900 !default;
   }
 }
 
+.link-classic {
+  &-green {
+    color: #4d6d58 !important;
+    &:hover {
+      color: #1f3d2b !important;
+      transition: all 0.5s;
+    }
+  }
+  &-red {
+    color: #cc7e85;
+    &:hover {
+      color: #944B54 !important;
+      transition: all 0.5s;
+    }
+  }
+  &-blue {
+    color: #496da5;
+    &:hover {
+      color: #043E71 !important;
+      transition: all 0.5s;
+    }
+  }
+}
+
 .bg-classic {
   &-green {
     background-color: #4d6d58;
