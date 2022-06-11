@@ -1,5 +1,5 @@
 <template>
-  <main class="container p-3 p-md-5 bg-white">
+  <main class="container mt-5">
     <div class="row justify-content-center">
       <router-view
         name="progressBar"

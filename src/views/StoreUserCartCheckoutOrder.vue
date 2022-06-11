@@ -17,7 +17,7 @@
       <button
         type="button"
         class="btn btn-outline-secondary rounded-pill w-100 py-2"
-        @click="this.$router.push({ name: 'thermosClassicDetails' })"
+        @click="this.$router.push({ path: '/thermos/classic/details/classic-green' })"
       >
         繼續購物
       </button>

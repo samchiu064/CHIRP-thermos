@@ -10,21 +10,21 @@
         'z-index': thermos.length - index,
       }"
     >
-      <article class="col mt-9 text-classic-black flex-column d-none d-md-flex ps-0">
+      <article class="col mt-17 mt-lg-9 text-classic-black flex-column d-none d-md-flex ps-0">
         <div class="ms-auto ps-2">
           <div class="lh-sm d-flex">
             <span class="badge px-1 me-2" :class="`bg-${item.engColor}`">
               <span class="visually-hidden">{{ item.title }}</span>
             </span>
             <h2 class="m-0">
-              <span class="d-block">就讓這支在外型</span>
-              <span class="d-block">材質和容量上</span>
-              <span class="d-block">都不馬虎的保溫瓶陪你</span>
+              <span class="d-block">將外型與實用度</span>
+              <span class="d-block">合而為一的</span>
+              <span class="d-block">「流線型瓶身」設計</span>
             </h2>
           </div>
           <p class="mt-3">
-            <span class="d-block">全瓶身採用３０４可水洗不鏽鋼製成，</span>
-            <span class="d-block">不僅便於攜帶，內部的防沾塗層</span>
+            <span class="d-block">全瓶身採用３０４可水洗不鏽鋼製成</span>
+            <span class="d-block">堅固耐用，瓶內特殊的防沾塗層</span>
             <span class="d-block">讓您透過簡易的清洗，達到去除污垢的效果。</span>
           </p>
           <span class="text-muted" style="max-width: 90%">
@@ -44,7 +44,7 @@
           <img
             :src="item.imageUrl"
             :alt="item.title + '產品圖片'"
-            class="figure-img img-fluid align-self-center mt-4"
+            class="figure-img img-fluid align-self-center mt-6"
           />
           <figcaption class="figure-caption">
             <router-link
@@ -67,12 +67,12 @@
           class="img-fluid mx-auto"
         />
         <div class="ms-auto" dir="rtl">
-          <div class="mt-9 lh-sm d-flex">
+          <div class="mt-19 mt-lg-12 lh-sm d-flex">
             <span class="badge py-4 px-1 ms-2" :class="`bg-${item.engColor}`">
               <span class="visually-hidden">胡克綠保溫瓶</span>
             </span>
             <h2 class="m-0">
-              <span class="d-block">一體式中栓瓶蓋</span>
+              <span class="d-block">一體式上蓋</span>
               <span class="d-block">極佳的保冷保溫效力</span>
             </h2>
           </div>
@@ -101,17 +101,17 @@
   </main>
   <section class="vh-100 p-0"></section>
   <section class="vh-100 p-0"></section>
-  <StoreNavbarFullscreenArticle :products="thermos" />
+  <StoreThermosClassicNavbar :products="thermos" />
 </template>
 
 <script>
 import { useProductStore } from '@/stores/productStore';
 import { mapState, mapActions } from 'pinia';
-import StoreNavbarFullscreenArticle from '@/components/StoreNavbarFullscreenArticle.vue';
+import StoreThermosClassicNavbar from '@/components/StoreThermosClassicNavbar.vue';
 
 export default {
   components: {
-    StoreNavbarFullscreenArticle,
+    StoreThermosClassicNavbar,
   },
   data() {
     return {
@@ -143,9 +143,11 @@ export default {
     },
     ...mapActions(useProductStore, ['getProduct']),
   },
-  created() {
-    this.getProduct();
+  async created() {
+    this.$Progress.start();
+    await this.getProduct();
     this.innerHeight = window.innerHeight;
+    this.$Progress.finish();
   },
   mounted() {
     document.addEventListener('scroll', this.revealSection);

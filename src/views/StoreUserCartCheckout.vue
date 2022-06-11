@@ -1,5 +1,5 @@
 <template>
-  <div class="container p-3 p-md-5 bg-white">
+  <div class="container p-3 p-md-5">
     <div class="row">
       <div class="col">
         <StoreUserCartProductTable :isSummary="true" />

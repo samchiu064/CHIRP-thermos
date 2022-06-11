@@ -8,11 +8,6 @@ import StoreHeader from '@/components/StoreHeader.vue';
 
 export default {
   components: { StoreHeader },
-  data() {
-    return {};
-  },
-  methods: {},
-  created() {},
 };
 </script>
 

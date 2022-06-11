@@ -1,7 +1,7 @@
 <template>
   <main>
     <section class="bg-light">
-      <div class="container p-3 p-md-5">
+      <div class="container p-3 p-md-5 mt-3">
         <div class="row row-cols-1 row-cols-md-2 mb-2">
           <div class="col">
             <div class="text-center d-flex align-items-center justify-content-center">
@@ -15,7 +15,7 @@
           </div>
           <div class="col">
             <div class="text-center text-md-start m-auto mx-md-0">
-              <h2 class="mt-2 mt-md-0">{{ tempProduct.title }}</h2>
+              <h2 class="mt-3 mt-md-0">{{ tempProduct.title }}</h2>
               <h3 style="display: none">價格</h3>
               <span class="fs-3 fw-bold">NT ${{ tempProduct.price?.toLocaleString('en-us') }}</span>
               <p class="mt-3 mb-4">
@@ -52,7 +52,7 @@
 
             <div class="mt-3">
               <h3 class="fs-6 fw-bold">數量</h3>
-              <StoreInputProductQuantity
+              <StoreProductInput
                 :qty="tempProduct.qty"
                 @updateItem="updateItem"
                 @update:value="(newValue) => (tempProduct.qty = newValue)"
@@ -93,7 +93,9 @@
       <div class="container p-3 p-md-5">
         <div class="row row-cols-1">
           <StoreTabsProductDetail>
-            <template #titleFirstTab>商品詳情</template>
+            <template #titleFirstTab>
+              <span class="link-classic-green fw-medium">商品詳情</span>
+            </template>
             <template #firstTab>
               <dl>
                 <dt>產品規格</dt>
@@ -109,7 +111,9 @@
                 </dd>
               </dl></template
             >
-            <template #titleSecondTab>運送資訊</template>
+            <template #titleSecondTab>
+              <span class="link-classic-green fw-medium">運送資訊</span></template
+            >
             <template #secondTab>
               <dl>
                 <dt>寄送時間</dt>
@@ -125,7 +129,9 @@
                 </dd>
               </dl></template
             >
-            <template #titleThirdTab>退款政策</template>
+            <template #titleThirdTab>
+              <span class="link-classic-green fw-medium">退款政策</span></template
+            >
             <template #thirdTab>
               <dl>
                 <dt>退款須知</dt>
@@ -153,11 +159,11 @@ import { useCartStore } from '@/stores/cartStore';
 import statusStore from '@/stores/statusStore';
 import StoreFooter from '@/components/StoreFooter.vue';
 import StoreTabsProductDetail from '@/components/StoreTabsProductDetail.vue';
-import StoreInputProductQuantity from '@/components/StoreInputProductQuantity.vue';
+import StoreProductInput from '@/components/StoreProductInput.vue';
 
 export default {
   components: {
-    StoreInputProductQuantity,
+    StoreProductInput,
     StoreTabsProductDetail,
     StoreFooter,
   },
@@ -193,8 +199,10 @@ export default {
     ...mapActions(useCartStore, ['addCartItem']),
   },
   async created() {
+    this.$Progress.start();
     await this.getProduct();
     this.renderProduct();
+    this.$Progress.finish();
   },
 };
 </script>

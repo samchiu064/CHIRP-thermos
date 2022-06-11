@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-6">
       <div class="col col-lg-6">
-        <p class="text-center">請輸入您的訂單號碼</p>
+        <p class="text-center fs-5 fw-medium">請輸入您的 20 碼訂單號碼以獲取訂單資訊</p>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -77,19 +77,31 @@ export default {
   },
   methods: {
     async getOrderList(orderId) {
-      if (orderId.length < 20) this.orderIsValid = false;
+      if (orderId.length < 20) {
+        this.orderIsValid = false;
+        return;
+      }
+      this.$Progress.start();
       await apiGetOrderListById(orderId)
         .then((res) => {
           if (res.data.success === true) {
             this.order = res.data.order;
             this.orderIsValid = true;
+            this.$Progress.finish();
           }
           console.log(res);
         })
         .catch((res) => {
+          this.$Progress.fail();
           console.log(res);
         });
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.form-control {
+  background-color: transparent;
+}
+</style>

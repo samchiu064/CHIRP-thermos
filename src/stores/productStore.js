@@ -1,8 +1,5 @@
 import { apiGetProductList } from '@/api/client';
 import { defineStore } from 'pinia';
-// import statusStore from './statusStore';
-
-// const status = statusStore();
 
 export const useProductStore = defineStore('product', {
   state: () => ({
