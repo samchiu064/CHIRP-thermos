@@ -8,7 +8,7 @@
   <label for="qty" class="w-25 align-middle">
     <input
       type="number"
-      class="rounded form-control text-center w-100 text-black-50"
+      class="rounded form-control text-center w-100 text-black-50 bg-transparent"
       id="qty"
       min="1"
       :disabled="cartDeletedItem === itemId || !hasOperators"
@@ -58,9 +58,18 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 /* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
+}
+
+.btn {
+  &:hover {
+    background-color: #f8f9fa !important;
+    &:before {
+      color: #212529;
+      transition: color 0.3s;
+    }
+  }
 }
 </style>

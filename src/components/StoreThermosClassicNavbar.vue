@@ -1,16 +1,6 @@
 <template>
   <ul
-    class="
-      nav
-      pe-2
-      flex-column
-      position-fixed
-      top-50
-      end-0
-      translate-middle-y
-      text-end
-      fs-8
-    "
+    class="nav pe-2 flex-column position-fixed top-50 end-0 translate-middle-y text-end fs-8 pb-md-12 pb-xl-0"
   >
     <li
       v-for="(item, index) in products"
@@ -94,7 +84,7 @@ a {
   opacity: 0;
   transition: all 0.3s ease-in-out;
   &::after {
-    content: "▸";
+    content: '▸';
     font-size: 15px;
     line-height: 17px;
   }
