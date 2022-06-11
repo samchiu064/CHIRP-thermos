@@ -138,4 +138,8 @@ export default {
   content: '*';
   color: red;
 }
+
+.form-control {
+  background-color: transparent !important;
+}
 </style>

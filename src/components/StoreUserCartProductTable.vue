@@ -43,7 +43,7 @@
             NT$ {{ item.product.price.toLocaleString('en-us') }}
           </td>
           <td class="col-12 col-md-auto p-0">
-            <StoreInputProductQuantity
+            <StoreProductInput
               v-if="cartLoadingItem !== item.id"
               :hasOperators="hasOperators"
               :qty="item.qty"
@@ -63,7 +63,7 @@
             <button
               v-if="cartDeletedItem !== item.id"
               type="button"
-              class="btn bi bi-trash"
+              class="btn btn-deleted bi bi-trash"
               @click="deleteCartItem(item.id)"
             ></button>
             <div
@@ -96,7 +96,7 @@
       <td v-if="this.cart.carts?.length === 0" colspan="4" class="p-4">
         您的購物車目前沒有任何商品，<router-link
           to="/thermos/classic/details/classic-green"
-          class="text-decoration-none"
+          class="text-decoration-none link-classic-green"
           >去購物</router-link
         >
       </td>
@@ -108,11 +108,11 @@
 import { mapState, mapActions } from 'pinia';
 import { useCartStore } from '@/stores/cartStore';
 import statusStore from '@/stores/statusStore';
-import StoreInputProductQuantity from './StoreInputProductQuantity.vue';
+import StoreProductInput from './StoreProductInput.vue';
 
 export default {
   components: {
-    StoreInputProductQuantity,
+    StoreProductInput,
   },
   props: {
     isSummary: {
@@ -159,5 +159,12 @@ export default {
 }
 .td-deleted {
   background-color: #e9ecef;
+}
+
+.btn-deleted {
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #f8f9fa !important;
+  }
 }
 </style>

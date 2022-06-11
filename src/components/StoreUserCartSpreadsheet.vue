@@ -146,4 +146,13 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.card,
+.card-header,
+.accordion-item,
+.accordion-button,
+.list-group-item,
+.form-control {
+  background-color: transparent !important;
+}
+</style>
