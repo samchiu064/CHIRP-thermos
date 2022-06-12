@@ -5,6 +5,7 @@ export default defineStore('statusStore', {
     isLoading: false,
     cartLoadingItem: '',
     cartDeletedItem: '',
+    cartItemIsAdded: false,
     couponIsApplied: false,
     couponIsValid: false,
     orderIsValid: false,

@@ -67,22 +67,32 @@
               >
                 立即購買
               </button>
-              <button
-                type="button"
-                class="btn btn-dark rounded-pill w-45 ms-4 py-2"
-                :disabled="cartLoadingItem === tempProduct.id"
-                @click="addCartItem(tempProduct.id, tempProduct.qty)"
-              >
-                <div
-                  v-if="cartLoadingItem === tempProduct.id"
-                  class="spinner-border spinner-border-sm text-light"
-                  role="status"
+              <div class="d-inline-block position-relative ms-4 w-45">
+                <button
+                  type="button"
+                  class="btn btn-dark rounded-pill w-100 py-2"
+                  :disabled="cartLoadingItem === tempProduct.id"
+                  @click="addCartItem(tempProduct.id, tempProduct.qty)"
                 >
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-                <i v-else class="bi bi-cart-dash text-white me-1"></i>
-                加入購物車
-              </button>
+                  <div
+                    v-if="cartLoadingItem === tempProduct.id"
+                    class="spinner-border spinner-border-sm text-light"
+                    role="status"
+                  >
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <i v-else class="bi bi-cart-dash text-white me-1"></i>
+                  加入購物車
+                </button>
+                <span
+                  class="text-success w-100 position-absolute top-100 start-50 translate-middle text-center"
+                  :class="{
+                    'cart-message--success': cartItemIsAdded,
+                    invisible: !cartItemIsAdded,
+                  }"
+                  ><i class="bi bi-check"></i>商品成功加入購物車</span
+                >
+              </div>
             </div>
           </div>
         </div>
@@ -174,7 +184,7 @@ export default {
   },
   computed: {
     ...mapState(useProductStore, ['thermos']),
-    ...mapState(statusStore, ['cartLoadingItem']),
+    ...mapState(statusStore, ['cartLoadingItem', 'cartItemIsAdded']),
   },
   methods: {
     switchProduct(item) {
@@ -218,6 +228,28 @@ export default {
   max-height: 509px;
   @media (max-width: 576px) {
     max-height: 360px;
+  }
+}
+
+.cart-message--success {
+  visibility: visible !important;
+  opacity: 0;
+  cursor: default;
+  animation: fade 3s;
+  margin-top: 1.2rem;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0.2;
+    margin-top: 0rem;
+  }
+  50% {
+    opacity: 1;
+    margin-top: 1.2rem;
+  }
+  100% {
+    opacity: 0;
   }
 }
 </style>

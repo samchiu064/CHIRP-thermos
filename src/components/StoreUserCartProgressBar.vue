@@ -43,6 +43,7 @@
           'btn-light': !enableStepsArray.includes(3),
         }"
         style="width: 2rem; height: 2rem"
+        :disabled="formIsValid"
         @click="this.$router.push({ name: 'checkout' })"
       >
         3
@@ -70,6 +71,10 @@ export default {
       default() {
         return [1];
       },
+    },
+    formIsValid: {
+      type: Boolean,
+      default: () => false,
     },
   },
 };

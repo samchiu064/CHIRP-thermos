@@ -1,7 +1,5 @@
 <template>
-  <ul
-    class="nav pe-2 flex-column position-fixed top-50 end-0 translate-middle-y text-end fs-8 pb-md-12 pb-xl-0"
-  >
+  <ul class="nav pe-2 flex-column position-fixed top-50 end-0 translate-middle-y text-end fs-8">
     <li
       v-for="(item, index) in products"
       :key="index"

@@ -28,12 +28,17 @@ export const useCartStore = defineStore('cart', {
     },
     async addCartItem(productId, qty) {
       status.cartLoadingItem = productId;
+      status.cartItemIsAdded = false;
       await apiPostCartItem({ data: { product_id: productId, qty } })
         .then((res) => {
           status.cartLoadingItem = '';
+          status.cartItemIsAdded = true;
           console.log(res);
         })
-        .catch((res) => console.log(res));
+        .catch((res) => {
+          status.cartItemIsAdded = false;
+          console.log(res);
+        });
 
       this.getCartList();
     },

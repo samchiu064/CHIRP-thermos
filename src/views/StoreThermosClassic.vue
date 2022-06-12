@@ -17,7 +17,7 @@
               <span class="visually-hidden">{{ item.title }}</span>
             </span>
             <h2 class="m-0">
-              <span class="d-block">將外型與實用度</span>
+              <span class="d-block">將外型與實用性</span>
               <span class="d-block">合而為一的</span>
               <span class="d-block">「流線型瓶身」設計</span>
             </h2>
@@ -44,7 +44,7 @@
           <img
             :src="item.imageUrl"
             :alt="item.title + '產品圖片'"
-            class="figure-img img-fluid align-self-center mt-6"
+            class="figure-img main-image img-fluid align-self-center mt-6"
           />
           <figcaption class="figure-caption">
             <router-link
@@ -93,7 +93,7 @@
             :src="item.imagesUrl[2]"
             :alt="item.title + '保溫效果圖片'"
             style="max-width: 10.5vw"
-            class="figure-img rounded"
+            class="figure-img--mobile rounded"
           />
         </figure>
       </article>
@@ -167,5 +167,15 @@ export default {
     rgba(255, 255, 255, 1) 27%,
     rgba(248, 249, 250, 1) 42%
   );
+}
+
+.main-image {
+  max-width: 45%;
+  @media (min-width: 768px) {
+    max-width: 70%;
+  }
+  @media (min-width: 992px) {
+    width: auto;
+  }
 }
 </style>

@@ -5,6 +5,7 @@
         name="progressBar"
         :percentage="progressPercent"
         :enableStepsArray="enableStepsArray"
+        :formIsValid="formIsValid"
         class="mb-6"
       />
     </div>
