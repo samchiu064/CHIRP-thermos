@@ -26,7 +26,7 @@
         >關於我們</router-link
       >
       <button
-        class="navbar-toggler navbar__mobile-toggler"
+        class="navbar-toggler border-0"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbar__mobile-content"
@@ -36,9 +36,9 @@
         @click="toggleHamburger"
       >
         <div id="navbar__mobile-icon" :class="{ 'is-active': isActive }">
-          <i class="line"></i>
-          <i class="line"></i>
-          <i class="line"></i>
+          <i class="line bg-classic-green"></i>
+          <i class="line bg-classic-green"></i>
+          <i class="line bg-classic-green"></i>
         </div>
       </button>
       <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#">
@@ -48,31 +48,33 @@
         <StoreHeaderMiniCart />
       </div>
     </nav>
-    <nav class="bg-dark collapse text-center position-absolute w-100" id="navbar__mobile-content">
-      <router-link
-        to="/thermos/classic"
-        class="nav-link"
-        :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
-        >商品資訊</router-link
-      >
-      <router-link
-        to="/thermos/classic/details/classic-green"
-        class="nav-link"
-        :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
-        >線上訂購</router-link
-      >
-      <router-link
-        to="/order-check"
-        class="nav-link"
-        :class="{ 'nav-link--selected': this.$route.name === 'checkOrder' }"
-        >訂單查詢</router-link
-      >
-      <router-link
-        to="/about-us"
-        class="nav-link"
-        :class="{ 'nav-link--selected': this.$route.name === 'aboutUs' }"
-        >關於我們</router-link
-      >
+    <nav class="bg-light collapse text-center position-absolute w-100" id="navbar__mobile-content">
+      <div class="vh-100">
+        <router-link
+          to="/thermos/classic"
+          class="nav-link link-dark p-3 mt-2"
+          :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
+          >商品資訊</router-link
+        >
+        <router-link
+          to="/thermos/classic/details/classic-green"
+          class="nav-link link-dark p-3"
+          :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
+          >線上訂購</router-link
+        >
+        <router-link
+          to="/order-check"
+          class="nav-link link-dark p-3"
+          :class="{ 'nav-link--selected': this.$route.name === 'checkOrder' }"
+          >訂單查詢</router-link
+        >
+        <router-link
+          to="/about-us"
+          class="nav-link link-dark p-3"
+          :class="{ 'nav-link--selected': this.$route.name === 'aboutUs' }"
+          >關於我們</router-link
+        >
+      </div>
     </nav>
   </header>
 </template>
@@ -173,12 +175,14 @@ header {
       color: transparent;
       background: #343f49;
       height: 2px;
+      @media (max-width: 992px) {
+        display: none;
+      }
     }
   }
 }
 
-#navbar__mobile-content {
-  max-height: calc(100vh - 86.34px);
-  // transition: max-height 3s;
+.collapsing {
+  transition: all 0.5s ease-in-out;
 }
 </style>
