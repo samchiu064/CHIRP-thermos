@@ -3,33 +3,33 @@
     <nav class="nav justify-content-center border-top py-3 my-3">
       <router-link
         to="/thermos/classic"
-        class="nav-link d-none d-lg-block link-classic-green underline"
+        class="nav-link d-none d-lg-block link-secondary underline"
         :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
         >商品資訊</router-link
       >
       <router-link
         to="/thermos/classic/details/classic-green"
-        class="nav-link d-none d-lg-block link-classic-green underline"
+        class="nav-link d-none d-lg-block link-secondary underline"
         :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
         >線上訂購</router-link
       >
       <router-link
         to="/order-check"
-        class="nav-link d-none d-lg-block link-classic-green underline"
+        class="nav-link d-none d-lg-block link-secondary underline"
         :class="{ 'nav-link--selected': this.$route.name === 'orderCheck' }"
         >訂單查詢</router-link
       >
       <router-link
         to="/about-us"
-        class="nav-link d-none d-lg-block link-classic-green underline"
+        class="nav-link d-none d-lg-block link-secondary underline"
         :class="{ 'nav-link--selected': this.$route.name === 'aboutUs' }"
         >關於我們</router-link
       >
     </nav>
-    <p class="text-muted text-center fs-7">© 2022 CHIRP鳥牌 All Rights Reserved</p>
+    <p class="text-muted text-center fs-7">Copyright © 2022 CHIRP鳥牌. All rights reserved</p>
     <p class="text-muted text-center fs-7">
-      Designed/Developed by: Sam Chiu | Assets:
-      <a href="https://unsplash.com/photos/reEySFadyJQ" class="link-secondary">Unsplash</a>
+      Designed/Developed by: Sam Chiu | Admin portal:
+      <router-link to="/dashboard" class="link-secondary">Dashboard</router-link>
     </p>
     <ul class="list-group flex-row justify-content-center align-items-center">
       <li class="list-group-item bg-transparent border-0">
