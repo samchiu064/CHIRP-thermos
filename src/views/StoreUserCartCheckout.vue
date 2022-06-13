@@ -77,9 +77,6 @@ export default {
       this.$router.push({ name: 'checkoutOrder', params: { orderId: this.orderId } });
     },
   },
-  created() {
-    // if (this.cart.carts.length === 0) this.$router.push({ name: 'cart' });
-  },
 };
 </script>
 

@@ -10,5 +10,3 @@ export default {
   components: { StoreHeader },
 };
 </script>
-
-<style lang="scss" scoped></style>

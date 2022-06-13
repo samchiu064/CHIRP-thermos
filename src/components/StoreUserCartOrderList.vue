@@ -29,8 +29,5 @@ export default {
       default: () => {},
     },
   },
-  // async created() {
-  //   if (this.$route.name === 'checkoutOrder') await this.getOrderList(this.$route.params.orderId);
-  // },
 };
 </script>

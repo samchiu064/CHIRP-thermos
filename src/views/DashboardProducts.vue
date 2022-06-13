@@ -1,6 +1,6 @@
 <template>
   <LoadingOverlay :active="isLoading" />
-  <div class="text-end">
+  <div class="text-end mt-3">
     <button class="btn btn-primary" type="button" @click="openModal(true)">新增產品</button>
   </div>
   <table class="table mt-4">
@@ -23,7 +23,6 @@
         <td>
           <span class="text-success" v-if="item.is_enabled">啟用</span>
           <span class="text-muted" v-else>未啟用</span>
-          <!-- <span class="text-success">{{ item.is_enabled ? '啟用' : '未啟用' }}</span> -->
         </td>
         <td>
           <div class="btn-group">
@@ -76,7 +75,8 @@ export default {
   },
   methods: {
     async getProducts(page = 1) {
-      this.isLoading = true; // Show loading overlay
+      // Show loading overlay
+      this.isLoading = true;
       await apiGetProductListByPage(page)
         .then((res) => {
           if (res.data.success) {
@@ -86,7 +86,9 @@ export default {
           }
         })
         .catch((err) => console.log(err));
-      this.isLoading = false; // Hide loading overlay
+
+      // Hide loading overlay
+      this.isLoading = false;
     },
     openModal(isNew, item) {
       // Case 1: Add a new product (is NOT new); Case 2: Edit the product (is New)
@@ -100,7 +102,10 @@ export default {
     },
     async updateProduct(item) {
       this.tempProduct = item;
-      this.isLoading = true; // Show loading overlay
+
+      // Show loading overlay
+      this.isLoading = true;
+
       // 建立產品
       if (this.isNew) {
         await apiPostProductItem({ data: this.tempProduct })
@@ -125,7 +130,8 @@ export default {
       this.getProducts();
     },
     async deleteProduct(item) {
-      this.isLoading = true; // Show loading overlay
+      // Show loading overlay
+      this.isLoading = true;
 
       await apiDeleteProduct(item.id)
         .then((res) => {
@@ -134,7 +140,8 @@ export default {
         })
         .catch((err) => console.log(err));
 
-      this.isLoading = false; // Loading effect off
+      // Loading effect off
+      this.isLoading = false;
       this.$refs.deleteModal.hideModal();
       this.getProducts();
     },

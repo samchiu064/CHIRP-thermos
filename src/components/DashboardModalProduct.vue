@@ -1,5 +1,4 @@
 <template>
-  <!-- Modal -->
   <div
     class="modal fade"
     id="exampleModal"
@@ -61,7 +60,6 @@
                   />
                 </label>
               </div>
-              <img class="img-fluid" alt="" />
             </div>
             <div class="col-sm-8">
               <div class="mb-3">

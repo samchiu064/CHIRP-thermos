@@ -44,10 +44,5 @@ export default {
       default: () => {},
     },
   },
-  created() {
-    console.log(this.form);
-  },
 };
 </script>
-
-<style lang="scss" scoped></style>

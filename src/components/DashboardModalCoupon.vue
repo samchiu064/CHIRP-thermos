@@ -1,5 +1,4 @@
 <template>
-  <!-- Modal -->
   <div
     class="modal fade"
     id="exampleModal"
@@ -134,7 +133,6 @@ export default {
   },
   methods: {
     updateCoupon() {
-      // this.tempCoupon.due_date = new Date(this.tempCoupon.due_date).getTime();
       this.$emit('update-coupon', this.formattedCoupon);
     },
   },

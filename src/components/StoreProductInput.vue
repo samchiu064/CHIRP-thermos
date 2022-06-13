@@ -26,7 +26,6 @@
 
 <script>
 import statusStore from '@/stores/statusStore';
-// import { useCartStore } from '@/stores/cartStore';
 import { mapState } from 'pinia';
 
 export default {
