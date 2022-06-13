@@ -1,6 +1,6 @@
 <template>
   <LoadingOverlay :active="isLoading" />
-  <div class="text-end">
+  <div class="text-end mt-3">
     <button class="btn btn-primary" type="button" @click="openModal(true)">建立新的優惠券</button>
   </div>
   <table class="table mt-4">
@@ -78,6 +78,7 @@ export default {
     },
     async updateCoupon(formattedItem) {
       this.isLoading = true;
+
       // 建立優惠券
       if (this.isNew) {
         await apiPostCouponItem({ data: formattedItem })
@@ -103,6 +104,7 @@ export default {
     },
     async deleteCoupon() {
       this.isLoading = true;
+
       // 刪除優惠券
       await apiDeleteCoupon(this.tempCoupon.id)
         .then((res) => {
@@ -117,6 +119,7 @@ export default {
     },
     async getCoupons(page = 1) {
       this.isLoading = true;
+
       // 取得優惠券資料
       await apiGetCouponList(page)
         .then((res) => {

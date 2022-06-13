@@ -16,7 +16,7 @@
       <router-link
         to="/order-check"
         class="nav-link d-none d-lg-block link-classic-green underline"
-        :class="{ 'nav-link--selected': this.$route.name === 'checkOrder' }"
+        :class="{ 'nav-link--selected': this.$route.name === 'orderCheck' }"
         >訂單查詢</router-link
       >
       <router-link
@@ -60,5 +60,3 @@
 <script>
 export default {};
 </script>
-
-<style lang="scss" scoped></style>

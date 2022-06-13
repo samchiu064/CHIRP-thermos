@@ -30,18 +30,18 @@ const routes = [
             path: '',
             name: 'cart',
             components: {
-              progressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
-              productTable: () => import('@/components/StoreUserCartProductTable.vue'),
-              spreadSheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
+              StoreUserCartProgressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
+              StoreUserCartProductTable: () => import('@/components/StoreUserCartProductTable.vue'),
+              StoreUserCartSpreadsheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
             },
           },
           {
             path: 'order',
             name: 'order',
             components: {
-              progressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
-              orderForm: () => import('@/components/StoreUserCartOrderForm.vue'),
-              spreadSheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
+              StoreUserCartProgressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
+              StoreUserCartOrderForm: () => import('@/components/StoreUserCartOrderForm.vue'),
+              StoreUserCartSpreadsheet: () => import('@/components/StoreUserCartSpreadsheet.vue'),
             },
           },
           {
@@ -49,7 +49,7 @@ const routes = [
             name: 'checkout',
             components: {
               default: () => import('../views/StoreUserCartCheckout.vue'),
-              progressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
+              StoreUserCartProgressBar: () => import('@/components/StoreUserCartProgressBar.vue'),
             },
           },
           {
@@ -61,8 +61,8 @@ const routes = [
       },
       {
         path: 'order-check',
-        name: 'checkOrder',
-        component: () => import('../views/StoreCheckOrder.vue'),
+        name: 'OrderCheck',
+        component: () => import('../views/StoreOrderCheck.vue'),
       },
       {
         path: 'about-us',

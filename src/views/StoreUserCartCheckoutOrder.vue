@@ -17,9 +17,9 @@
       <button
         type="button"
         class="btn btn-outline-secondary rounded-pill w-100 py-2"
-        @click="this.$router.push({ path: '/thermos/classic/details/classic-green' })"
+        @click="this.$router.push({ name: 'OrderCheck' })"
       >
-        繼續購物
+        查詢訂單
       </button>
     </div>
     <div class="col-5 col-lg-3">
@@ -60,8 +60,10 @@ export default {
     ...mapActions(useCartStore, ['getCartList']),
   },
   created() {
+    this.$Progress.start();
     this.getCartList(); // Cart should be refreshed manually after being checked-out
     this.$emit('getOrderList', this.$route.params.orderId); // Update props: order
+    this.$Progress.finish();
   },
 };
 </script>

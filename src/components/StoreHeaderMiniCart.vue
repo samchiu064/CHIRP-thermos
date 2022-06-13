@@ -40,7 +40,7 @@
               <img
                 :src="item.product.imageUrl"
                 class="img-fluid p-2 rounded"
-                alt="產品圖片"
+                alt="商品圖片"
                 style="max-height: 112px"
               />
             </div>

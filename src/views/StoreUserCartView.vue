@@ -2,7 +2,7 @@
   <main class="container mt-5">
     <div class="row justify-content-center">
       <router-view
-        name="progressBar"
+        name="StoreUserCartProgressBar"
         :percentage="progressPercent"
         :enableStepsArray="enableStepsArray"
         :formIsValid="formIsValid"
@@ -10,9 +10,9 @@
       />
     </div>
     <div class="row">
-      <router-view name="productTable" :class="columns" />
+      <router-view name="StoreUserCartProductTable" :class="columns" />
       <router-view
-        name="orderForm"
+        name="StoreUserCartOrderForm"
         :emailValue="tempForm.user.email"
         :nameValue="tempForm.user.name"
         :telValue="tempForm.user.tel"
@@ -28,8 +28,11 @@
         @validateForm="validateForm"
         class="col-12 col-lg-8"
       />
-      <router-view name="orderTable" />
-      <router-view name="spreadSheet" :nextPage="nextPage" :formIsValid="formIsValid" />
+      <router-view
+        name="StoreUserCartSpreadsheet"
+        :nextPage="nextPage"
+        :formIsValid="formIsValid"
+      />
     </div>
     <router-view
       :tempForm="tempForm"
@@ -61,7 +64,7 @@ export default {
         },
         message: '',
       },
-      paymentMethod: '',
+      paymentMethod: '貨到付款',
       formIsValid: false,
     };
   },
@@ -109,5 +112,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

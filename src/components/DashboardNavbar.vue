@@ -1,7 +1,13 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg p-3">
     <div class="container-fluid">
-      <router-link to="/dashboard" class="navbar-brand">後台管理</router-link>
+      <router-link to="/dashboard" class="navbar-brand"
+        ><img
+          src="@/assets/images/logo_backend.png"
+          alt="後臺logo圖片"
+          style="max-height: 48px"
+          class="navbar-brand position-absolute top-50 start-50 translate-middle"
+      /></router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -14,21 +20,34 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
           <li class="nav-item">
-            <router-link to="/dashboard/products" class="nav-link">產品</router-link>
+            <router-link to="/dashboard/products" class="nav-link link-classic-green fs-5 px-3"
+              >產品</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link to="/dashboard/orders" class="nav-link">訂單</router-link>
+            <router-link to="/dashboard/orders" class="nav-link link-classic-green fs-5 px-3"
+              >訂單</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link to="/dashboard/coupons" class="nav-link">優惠券</router-link>
+            <router-link to="/dashboard/coupons" class="nav-link link-classic-green fs-5 px-3"
+              >優惠券</router-link
+            >
+          </li>
+          <li class="nav-item ms-auto">
+            <router-link to="/login" class="nav-link link-classic-green fs-5 px-3 text-right"
+              >登入</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link to="/login" class="nav-link">登入</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/dashboard" class="nav-link" @click="logout">登出</router-link>
+            <router-link
+              to="/dashboard"
+              class="nav-link link-classic-green fs-5 px-3"
+              @click="logout"
+              >登出</router-link
+            >
           </li>
         </ul>
       </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" ref="toast">
     <div class="toast-header">
-      <span class="rounded me-2 p-2" alt="temp" :class="`bg-${statusLight}`"></span>
+      <span class="rounded me-2 p-2" :class="`bg-${statusLight}`"></span>
       <strong class="me-auto fw-medium">{{ message.title }}</strong>
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>

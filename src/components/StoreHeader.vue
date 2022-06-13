@@ -16,7 +16,7 @@
       <router-link
         to="/order-check"
         class="nav-link d-none d-lg-block link-dark underline"
-        :class="{ 'nav-link--selected': this.$route.name === 'checkOrder' }"
+        :class="{ 'nav-link--selected': this.$route.name === 'OrderCheck' }"
         >訂單查詢</router-link
       >
       <router-link
@@ -42,7 +42,7 @@
         </div>
       </button>
       <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#">
-        <img src="@/assets/images/logo.png" alt="1" style="max-height: 48px" />
+        <img src="@/assets/images/logo.png" alt="CHIRP鳥牌Logo圖片" style="max-height: 48px" />
       </a>
       <div class="ms-auto me-0 d-flex">
         <StoreHeaderMiniCart />
@@ -65,7 +65,7 @@
         <router-link
           to="/order-check"
           class="nav-link link-dark p-3"
-          :class="{ 'nav-link--selected': this.$route.name === 'checkOrder' }"
+          :class="{ 'nav-link--selected': this.$route.name === 'OrderCheck' }"
           >訂單查詢</router-link
         >
         <router-link
@@ -104,7 +104,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$route);
+    // console.log(this.$route);
   },
 };
 </script>
