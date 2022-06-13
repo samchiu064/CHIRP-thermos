@@ -1,24 +1,172 @@
-# my-project
+# [CHIRP鳥牌](#)
+此專案為虛擬保溫瓶品牌「CHIRP鳥牌」的電商網站。本作品為開發者對前端領域所學所知的展現，主要使用 Vue 前端框架製作，
 
-## Project setup
-```
-npm install
-```
+<p align="center">
+  <a href="#"><img src="src/assets/images/readme/home.png" width="700px" alt="landing page"></a>
+</p>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 目錄
+- [網站介紹](#網站介紹)
+- [網站設計](#設計)
+  - [字體選用](#字體選用)
+  - [色彩計畫](#色彩計畫)
+  - [Logo 設計](#Logo-設計)
+  - [網站架構](#網站架構)
+- [Mockups](#Mockups)
+  - [桌機/筆電](#桌機/筆電)
+  - [行動裝置](#行動裝置)
+- [使用技術/工具](#使用技術/工具)
+  - [設計相關](#設計相關)
+  - [前端開發相關](#前端開發香菇ㄢ)
+- [專案回顧](#專案回顧)
+  - [開發時程](#開發時程)
+  - [專案架構](#專案架構)
+  - [問題與思考](#問題與思考)
+- [關於作者](#關於作者)
+- [License](#License)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+---
 
-### Lints and fixes files
-```
-npm run lint
-```
+## 網站介紹
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+  - 網站名稱：CHIRP鳥牌 - 單色不鏽鋼保溫瓶
+  - 網站主題：以販售保溫瓶為主的電子商務網站
+  - 架站目的：有感於市售的保溫瓶並不適合裝填飲用水以外的飲品，以及存在零件汰換率的問題，我們希望能夠以現有產品為立基點，設計一款符合臺灣民眾使用習慣的保溫瓶。
+  - 目標客群：在尋找以好的材質製作、保溫程度高且清潔方法簡易的保溫瓶
+  - 網站特色：商品項目單一、不需登入註冊即可下單、購物流程短
+
+---
+## 設計
+
+### 字體選用
+
+[Noto Sans TC](https://fonts.google.com/noto/specimen/Noto+Sans+TC)
+
+<img src="src/assets/images/readme/font-regular.png" alt="font-regular">
+<img src="src/assets/images/readme/font-medium.png" alt="font-medium">
+<img src="src/assets/images/readme/font-bold.png" alt="font-bold">
+
+### 色彩計畫
+
+- White - CTA buttons 文字/小圖標顏色, 購物車背景色
+- Cultured Gray - 網頁背景顏色
+- Sonic Silver Gray - 圖片/產品說明, 頁尾社群圖標顏色, 次要連結顏色
+- Arsenic Black - 網頁文案顏色, 導覽列連結顏色
+- Hooker's Green - Logo 主色, 產品顏色
+- Old Rose - Logo 輔色, 產品顏色
+- Blue Yonder - Logo 輔色, 產品顏色
+
+<a href="https://coolors.co/ffffff-f8f9fa-6c757d-343f49-4d6d58-cc7e85-496da5">
+  <img src="src/assets/images/readme/color-scheme.png" alt="color-scheme">
+</a>
+
+### Logo 設計
+
+以鳥為形象，
+
+綠色
+紅色
+藍色
+動物:鳥
+CHIRP
+
+<img src="src/assets/images/readme/logo.png" alt="logo圖片" width="450px">
+
+### 網站架構
+
+  - 前臺網站架構
+
+  <img src="src/assets/images/readme/structure_frontend.jpg" alt="前臺網站架構">
+
+  - 後臺網站架構
+
+  <img src="src/assets/images/readme/structure_backend.jpg" alt="後臺網站架構">
+---
+
+## Mockups
+
+繪製 Mockups 時是以儘快完成 1.產品相關頁面 2.購物流程相關頁面 為目標，共繪製出 7 個頁面。相較於設計稿配色的不一致，成品將網站風格統一為以灰色為主，並新增了訂單查詢、訂單成立兩個頁面。
+
+### 桌機/筆電
+
+<!-- <img src="src/assets/images/readme/pc_homePage.jpg" alt="home page">
+<img src="src/assets/images/readme/pc_aboutus.jpg" alt="aboutUs page">
+<img src="src/assets/images/readme/pc_product.jpg" alt="product page">
+<img src="src/assets/images/readme/pc_productDetails.jpg" alt="product details page">
+<img src="src/assets/images/readme/pc_cart.jpg" alt="cart page">
+<img src="src/assets/images/readme/pc_orderForm.jpg" alt="order form page">
+<img src="src/assets/images/readme/pc_beforeCheckout.jpg" alt="beforeCheckout page">
+<img src="src/assets/images/readme/pc_checkout.jpg" alt="checkout page"> -->
+
+### 行動裝置
+
+<!-- <img src="src/assets/images/readme/mobile_homepage.png" alt="mobile home page" width="300px">
+<img src="src/assets/images/readme/mobile_Hamburger.png" alt="mobile hamburger list" width="300px">
+<img src="src/assets/images/readme/mobile_aboutUs.png" alt="mobile aboutUs page" width="300px">
+<img src="src/assets/images/readme/mobile_product.png" alt="mobile product page" width="300px">
+<img src="src/assets/images/readme/mobile_productDetails_02.png" alt="mobile product details page" width="300px">
+<img src="src/assets/images/readme/mobile_productDetails_01.png" alt="mobile product details page" width="300px">
+<img src="src/assets/images/readme/mobile_productDetails_03.png" alt="mobile product details page" width="300px">
+<img src="src/assets/images/readme/mobile_Cart_page_01.png" alt="mobile cart page" width="300px">
+<img src="src/assets/images/readme/mobile_Cart_page_02.png" alt="mobile cart page" width="300px">
+<img src="src/assets/images/readme/mobile_OrderForm_page_01.png" alt="mobile order form page" width="300px">
+<img src="src/assets/images/readme/mobile_Before_checkout_page_01.png" alt="mobile before checkout page " width="300px">
+<img src="src/assets/images/readme/mobile_Before_checkout_page_02.png" alt="mobile before checkout page " width="300px">
+<img src="src/assets/images/readme/mobile_Checkout_page_01.png" alt="mobile checkout page" width="300px"> -->
+
+---
+
+## 使用技術/工具
+
+### 設計相關
+  - [Affinity Photo](https://affinity.serif.com/en-gb/photo/) - 產品圖後製、繪製桌機版 Mockups
+  - [Affinity Designer](https://affinity.serif.com/en-gb/) - 繪製 Logo
+  - [Lunacy](https://icons8.com/lunacy) - 繪製行動裝置版 Mockups
+### 前端開發相關
+  - [HTML5](https://www.w3schools.com/html/)
+  - [CSS3](https://www.w3schools.com/css/)
+  - [JavaScript](https://www.w3schools.com/js/DEFAULT.asp)
+  - [SCSS](https://sass-lang.com/)
+  - [Bootstrap 5](https://getbootstrap.com/)
+  - [Bootstrap Icons](https://icons.getbootstrap.com/)
+  - [axios](https://github.com/axios/axios)
+  - [Vue 3](https://vuejs.org/)
+  - [Vue CLI](https://cli.vuejs.org/)
+  - [Vue Router](https://router.vuejs.org/)
+  - [VeeValidate](https://vee-validate.logaretm.com/v4/)
+  - [Vue-axios](https://www.npmjs.com/package/vue-axios)
+  - [Vue-loading-overlay](https://www.npmjs.com/package/vue-loading-overlay)
+  - [Vue3-progressbar](https://github.com/aacassandra/vue3-progressbar)
+  - [Pinia](https://pinia.vuejs.org/)
+  - [npm](https://www.npmjs.com/)
+  - [Github](https://github.com/)
+  - [ESLint (Airbnb)](https://eslint.org/)
+
+---
+
+## 專案回顧
+### 開發時程
+### 專案架構
+### 問題與思考
+
+---
+
+## 關於作者
+
+Sam Chiu ([LinkedIn](https://www.linkedin.com/in/sam-chiu-4b7557137/))
+
+本作品僅供個人學習及交流使用。若您對本作品有任何疑問或想法，歡迎來信讓我知道。
+<p align="left">
+  <a href="mailto:samchiu064@gmail.com"> 
+  <img src="https://img.shields.io/badge/Gmail-c14438?style=flat&logo=Gmail&logoColor=white" alt="Connect via email">
+  </a>
+</p>
+
+特別感謝 [Joan Tran](https://unsplash.com/photos/reEySFadyJQ) 在 Unsplash 上發佈產品圖片。
+
+---
+
+## License
+
+Copyright © 2022 Sam Chiu. All rights reserved.
+
