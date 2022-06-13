@@ -43,7 +43,8 @@ export const useCartStore = defineStore('cart', {
       this.getCartList();
     },
     async updateCartItem({ itemId, qty }) {
-      const newQty = qty <= 0 ? 1 : qty; // CartItem qty should be either 1 or more than 1
+      // CartItem qty should be either 1 or more than 1
+      const newQty = qty <= 0 ? 1 : qty;
 
       status.cartLoadingItem = itemId;
       await apiPutCartItem({ data: { product_id: itemId, qty: newQty } }, itemId)
@@ -52,7 +53,8 @@ export const useCartStore = defineStore('cart', {
         })
         .catch((err) => console.log(err));
 
-      this.getCartList(); // Update cart list to refresh data in the table
+      // Update cart list to refresh data in the table
+      this.getCartList();
       status.cartLoadingItem = '';
     },
     async deleteCartItem(itemId) {
@@ -62,7 +64,9 @@ export const useCartStore = defineStore('cart', {
           console.log(res);
         })
         .catch((err) => console.log(err));
-      this.getCartList(); // Update cart list to refresh data in the table
+
+      // Update cart list to refresh data in the table
+      this.getCartList();
       status.cartDeletedItem = '';
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VForm class="border mb-3" v-slot="{ meta }">
+    <VForm ref="orderForm" class="border mb-3" v-slot="{ meta }">
       <div @change="$emit('validateForm', meta.valid)" @blur="$emit('validateForm', meta.valid)">
         <h4 class="fs-6 py-2 bg-light text-center border-bottom">訂單資訊</h4>
         <label for="email" class="form-label col-12 px-4 mb-3"
@@ -60,19 +60,22 @@
           <ErrorMessage name="收件人地址" class="text-danger fs-7 ps-2 m-0" />
         </label>
         <p class="form-check-label col-12 px-4 mb-1">付款方式<i class="asterisk"></i></p>
-        <label for="COD" class="form-check ms-4 mb-3">
-          <VField as="div" name="付款方式" rules="required">
+        <VField v-slot="{ field }" name="貨到付款" type="radio" value="貨到付款">
+          <label for="cod">
             <input
               type="radio"
-              id="COD"
-              class="form-check-input"
-              :checked="paymentMethod === '貨到付款'"
-              :value="paymentMethod"
+              name="貨到付款"
+              id="cod"
+              :value="field.name"
+              v-bind="field"
+              class="form-check-input ms-4"
+              :checked="field.name === '貨到付款'"
               @input="$emit('update:paymentMethod', '貨到付款')"
-            />貨到付款
-          </VField>
+            />
+            貨到付款
+          </label>
           <ErrorMessage name="付款方式" class="text-danger fs-7 ps-2 m-0" />
-        </label>
+        </VField>
         <label for="note" class="form-label col-12 mt-2 px-4 mb-3">
           備註
           <textarea

@@ -49,7 +49,7 @@
                     <input
                       class="form-control form-control-sm w-70"
                       type="text"
-                      placeholder="請輸入折扣碼"
+                      placeholder="請輸入折扣碼 summer"
                       aria-label="折扣碼輸入處"
                       v-model="couponCode"
                       @click="
@@ -120,9 +120,6 @@ export default {
       type: Boolean,
       default: () => true,
     },
-  },
-  data() {
-    return {};
   },
   computed: {
     errorMessage() {

@@ -15,11 +15,12 @@ export const useCouponStore = defineStore('coupon', {
       const code = this.couponCode;
       await apiPostCouponApply({ data: { code } })
         .then((res) => {
+          // A voucher code can be used once at a time
           if (res.data.success) {
             if (this.couponList.includes(code)) {
               status.couponIsApplied = true;
               return;
-            } // A voucher code can be used once at a time
+            }
             this.couponList.push(code);
             this.couponCode = '';
           } else {

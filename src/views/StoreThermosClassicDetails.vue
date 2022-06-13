@@ -22,7 +22,6 @@
                 {{ tempProduct.description }}
               </p>
             </div>
-
             <div>
               <h3 class="fs-6 fw-bold">顏色</h3>
               <ul class="nav">
@@ -41,7 +40,6 @@
                 </li>
               </ul>
             </div>
-
             <div class="mt-3 mb-4">
               <h3 class="fs-6 fw-bold">配送方式</h3>
               <label for="home-delivery" class="ps-3">
@@ -49,7 +47,6 @@
                 宅配配送
               </label>
             </div>
-
             <div class="mt-3">
               <h3 class="fs-6 fw-bold">數量</h3>
               <StoreProductInput
@@ -63,7 +60,7 @@
               <button
                 type="button"
                 class="btn btn-outline-secondary rounded-pill w-45 py-2"
-                @click="purchaseNow(tempProduct.id, tempProduct.qty)"
+                @click="purchaseItem(tempProduct.id, tempProduct.qty)"
               >
                 立即購買
               </button>
@@ -163,7 +160,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'pinia';
+import { mapState, mapWritableState, mapActions } from 'pinia';
 import { useProductStore } from '@/stores/productStore';
 import { useCartStore } from '@/stores/cartStore';
 import statusStore from '@/stores/statusStore';
@@ -184,7 +181,8 @@ export default {
   },
   computed: {
     ...mapState(useProductStore, ['thermos']),
-    ...mapState(statusStore, ['cartLoadingItem', 'cartItemIsAdded']),
+    ...mapState(statusStore, ['cartLoadingItem']),
+    ...mapWritableState(statusStore, ['cartItemIsAdded']),
   },
   methods: {
     switchProduct(item) {
@@ -194,8 +192,9 @@ export default {
       const productQty = qty <= 0 ? 1 : qty;
       this.tempProduct.qty = productQty;
     },
-    async purchaseNow(id, qty) {
+    async purchaseItem(id, qty) {
       await this.addCartItem(id, qty);
+      this.cartItemIsAdded = false;
       this.$router.push({ name: 'cart' });
     },
     renderProduct() {

@@ -90,7 +90,8 @@ export default {
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     },
     async getProducts(page = 1) {
-      this.isLoading = true; // Show loading overlay
+      // Show loading overlay
+      this.isLoading = true;
       await apiGetOrderList(page)
         .then((res) => {
           if (res.data.success) {
@@ -100,7 +101,8 @@ export default {
           }
         })
         .catch((err) => console.log(err));
-      this.isLoading = false; // Hide loading overlay
+      // Hide loading overlay
+      this.isLoading = false;
     },
     async changePaymentStatus(status, id) {
       this.isLoading = true;
