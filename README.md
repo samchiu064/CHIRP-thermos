@@ -2,7 +2,7 @@
 此專案為虛擬保溫瓶品牌「CHIRP鳥牌」的電商網站。本作品為開發者對前端領域所學所知的展現，主要使用 Vue 前端框架製作，
 
 <p align="center">
-  <a href="#"><img src="src/assets/images/readme/home.png" width="700px" alt="landing page"></a>
+  <a href="#"><img src="src/assets/images/readme/home.png" alt="landing page"></a>
 </p>
 
 ## 目錄
@@ -89,18 +89,18 @@ CHIRP
 
 ### 桌機/筆電
 
-<!-- <img src="src/assets/images/readme/pc_homePage.jpg" alt="home page">
+<img src="src/assets/images/readme/pc_homePage.jpg" alt="home page">
 <img src="src/assets/images/readme/pc_aboutus.jpg" alt="aboutUs page">
 <img src="src/assets/images/readme/pc_product.jpg" alt="product page">
 <img src="src/assets/images/readme/pc_productDetails.jpg" alt="product details page">
 <img src="src/assets/images/readme/pc_cart.jpg" alt="cart page">
 <img src="src/assets/images/readme/pc_orderForm.jpg" alt="order form page">
 <img src="src/assets/images/readme/pc_beforeCheckout.jpg" alt="beforeCheckout page">
-<img src="src/assets/images/readme/pc_checkout.jpg" alt="checkout page"> -->
+<img src="src/assets/images/readme/pc_checkout.jpg" alt="checkout page">
 
 ### 行動裝置
 
-<!-- <img src="src/assets/images/readme/mobile_homepage.png" alt="mobile home page" width="300px">
+<img src="src/assets/images/readme/mobile_homepage.png" alt="mobile home page" width="300px">
 <img src="src/assets/images/readme/mobile_Hamburger.png" alt="mobile hamburger list" width="300px">
 <img src="src/assets/images/readme/mobile_aboutUs.png" alt="mobile aboutUs page" width="300px">
 <img src="src/assets/images/readme/mobile_product.png" alt="mobile product page" width="300px">
@@ -112,7 +112,7 @@ CHIRP
 <img src="src/assets/images/readme/mobile_OrderForm_page_01.png" alt="mobile order form page" width="300px">
 <img src="src/assets/images/readme/mobile_Before_checkout_page_01.png" alt="mobile before checkout page " width="300px">
 <img src="src/assets/images/readme/mobile_Before_checkout_page_02.png" alt="mobile before checkout page " width="300px">
-<img src="src/assets/images/readme/mobile_Checkout_page_01.png" alt="mobile checkout page" width="300px"> -->
+<img src="src/assets/images/readme/mobile_Checkout_page_01.png" alt="mobile checkout page" width="300px">
 
 ---
 
