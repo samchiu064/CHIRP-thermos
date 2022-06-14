@@ -104,6 +104,10 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0 };
+  },
   routes,
 });
 

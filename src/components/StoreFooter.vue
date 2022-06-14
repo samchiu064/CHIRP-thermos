@@ -1,27 +1,27 @@
 <template>
   <footer class="py-4">
-    <nav class="nav justify-content-center border-top py-3 my-3">
+    <nav class="nav justify-content-center border-top py-3 my-0">
       <router-link
         to="/thermos/classic"
-        class="nav-link d-none d-lg-block link-secondary underline"
+        class="nav-link d-block link-secondary underline fs-6 p-2 px-md-3"
         :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
         >商品資訊</router-link
       >
       <router-link
         to="/thermos/classic/details/classic-green"
-        class="nav-link d-none d-lg-block link-secondary underline"
+        class="nav-link d-block link-secondary underline fs-6 p-2 px-md-3"
         :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
         >線上訂購</router-link
       >
       <router-link
         to="/order-check"
-        class="nav-link d-none d-lg-block link-secondary underline"
+        class="nav-link d-block link-secondary underline fs-6 p-2 px-md-3"
         :class="{ 'nav-link--selected': this.$route.name === 'orderCheck' }"
         >訂單查詢</router-link
       >
       <router-link
         to="/about-us"
-        class="nav-link d-none d-lg-block link-secondary underline"
+        class="nav-link d-block link-secondary underline fs-6 p-2 px-md-3"
         :class="{ 'nav-link--selected': this.$route.name === 'aboutUs' }"
         >關於我們</router-link
       >
