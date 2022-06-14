@@ -1,4 +1,4 @@
-# [CHIRP鳥牌](#)
+# [CHIRP鳥牌 - 單色不鏽鋼保溫瓶](#)
 此專案為虛擬保溫瓶品牌「CHIRP鳥牌」的電商網站。本作品為開發者對前端領域所學所知的展現，主要使用 Vue 前端框架製作，
 
 <p align="center">
@@ -13,7 +13,7 @@
   - [Logo 設計](#Logo-設計)
   - [網站架構](#網站架構)
 - [Mockups](#Mockups)
-  - [桌機/筆電](#桌機/筆電)
+  - [桌電/筆電](#桌電/筆電)
   - [行動裝置](#行動裝置)
 - [使用技術/工具](#使用技術/工具)
   - [設計相關](#設計相關)
@@ -30,7 +30,7 @@
 ## 網站介紹
 
   - 網站名稱：CHIRP鳥牌 - 單色不鏽鋼保溫瓶
-  - 網站主題：以販售保溫瓶為主的電子商務網站
+  - 網站主題：販售保溫瓶的電子商務網站
   - 架站目的：有感於市售的保溫瓶並不適合裝填飲用水以外的飲品，以及存在零件汰換率的問題，我們希望能夠以現有產品為立基點，設計一款符合臺灣民眾使用習慣的保溫瓶。
   - 目標客群：在尋找以好的材質製作、保溫程度高且清潔方法簡易的保溫瓶
   - 網站特色：商品項目單一、不需登入註冊即可下單、購物流程短
@@ -74,33 +74,46 @@ CHIRP
 
 ### 網站架構
 
-  - 前臺網站架構
+<pre>
+  前臺網站架構
+  |- 前臺首頁
+    |- 商品資訊
+    |- 線上訂購
+    |- 訂單查詢
+    |- 關於我們
+  |- 購物車
+    |- 訂單查詢
+    |- 訂單確認
+    |- 訂單成立 ---> 訂單查詢
 
-  <img src="src/assets/images/readme/structure_frontend.jpg" alt="前臺網站架構">
+  後臺網站架構
+  |- 後臺首頁
+    |- 登入頁面
+    |- 產品管理
+    |- 訂單管理
+    |- 優惠券管理
+</pre>
 
-  - 後臺網站架構
-
-  <img src="src/assets/images/readme/structure_backend.jpg" alt="後臺網站架構">
 ---
 
 ## Mockups
 
-繪製 Mockups 時是以儘快完成 1.產品相關頁面 2.購物流程相關頁面 為目標，共繪製出 7 個頁面。相較於設計稿配色的不一致，成品將網站風格統一為以灰色為主，並新增了訂單查詢、訂單成立兩個頁面。
+繪製 Mockups 時以儘快完成 1. 產品相關頁面 2. 購物流程相關頁面 為目標，共繪製出 7 個頁面。相較於設計稿配色的不一致，成品將網站風格統一為以灰色為主，並新增了訂單查詢、訂單成立兩個頁面。
 
-### 桌機/筆電
+### 桌電/筆電
 
-<img src="src/assets/images/readme/pc_homePage.jpg" alt="home page">
+<!-- <img src="src/assets/images/readme/pc_homePage.jpg" alt="home page">
 <img src="src/assets/images/readme/pc_aboutus.jpg" alt="aboutUs page">
 <img src="src/assets/images/readme/pc_product.jpg" alt="product page">
 <img src="src/assets/images/readme/pc_productDetails.jpg" alt="product details page">
 <img src="src/assets/images/readme/pc_cart.jpg" alt="cart page">
 <img src="src/assets/images/readme/pc_orderForm.jpg" alt="order form page">
 <img src="src/assets/images/readme/pc_beforeCheckout.jpg" alt="beforeCheckout page">
-<img src="src/assets/images/readme/pc_checkout.jpg" alt="checkout page">
+<img src="src/assets/images/readme/pc_checkout.jpg" alt="checkout page"> -->
 
 ### 行動裝置
 
-<img src="src/assets/images/readme/mobile_homepage.png" alt="mobile home page" width="300px">
+<!-- <img src="src/assets/images/readme/mobile_homepage.png" alt="mobile home page" width="300px">
 <img src="src/assets/images/readme/mobile_Hamburger.png" alt="mobile hamburger list" width="300px">
 <img src="src/assets/images/readme/mobile_aboutUs.png" alt="mobile aboutUs page" width="300px">
 <img src="src/assets/images/readme/mobile_product.png" alt="mobile product page" width="300px">
@@ -112,14 +125,14 @@ CHIRP
 <img src="src/assets/images/readme/mobile_OrderForm_page_01.png" alt="mobile order form page" width="300px">
 <img src="src/assets/images/readme/mobile_Before_checkout_page_01.png" alt="mobile before checkout page " width="300px">
 <img src="src/assets/images/readme/mobile_Before_checkout_page_02.png" alt="mobile before checkout page " width="300px">
-<img src="src/assets/images/readme/mobile_Checkout_page_01.png" alt="mobile checkout page" width="300px">
+<img src="src/assets/images/readme/mobile_Checkout_page_01.png" alt="mobile checkout page" width="300px"> -->
 
 ---
 
 ## 使用技術/工具
 
 ### 設計相關
-  - [Affinity Photo](https://affinity.serif.com/en-gb/photo/) - 產品圖後製、繪製桌機版 Mockups
+  - [Affinity Photo](https://affinity.serif.com/en-gb/photo/) - 產品圖後製、繪製桌電版 Mockups
   - [Affinity Designer](https://affinity.serif.com/en-gb/) - 繪製 Logo
   - [Lunacy](https://icons8.com/lunacy) - 繪製行動裝置版 Mockups
 ### 前端開發相關
@@ -145,9 +158,28 @@ CHIRP
 ---
 
 ## 專案回顧
+
+待更新
 ### 開發時程
+
+待更新
 ### 專案架構
+
+<pre>
+src/
+|- api (放置專案中使用到的所有API)
+|- assets (放置所有靜態圖片、CSS helpers)
+|- component (放置所有組件)
+|- methods (放置專案中的共用方法)
+|- mixins (放置專案中的共用 mixins)
+|- router (放置 Vue router 設定檔)
+|- stores (放置 Pinia stores)
+|- views (放置所有頁面元件)
+</pre>
+
 ### 問題與思考
+
+待更新
 
 ---
 
