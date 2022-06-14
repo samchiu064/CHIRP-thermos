@@ -102,18 +102,18 @@ CHIRP
 
 ### 桌電/筆電
 
-<!-- <img src="src/assets/images/readme/pc_homePage.jpg" alt="home page">
+<img src="src/assets/images/readme/pc_homePage.jpg" alt="home page">
 <img src="src/assets/images/readme/pc_aboutus.jpg" alt="aboutUs page">
 <img src="src/assets/images/readme/pc_product.jpg" alt="product page">
 <img src="src/assets/images/readme/pc_productDetails.jpg" alt="product details page">
 <img src="src/assets/images/readme/pc_cart.jpg" alt="cart page">
 <img src="src/assets/images/readme/pc_orderForm.jpg" alt="order form page">
 <img src="src/assets/images/readme/pc_beforeCheckout.jpg" alt="beforeCheckout page">
-<img src="src/assets/images/readme/pc_checkout.jpg" alt="checkout page"> -->
+<img src="src/assets/images/readme/pc_checkout.jpg" alt="checkout page">
 
 ### 行動裝置
 
-<!-- <img src="src/assets/images/readme/mobile_homepage.png" alt="mobile home page" width="300px">
+<img src="src/assets/images/readme/mobile_homepage.png" alt="mobile home page" width="300px">
 <img src="src/assets/images/readme/mobile_Hamburger.png" alt="mobile hamburger list" width="300px">
 <img src="src/assets/images/readme/mobile_aboutUs.png" alt="mobile aboutUs page" width="300px">
 <img src="src/assets/images/readme/mobile_product.png" alt="mobile product page" width="300px">
@@ -125,17 +125,20 @@ CHIRP
 <img src="src/assets/images/readme/mobile_OrderForm_page_01.png" alt="mobile order form page" width="300px">
 <img src="src/assets/images/readme/mobile_Before_checkout_page_01.png" alt="mobile before checkout page " width="300px">
 <img src="src/assets/images/readme/mobile_Before_checkout_page_02.png" alt="mobile before checkout page " width="300px">
-<img src="src/assets/images/readme/mobile_Checkout_page_01.png" alt="mobile checkout page" width="300px"> -->
+<img src="src/assets/images/readme/mobile_Checkout_page_01.png" alt="mobile checkout page" width="300px">
 
 ---
 
 ## 使用技術/工具
 
 ### 設計相關
+
   - [Affinity Photo](https://affinity.serif.com/en-gb/photo/) - 產品圖後製、繪製桌電版 Mockups
   - [Affinity Designer](https://affinity.serif.com/en-gb/) - 繪製 Logo
   - [Lunacy](https://icons8.com/lunacy) - 繪製行動裝置版 Mockups
+  
 ### 前端開發相關
+
   - [HTML5](https://www.w3schools.com/html/)
   - [CSS3](https://www.w3schools.com/css/)
   - [JavaScript](https://www.w3schools.com/js/DEFAULT.asp)
