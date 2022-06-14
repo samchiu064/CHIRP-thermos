@@ -1,17 +1,26 @@
 <template>
-  <div class="dropdown position-relative">
-    <button id="cart" class="btn" type="button" @click="isShow = !isShow">
+  <div class="dropdown position-relative cart">
+    <button
+      id="cart-button"
+      class="btn"
+      type="button"
+      @click="cartIsShown = !cartIsShown"
+      @mouseenter="cartIsShown = true"
+      @focus="cartIsShown = true"
+    >
       <i class="bi bi-cart fs-4"></i>
       <span class="position-absolute top-28 start-75 translate-middle badge rounded-pill bg-danger">
-        {{ this.cart.carts?.length }}
-        <span class="visually-hidden">unread messages</span>
+        {{ this.cart.carts?.length ?? '0' }}
+        <span class="visually-hidden">商品數量</span>
       </span>
     </button>
     <Transition>
       <div
-        v-if="isShow"
+        v-if="cartIsShown"
         class="container-fluid border position-absolute end-50 bg-white overflow-auto mh-70"
         style="width: 20rem"
+        @mouseleave="cartIsShown = false"
+        @blur="cartIsShown = false"
       >
         <!-- cart=title -->
         <div class="row py-2 border-bottom">
@@ -23,7 +32,7 @@
             您的購物車目前沒有任何商品，<router-link
               to="/thermos/classic/details/classic-green"
               class="text-decoration-none link-classic-green fw-medium"
-              @click="isShow = !isShow"
+              @click="cartIsShown = !cartIsShown"
               >去購物</router-link
             >
           </p>
@@ -70,14 +79,14 @@
         <div class="row border-top">
           <div class="col-12 py-2 d-flex justify-content-between">
             <p>合計</p>
-            <p class="fw-medium">NT$ {{ cart.total.toLocaleString('en-us') }}</p>
+            <p class="fw-medium">NT$ {{ cart.total?.toLocaleString('en-us') }}</p>
           </div>
           <div class="col-12">
             <div class="btn-group w-100">
               <router-link
                 :to="{ path: '/user/cart' }"
                 class="btn btn-outline-secondary w-45 mr-2 mb-3"
-                @click="isShow = !isShow"
+                @click="cartIsShown = false"
                 >查看購物車</router-link
               >
               <router-link :to="{ path: '/user/cart/order' }" class="btn btn-dark w-45 ms-2 mb-3"
@@ -93,18 +102,14 @@
 
 <script>
 import { useCartStore } from '@/stores/cartStore';
-import { mapState, mapActions } from 'pinia';
+import { mapState, mapActions, mapWritableState } from 'pinia';
 import statusStore from '@/stores/statusStore';
 
 export default {
-  data() {
-    return {
-      isShow: false,
-    };
-  },
   computed: {
     ...mapState(useCartStore, ['cart']),
     ...mapState(statusStore, ['cartDeletedItem']),
+    ...mapWritableState(statusStore, ['cartIsShown']),
   },
   methods: {
     ...mapActions(useCartStore, ['getCartList', 'deleteCartItem']),
@@ -121,6 +126,10 @@ export default {
   right: 0;
 }
 
+.cart {
+  z-index: 1001;
+}
+
 .td-deleted {
   background-color: #e9ecef;
 }
@@ -134,7 +143,7 @@ export default {
 
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease-in-out;
 }
 .v-enter-from,
 .v-leave-to {

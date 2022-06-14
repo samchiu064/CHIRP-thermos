@@ -28,14 +28,10 @@
       <button
         class="navbar-toggler border-0"
         type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbar__mobile-content"
-        aria-controls="navbar__mobile-content"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+        :disabled="!isCollapsed"
         @click="toggleHamburger"
       >
-        <div id="navbar__mobile-icon" :class="{ 'is-active': isActive }">
+        <div id="navbar__mobile-icon" :class="{ isActive: isActive }">
           <i class="line bg-classic-green"></i>
           <i class="line bg-classic-green"></i>
           <i class="line bg-classic-green"></i>
@@ -48,30 +44,38 @@
         <StoreHeaderMiniCart />
       </div>
     </nav>
-    <nav class="bg-light collapse text-center position-absolute w-100" id="navbar__mobile-content">
-      <div class="vh-100">
+    <nav
+      ref="hamburger"
+      class="bg-light collapse text-center position-absolute w-100"
+      id="navbar__mobile-content"
+    >
+      <div class="vh-50">
         <router-link
           to="/thermos/classic"
-          class="nav-link link-dark p-3 mt-2"
+          class="nav-link link-classic-green fw-medium py-3 fs-5 mt-2"
           :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
+          @click="toggleHamburger()"
           >商品資訊</router-link
         >
         <router-link
           to="/thermos/classic/details/classic-green"
-          class="nav-link link-dark p-3"
+          class="nav-link link-classic-green fw-medium py3 fs-5"
           :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
+          @click="toggleHamburger()"
           >線上訂購</router-link
         >
         <router-link
           to="/order-check"
-          class="nav-link link-dark p-3"
+          class="nav-link link-classic-green fw-medium py-3 fs-5"
           :class="{ 'nav-link--selected': this.$route.name === 'OrderCheck' }"
+          @click="toggleHamburger()"
           >訂單查詢</router-link
         >
         <router-link
           to="/about-us"
-          class="nav-link link-dark p-3"
+          class="nav-link link-classic-green fw-medium py3 fs-5 mb-4"
           :class="{ 'nav-link--selected': this.$route.name === 'aboutUs' }"
+          @click="toggleHamburger()"
           >關於我們</router-link
         >
       </div>
@@ -80,6 +84,7 @@
 </template>
 
 <script>
+import Collapse from 'bootstrap/js/dist/collapse';
 import StoreHeaderMiniCart from './StoreHeaderMiniCart.vue';
 
 export default {
@@ -89,6 +94,8 @@ export default {
   data() {
     return {
       isActive: false,
+      isCollapsed: true,
+      collapse: {},
     };
   },
   computed: {
@@ -98,19 +105,42 @@ export default {
       return 'position-relative';
     },
   },
+  emits: ['blurPages'],
   methods: {
     toggleHamburger() {
-      this.isActive = !this.isActive;
+      if (this.isCollapsed) {
+        this.isActive = !this.isActive;
+        this.collapse.toggle();
+      }
+      this.$emit('blurPages', this.isActive);
+    },
+    beCollapsed() {
+      this.isCollapsed = true;
+    },
+    beCollapsing() {
+      this.isCollapsed = false;
     },
   },
   mounted() {
-    // console.log(this.$route);
+    this.collapse = new Collapse(this.$refs.hamburger, {
+      toggle: false,
+    });
+    // To prevent the hamburger list be toggled over and over
+    this.$refs.hamburger.addEventListener('show.bs.collapse', this.beCollapsing);
+    this.$refs.hamburger.addEventListener('hide.bs.collapse', this.beCollapsing);
+    this.$refs.hamburger.addEventListener('shown.bs.collapse', this.beCollapsed);
+    this.$refs.hamburger.addEventListener('hidden.bs.collapse', this.beCollapsed);
+  },
+  unmounted() {
+    this.$refs.hamburger.removeEventListener('show.bs.collapse', this.beCollapsing);
+    this.$refs.hamburger.removeEventListener('hide.bs.collapse', this.beCollapsing);
+    this.$refs.hamburger.removeEventListener('shown.bs.collapse', this.beCollapsed);
+    this.$refs.hamburger.removeEventListener('hidden.bs.collapse', this.beCollapsed);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// Globe
 header {
   z-index: 1000;
 }
@@ -128,13 +158,13 @@ header {
     &:hover {
       cursor: pointer;
     }
-    &.is-active .line:nth-child(2) {
+    &.isActive .line:nth-child(2) {
       opacity: 0;
     }
-    &.is-active .line:nth-child(1) {
+    &.isActive .line:nth-child(1) {
       transform: translateY(8px) rotate(45deg);
     }
-    &.is-active .line:nth-child(3) {
+    &.isActive .line:nth-child(3) {
       transform: translateY(-8px) rotate(-45deg);
     }
   }
