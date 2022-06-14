@@ -2,7 +2,7 @@
 此專案為虛擬保溫瓶品牌「CHIRP鳥牌」的電商網站。本作品為開發者對前端領域所學所知的展現，主要使用 Vue 前端框架製作，
 
 <p align="center">
-  <a href="https://samchiu064.github.io/CHIRP-thermos/#/"><img src="src/assets/images/readme/home.png" alt="landing page" target="_blank"></a>
+  <a href="https://samchiu064.github.io/CHIRP-thermos/#/" target="_blank"><img src="src/assets/images/readme/home.png" alt="landing page"></a>
 </p>
 
 ## 目錄
@@ -56,7 +56,7 @@
 - Old Rose - Logo 輔色, 產品顏色
 - Blue Yonder - Logo 輔色, 產品顏色
 
-<a href="https://coolors.co/ffffff-f8f9fa-6c757d-343f49-4d6d58-cc7e85-496da5">
+<a href="https://coolors.co/ffffff-f8f9fa-6c757d-343f49-4d6d58-cc7e85-496da5" target="_blank">
   <img src="src/assets/images/readme/color-scheme.png" alt="color-scheme">
 </a>
 
