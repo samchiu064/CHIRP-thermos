@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { postUserLogin } from '@/api/adminLogon';
+
 export default {
   data() {
     return {
@@ -49,15 +51,14 @@ export default {
   },
   methods: {
     signin() {
-      const api = `${process.env.VUE_APP_API}/admin/signin`;
-      this.$http.post(api, this.user).then((res) => {
-        if (res.data.success) {
+      postUserLogin(this.user)
+        .then((res) => {
           console.log(res);
           const { token, expired } = res.data;
           document.cookie = `hexToken = ${token}; expires = ${new Date(expired)}`; // expires, not expired; 不使用 new Date Expires 時間會變成 When the browsing session ends
           this.$router.push('/dashboard/products');
-        }
-      });
+        })
+        .catch((err) => console.log(err));
     },
   },
 };
