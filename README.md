@@ -1,8 +1,8 @@
-# [CHIRP鳥牌 - 單色不鏽鋼保溫瓶](#)
+# [CHIRP鳥牌 - 單色不鏽鋼保溫瓶](https://samchiu064.github.io/CHIRP-thermos/#/)
 此專案為虛擬保溫瓶品牌「CHIRP鳥牌」的電商網站。本作品為開發者對前端領域所學所知的展現，主要使用 Vue 前端框架製作，
 
 <p align="center">
-  <a href="#"><img src="src/assets/images/readme/home.png" alt="landing page"></a>
+  <a href="https://samchiu064.github.io/CHIRP-thermos/#/"><img src="src/assets/images/readme/home.png" alt="landing page"></a>
 </p>
 
 ## 目錄
@@ -62,13 +62,7 @@
 
 ### Logo 設計
 
-以鳥為形象
-
-綠色
-紅色
-藍色
-動物:鳥
-CHIRP
+以鳥在圓形的空間中立於枝幹上為形象，象徵著自己雖出身平凡，但只要具備堅毅的身心，揮舞著熱情腳踏實地根據自己的理想而活，在別人眼中也能夠大放異彩。
 
 <img src="src/assets/images/readme/logo.png" alt="logo圖片" width="450px">
 
@@ -83,8 +77,8 @@ CHIRP
     |- 關於我們
   |- 購物車
     |- 訂單查詢
-    |- 訂單確認
-    |- 訂單成立 ---> 訂單查詢
+      |- 訂單確認
+        |- 訂單成立 ---> 訂單查詢
 
   後臺網站架構
   |- 後臺首頁
@@ -162,7 +156,6 @@ CHIRP
 
 ## 專案回顧
 
-待更新
 ### 開發時程
 
 待更新
