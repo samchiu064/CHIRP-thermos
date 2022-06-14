@@ -60,6 +60,7 @@
               <button
                 type="button"
                 class="btn btn-outline-secondary rounded-pill w-45 py-2"
+                :disabled="cartLoadingItem === tempProduct.id"
                 @click="purchaseItem(tempProduct.id, tempProduct.qty)"
               >
                 立即購買

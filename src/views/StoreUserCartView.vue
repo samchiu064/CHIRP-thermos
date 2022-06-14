@@ -1,14 +1,11 @@
 <template>
   <main class="container mt-5">
-    <div class="row justify-content-center">
-      <router-view
-        name="StoreUserCartProgressBar"
-        :percentage="progressPercent"
-        :enableStepsArray="enableStepsArray"
-        :formIsValid="formIsValid"
-        class="mb-6"
-      />
-    </div>
+    <router-view
+      name="StoreUserCartProgressBar"
+      :percentage="progressPercent"
+      :enableStepsArray="enableStepsArray"
+      :formIsValid="formIsValid"
+    />
     <div class="row">
       <router-view name="StoreUserCartProductTable" :class="columns" />
       <router-view
