@@ -8,7 +8,7 @@
       @mouseenter="cartIsShown = true"
       @focus="cartIsShown = true"
     >
-      <i class="bi bi-cart fs-4"></i>
+      <i class="bi bi-cart fs-4 text-classic-green"></i>
       <span class="position-absolute top-28 start-75 translate-middle badge rounded-pill bg-danger">
         {{ this.cart.carts?.length ?? '0' }}
         <span class="visually-hidden">商品數量</span>

@@ -3,25 +3,25 @@
     <nav class="navbar navbar-expand-lg navbar-light mx-1 p-3">
       <router-link
         to="/thermos/classic"
-        class="nav-link d-none d-lg-block link-dark underline"
+        class="nav-link d-none d-lg-block link-classic-green underline"
         :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
         >商品資訊</router-link
       >
       <router-link
         to="/thermos/classic/details/classic-green"
-        class="nav-link d-none d-lg-block link-dark underline"
+        class="nav-link d-none d-lg-block link-classic-green underline"
         :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
         >線上訂購</router-link
       >
       <router-link
         to="/order-check"
-        class="nav-link d-none d-lg-block link-dark underline"
+        class="nav-link d-none d-lg-block link-classic-green underline"
         :class="{ 'nav-link--selected': this.$route.name === 'OrderCheck' }"
         >訂單查詢</router-link
       >
       <router-link
         to="/about-us"
-        class="nav-link d-none d-lg-block link-dark underline"
+        class="nav-link d-none d-lg-block link-classic-green underline"
         :class="{ 'nav-link--selected': this.$route.name === 'aboutUs' }"
         >關於我們</router-link
       >
@@ -150,7 +150,7 @@ header {
     width: 24px;
     i {
       display: block;
-      background-color: #2c3e50;
+      background-color: #4d6d58;
       height: 3px;
       margin: 5px auto;
       transition: all 0.3s ease-in-out;
@@ -182,7 +182,7 @@ header {
     width: 0%;
     content: '';
     color: transparent;
-    background: #343f49;
+    background: #4d6d58;
     height: 2px;
     transition: all 0.5s;
   }
@@ -203,7 +203,7 @@ header {
       width: 70%;
       content: '';
       color: transparent;
-      background: #343f49;
+      background: #4d6d58;
       height: 2px;
       @media (max-width: 992px) {
         display: none;
