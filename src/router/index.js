@@ -104,12 +104,8 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  // scrollBehavior() {
-  //   // always scroll to top
-  //   return { top: 0 };
-  // },
   scrollBehavior(to, from, savedPosition) {
-    if (from.name === 'thermosClassicDetails') {
+    if (from.name === 'thermosClassicDetails' && to.name === 'thermosClassicDetails') {
       return { savedPosition };
     }
     return { top: 0 };

@@ -15,7 +15,7 @@ import Toast from 'bootstrap/js/dist/toast';
 export default {
   props: {
     message: {
-      type: Array,
+      type: Object,
     },
   },
   data() {

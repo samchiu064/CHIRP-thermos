@@ -29,8 +29,9 @@
         <span
           v-if="!orderIsValid && orderId.length !== 0 && orderId.length < 20"
           class="text-danger fs-7 ps-3 m-0"
-          >無效的訂單號碼，請輸入 20 個字元
+          >錯誤的訂單號碼
         </span>
+        <span v-if="orderNotFound" class="text-danger fs-7 ps-3 m-0">找不到這筆訂單 </span>
       </div>
     </div>
     <div class="row justify-content-center m-0 mt-4">
@@ -65,34 +66,44 @@ export default {
       order: {},
       orderId: '',
       orderIsValid: false,
+      orderNotFound: false,
     };
   },
   computed: {
     form() {
       const form = {};
-      form.message = this.order.message;
+      form.message = this.order.message ?? '';
       form.user = { ...this.order.user };
       return form;
     },
   },
   methods: {
     async getOrderList(orderId) {
-      if (orderId.length < 20) {
-        this.orderIsValid = false;
-        return;
-      }
+      this.orderIsValid = false;
+      // function end if less than 20 digits
+      if (orderId.length < 20) return;
+
       this.$Progress.start();
       await apiGetOrderListById(orderId)
         .then((res) => {
+          // function end if Order is null
+          if (!res.data.order) {
+            this.orderNotFound = true;
+            this.$Progress.finish();
+            return;
+          }
+          // assign values to order if success
           if (res.data.success === true) {
             this.order = res.data.order;
             this.orderIsValid = true;
-            this.$Progress.finish();
+            this.orderNotFound = false;
           }
+          this.$Progress.finish();
           console.log(res);
         })
         .catch((res) => {
           this.$Progress.fail();
+          this.orderIsValid = false;
           console.log(res);
         });
     },

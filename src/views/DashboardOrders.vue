@@ -3,7 +3,7 @@
   <table class="table mt-4">
     <thead>
       <tr>
-        <th>購買時間</th>
+        <th>訂單編號</th>
         <th>Email</th>
         <th>購買款項</th>
         <th>應付金額</th>
@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       <tr v-for="(item, index) in orders" :key="item + index">
-        <td>{{ createdDate(item.create_at) }}</td>
+        <td>{{ item.id }}</td>
         <td>{{ item.user.email }}</td>
         <td class="text-right">
           <DashboardOrderList :order="item" :form="item.user" />
@@ -79,16 +79,6 @@ export default {
     };
   },
   methods: {
-    createdDate(milliseconds) {
-      const date = new Date(milliseconds);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1);
-      const day = (date.getDate() < 10 ? '0' : '') + date.getDate();
-      const hours = (date.getHours() < 10 ? '0' : '') + date.getHours();
-      const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-      const seconds = (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
-      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    },
     async getProducts(page = 1) {
       // Show loading overlay
       this.isLoading = true;
