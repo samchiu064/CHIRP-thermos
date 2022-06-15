@@ -4,7 +4,7 @@
       id="cart-button"
       class="btn"
       type="button"
-      @click="cartIsShown = !cartIsShown"
+      @mousedown.stop="cartIsShown = !cartIsShown"
       @mouseenter="cartIsShown = true"
       @focus="cartIsShown = true"
     >

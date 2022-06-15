@@ -104,8 +104,14 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  scrollBehavior() {
-    // always scroll to top
+  // scrollBehavior() {
+  //   // always scroll to top
+  //   return { top: 0 };
+  // },
+  scrollBehavior(to, from, savedPosition) {
+    if (from.name === 'thermosClassicDetails') {
+      return { savedPosition };
+    }
     return { top: 0 };
   },
   routes,

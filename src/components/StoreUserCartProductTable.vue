@@ -7,7 +7,6 @@
           <th class="d-none d-md-table-cell fw-normal" scope="col">商品價格</th>
           <th class="d-none d-md-table-cell fw-normal" scope="col" width="180">數量</th>
           <th v-if="!isSummary" class="d-none d-md-table-cell fw-normal" scope="col">變更明細</th>
-          <th v-if="isSummary" class="d-none d-md-table-cell fw-normal" scope="col">小計</th>
         </tr>
       </thead>
       <tbody>
@@ -35,7 +34,7 @@
               </div>
 
               <figcaption>
-                <h2 class="fs-6 m-0">{{ item.product.title }}</h2>
+                <h2 class="fs-6 m-0 pt-3 pt-md-0">{{ item.product.title }}</h2>
               </figcaption>
             </figure>
           </td>
@@ -73,9 +72,6 @@
             >
               <span class="visually-hidden">Loading...</span>
             </div>
-          </td>
-          <td v-if="isSummary" class="col-12 col-md-auto">
-            NT$ {{ item.total.toLocaleString('en-us') }}
           </td>
         </tr>
       </tbody>

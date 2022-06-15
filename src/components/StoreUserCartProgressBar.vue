@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center align-items-center position-relative my-6">
+  <div class="row justify-content-center align-items-center position-relative my-7">
     <div class="col-10">
       <div class="progress mx-3" style="height: 6px">
         <div

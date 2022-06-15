@@ -1,5 +1,8 @@
 <template>
-  <main class="container-fluid vh-100 position-sticky top-0 bg--thermos">
+  <main
+    class="container-fluid position-sticky top-0 bg--thermos"
+    :style="{ height: `${innerHeight}px` }"
+  >
     <section
       v-for="(item, index) in thermos"
       :key="index"
@@ -44,7 +47,7 @@
           <img
             :src="item.imageUrl"
             :alt="item.title + '產品圖片'"
-            class="figure-img main-image img-fluid align-self-center mt-6"
+            class="figure-img main-image img-fluid align-self-center mt-5 mt-md-6"
           />
           <figcaption class="figure-caption">
             <router-link
@@ -99,8 +102,8 @@
       </article>
     </section>
   </main>
-  <section class="vh-100 p-0"></section>
-  <section class="vh-100 p-0"></section>
+  <section class="p-0" :style="{ height: `${innerHeight}px` }"></section>
+  <section class="p-0" :style="{ height: `${innerHeight}px` }"></section>
   <StoreThermosClassicNavbar :products="thermos" />
 </template>
 
@@ -117,7 +120,7 @@ export default {
     return {
       currentHeights: [],
       topVisible: 0,
-      innerHeight: 0,
+      innerHeight: window.innerHeight,
     };
   },
   computed: {
@@ -132,9 +135,8 @@ export default {
     },
     calcCurrentHeight(order) {
       /*
-      Conditions of calculating currentHeight
-      1. CurrentHeight is larger than 0. (Math.max)
-      2. CurrentHeiht is smaller than innerHeight. (Math.min)
+      1. CurrentHeight should be larger than 0. (Math.max)
+      2. CurrentHeiht should be smaller than innerHeight. (Math.min)
       */
       return Math.min(
         this.innerHeight,
@@ -146,7 +148,6 @@ export default {
   async created() {
     this.$Progress.start();
     await this.getProduct();
-    this.innerHeight = window.innerHeight;
     this.$Progress.finish();
   },
   mounted() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VForm ref="orderForm" class="border mb-3" v-slot="{ meta }">
+    <VForm class="border mb-3" v-slot="{ meta }">
       <div @change="$emit('validateForm', meta.valid)" @blur="$emit('validateForm', meta.valid)">
         <h4 class="fs-6 py-2 bg-light text-center border-bottom">訂單資訊</h4>
         <label for="email" class="form-label col-12 px-4 mb-3"

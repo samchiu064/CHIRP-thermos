@@ -7,11 +7,11 @@
       :class="`text-${item.engColor}`"
     >
       <a
-        href="#?"
+        href="javascript:"
         class="d-flex justify-content-end align-items-center"
-        @click.prevent="switchView(index)"
+        @mousedown.prevent="switchItem(index, item.engColor)"
       >
-        <span class="label" :class="{ active: isActive == index }">
+        <span class="label" :class="{ active: isActive === index }">
           {{ item.chtColor }}
         </span>
         <span class="bullet" :class="`bg-${item.engColor}`"> </span
@@ -33,20 +33,21 @@ export default {
     return {
       innerHeight: window.innerHeight,
       topVisible: document.documentElement.scrollTop,
+      activeColor: 'classic-green',
     };
   },
   computed: {
     isActive() {
-      if (this.topVisible >= this.innerHeight * 2) return 2;
-      if (this.topVisible >= this.innerHeight * 1) return 1;
-      if (this.topVisible < this.innerHeight) return 0;
-      return false;
+      if (this.topVisible >= this.innerHeight) return 2;
+      if (this.topVisible > 0) return 1;
+      return 0;
     },
   },
   methods: {
-    switchView(page) {
+    switchItem(itemIndex, engColor) {
       const { innerHeight } = window;
-      document.documentElement.scrollTop = innerHeight * page;
+      document.documentElement.scrollTop = innerHeight * 0.97 * itemIndex;
+      this.activeColor = engColor;
     },
   },
   mounted() {
@@ -62,7 +63,6 @@ a {
   text-decoration: none;
   color: inherit;
 }
-
 .nav-item {
   padding: 0.5rem 1rem;
   text-decoration: none;
@@ -73,21 +73,23 @@ a {
   }
 }
 .bullet {
-  width: 15px;
-  height: 15px;
+  width: 1rem;
+  height: 1rem;
   display: inline-block;
   border-radius: 50%;
 }
 .label {
-  opacity: 0;
+  opacity: 1;
   transition: all 0.3s ease-in-out;
   &::after {
+    opacity: 0;
     content: '▸';
-    font-size: 15px;
-    line-height: 17px;
+    padding: 0px 2px;
+    font-size: 1rem;
+    line-height: 1rem;
   }
 }
-.active {
+.active.label::after {
   opacity: 1;
 }
 

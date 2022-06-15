@@ -1,10 +1,13 @@
 <template>
   <main class="kv bg-light">
-    <div class="container-fluid vh-100 overflow-hidden position-relative">
+    <div
+      class="container-fluid apple overflow-hidden position-relative"
+      :style="{ height: `${innerHeight}px` }"
+    >
       <div class="row text-center">
         <div class="col-12">
           <section class="kv__content position-absolute top-40 start-50 translate-middle w-100">
-            <h1>
+            <h1 ref="title">
               單色不鏽鋼保溫瓶 <br />
               輕便保溫，易洗防沾 <br />
             </h1>
@@ -54,7 +57,22 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      innerHeight: window.innerHeight,
+    };
+  },
+  methods: {
+    initHeight() {
+      const vh = window.innerHeight;
+      this.innerHeight = vh;
+    },
+  },
+  created() {
+    window.addEventListener('resize', this.initHeight());
+  },
+};
 </script>
 
 <style lang="scss" scoped>
