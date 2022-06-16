@@ -176,27 +176,27 @@ src/
 ### 問題與思考
 
   - Eslint 和 Prettier 有衝突導致編譯失敗，該關閉 Linter 的 rules 還是調整 Prettier?\
-  => 引入 [pre-made configs](https://github.com/prettier/eslint-config-prettier) 將 Linter 中 code formatting 的 rules 關閉。
+  &rarr; 引入 [pre-made configs](https://github.com/prettier/eslint-config-prettier) 將 Linter 中 code formatting 的 rules 關閉。
     > Linter 對程式碼的品管可分為 code formatting 及 code quality 兩個部份，根據 [Prettier 官方的解釋](https://prettier.io/docs/en/integrating-with-linters.html)，Prettier 並不會調整任何和 code quality 有關的規則，而是取代 Linter code formatting 的工作，維持程式碼的一致。
 
   - API 資料接回來後，如果沒有需要的資料該怎麼辦?\
-  => 在 computed 裡對從 API 存回來的資料做加工，可以參考專案中 [productStore](src/stores/productStore.js) 這個檔案在 getters 的寫法，示範如何將陣列中的每個物件依照現有屬性新增資料。
+  &rarr; 在 computed 裡對從 API 存回來的資料做加工，可以參考專案中 [productStore](src/stores/productStore.js) 這個檔案在 getters 的寫法，示範如何將陣列中的每個物件依照現有屬性新增資料。
 
   - State management library (ex: Pinia) 可以完全取代 props/emit 嗎?\
-  => 不行，這樣會導致元件無法被複用。
+  &rarr; 不行，這樣會導致元件無法被複用。
     >兩者最大的差異在於 Pinia store 是 SSOT (Single source of truth)，而 props 的來源可以是不同的。在元件要複用的情況下，使用 store 會導致元件的 layout 被綁死，沒辦法透過接收 props 改變 render 的內容。\
     >例如一張卡片元件使用 store 接收資料，在引入 product 的資料後，理所當然會 render 的內容為 product.title,  product.image...，但此時如果要再新增一張風景資料的卡片呢? 由於 render 的內容已經固定為 product.title...，就勢必得再建立一個 layout 幾乎一模一，只改變 render 內容的卡片，而這已經違反了 DRY 的開發原則。
   
   - 當 CSS library (ex: Bootstrap) 和自訂義 CSS 都能達成相同的效果時，應該選擇哪個?\
-  => CSS library 優先，若有調整需求則以 extend/overrides 的方式來思考: 先加上 css library 的 class 再將自訂的 css style 加上。
+  &rarr; CSS library 優先，若有調整需求則以 extend/overrides 的方式來思考: 先加上 css library 的 class 再將自訂的 css style 加上。
     >借鑑 [BEM設計模式](https://en.bem.info/methodology/key-concepts/#redefinition-level) 的思考方式：一個專案在引入 CSS library 之後即分成 <font color=blue>Library level</font> (from css library) 與 <font color="green">Project level</font> (from this project)，<font color=blue>Library level</font> 提供的元件或公用屬性提供基本的外觀、互動效果，客製化的部分則可以此為基礎，以 <font color="green">Project level</font> 的程式碼去擴展或覆蓋原有程式碼。\
     >例如一個自訂顏色的按鈕可能的實作為: <font color=blue>btn btn-sm</font> <font color="green">btn-classic-green</font>
 
   - 為什麼 100vh 在手機上會超出 100vh?\
-  => 行動裝置會將 browser 的導覽列也計算在 view height 之中，從而導致 100vh 實際上會超過 100vh，這點可以透過 js 的 window.innerHeight來解決，詳細解決方式可以參考 [The trick to viewport units on mobile.](https://css-tricks.com/the-trick-to-viewport-units-on-mobile/#css-custom-properties-the-trick-to-correct-sizing)
+  &rarr; 行動裝置會將 browser 的導覽列也計算在 view height 之中，從而導致 100vh 實際上會超過 100vh，這點可以透過 js 的 window.innerHeight來解決，詳細解決方式可以參考 [The trick to viewport units on mobile.](https://css-tricks.com/the-trick-to-viewport-units-on-mobile/#css-custom-properties-the-trick-to-correct-sizing)
 
   - 是否有推薦的 Component 命名方式?\
-  => Vue 官方的 [style guide](https://vuejs.org/style-guide/rules-strongly-recommended.html) 有一整個章節在講這件事情。你可以找到各類型的 components 應該如何命名 (基本元件/全專案唯一/高度關聯性)，以及官方為什麼官方不建議新增資料夾來分類 components。
+  &rarr; Vue 官方的 [style guide](https://vuejs.org/style-guide/rules-strongly-recommended.html) 有一整個章節在講這件事情。你可以找到各類型的 components 應該如何命名 (基本元件/全專案唯一/高度關聯性)，以及官方為什麼官方不建議新增資料夾來分類 components。
 
 ---
 
