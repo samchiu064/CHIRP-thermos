@@ -158,7 +158,8 @@
 
 ### 開發時程
 
-待更新
+<img src="src/assets/images/readme/gantt.png" alt="gantt image"></img>
+
 ### 專案架構
 
 <pre>
