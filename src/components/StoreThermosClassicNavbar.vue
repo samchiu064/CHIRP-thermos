@@ -9,7 +9,7 @@
       <a
         href="javascript:"
         class="d-flex justify-content-end align-items-center"
-        @mousedown.prevent="switchItem(index, item.engColor)"
+        @click.prevent="switchItem(index, item.engColor)"
       >
         <span class="label" :class="{ active: isActive === index }">
           {{ item.chtColor }}
@@ -93,7 +93,6 @@ a {
   opacity: 1;
 }
 
-/* we will explain what these classes do next! */
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;
