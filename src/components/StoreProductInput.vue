@@ -1,6 +1,7 @@
 <template>
   <button
     v-if="hasOperators"
+    type="button"
     class="btn bi bi-dash fs-3 text-black-50"
     :disabled="cartDeletedItem === itemId || qty === 1"
     @click="$emit('updateItem', { qty: qty - 1, itemId })"
@@ -18,6 +19,7 @@
   </label>
   <button
     v-if="hasOperators"
+    type="button"
     class="btn bi bi-plus fs-3 text-black-50"
     :disabled="cartDeletedItem === itemId"
     @click="$emit('updateItem', { qty: qty + 1, itemId })"

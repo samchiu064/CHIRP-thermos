@@ -2,11 +2,11 @@
   <nav class="col">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <button
+        type="button"
         class="nav-link active"
         id="nav-details-tab"
         data-bs-toggle="tab"
         data-bs-target="#nav-home"
-        type="button"
         role="tab"
         aria-controls="nav-home"
         aria-selected="true"
@@ -14,11 +14,11 @@
         <slot name="titleFirstTab">商品詳情</slot>
       </button>
       <button
+        type="button"
         class="nav-link"
         id="nav-delivery-tab"
         data-bs-toggle="tab"
         data-bs-target="#nav-profile"
-        type="button"
         role="tab"
         aria-controls="nav-profile"
         aria-selected="false"
@@ -26,11 +26,11 @@
         <slot name="titleSecondTab">運送資訊</slot>
       </button>
       <button
+        type="button"
         class="nav-link"
         id="nav-refund-tab"
         data-bs-toggle="tab"
         data-bs-target="#nav-contact"
-        type="button"
         role="tab"
         aria-controls="nav-contact"
         aria-selected="false"

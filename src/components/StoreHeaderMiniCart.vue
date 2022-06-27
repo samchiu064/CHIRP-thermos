@@ -1,9 +1,9 @@
 <template>
   <div class="dropdown position-relative cart">
     <button
+      type="button"
       id="cart-button"
       class="btn"
-      type="button"
       @mousedown.stop="cartIsShown = !cartIsShown"
       @mouseenter="cartIsShown = true"
       @focus="cartIsShown = true"
@@ -49,7 +49,7 @@
               <img
                 :src="item.product.imageUrl"
                 class="img-fluid p-2 rounded"
-                alt="商品圖片"
+                :alt="`${item.product.title}圖片`"
                 style="max-height: 112px"
               />
             </div>

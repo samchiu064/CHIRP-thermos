@@ -19,8 +19,8 @@
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
               <button
-                class="accordion-button collapsed px-3"
                 type="button"
+                class="accordion-button collapsed px-3"
                 data-bs-toggle="collapse"
                 data-bs-target="#flush-collapseOne"
                 aria-expanded="true"
@@ -58,7 +58,7 @@
                         }
                       "
                     />
-                    <button type="button" class="btn btn-outline-secondary" @click="addCoupon()">
+                    <button type="button" class="btn btn-outline-secondary" @click="addCoupon">
                       套用
                     </button>
                   </li>
