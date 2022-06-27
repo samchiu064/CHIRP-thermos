@@ -30,7 +30,7 @@
           </label>
         </div>
         <div class="text-end mt-4">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
+          <button type="submit" class="btn btn-lg btn-primary btn-block">登入</button>
         </div>
       </div>
     </form>
@@ -55,7 +55,7 @@ export default {
         .then((res) => {
           console.log(res);
           const { token, expired } = res.data;
-          document.cookie = `hexToken = ${token}; expires = ${new Date(expired)}`; // expires, not expired; 不使用 new Date Expires 時間會變成 When the browsing session ends
+          document.cookie = `hexToken = ${token}; expires = ${new Date(expired)}`;
           this.$router.push('/dashboard/products');
         })
         .catch((err) => console.log(err));

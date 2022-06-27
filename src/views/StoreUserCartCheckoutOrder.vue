@@ -23,7 +23,7 @@
       </button>
     </div>
     <div class="col-5 col-lg-3">
-      <button type="button" class="btn btn-dark rounded-pill w-100 py-2" onclick="window.print()">
+      <button type="button" class="btn btn-dark rounded-pill w-100 py-2" @click="printWindow">
         列印此頁
       </button>
     </div>
@@ -57,12 +57,16 @@ export default {
   },
   emits: ['getOrderList'],
   methods: {
+    printWindow() {
+      window.print();
+    },
     ...mapActions(useCartStore, ['getCartList']),
   },
   created() {
     this.$Progress.start();
-    this.getCartList(); // Cart should be refreshed manually after being checked-out
-    this.$emit('getOrderList', this.$route.params.orderId); // Update props: order
+    // Update the information of cart & order to the latest
+    this.getCartList();
+    this.$emit('getOrderList', this.$route.params.orderId);
     this.$Progress.finish();
   },
 };

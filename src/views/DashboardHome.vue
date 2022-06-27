@@ -44,7 +44,6 @@
 import { apiPostUserCheck } from '@/api/admin';
 
 export default {
-  components: {},
   created() {
     apiPostUserCheck()
       .then((res) => {

@@ -37,7 +37,7 @@
         </div>
         <img
           :src="item.imagesUrl[1]"
-          :alt="item.title + '瓶身圖片'"
+          :alt="`${item.title}瓶身圖片`"
           style="max-width: 20.8vw"
           class="img-fluid mt-auto align-self-start"
         />
@@ -46,7 +46,7 @@
         <figure class="figure d-flex flex-column justify-content-center h-100">
           <img
             :src="item.imageUrl"
-            :alt="item.title + '產品圖片'"
+            :alt="`${item.title}產品圖片`"
             class="figure-img main-image img-fluid align-self-center mt-5 mt-md-6"
           />
           <figcaption class="figure-caption">
@@ -65,7 +65,7 @@
       >
         <img
           :src="item.imagesUrl[0]"
-          :alt="item.title + '瓶蓋圖片'"
+          :alt="`${item.title}瓶蓋圖片`"
           style="max-width: 12vw"
           class="img-fluid mx-auto"
         />
@@ -94,7 +94,7 @@
           </figcaption>
           <img
             :src="item.imagesUrl[2]"
-            :alt="item.title + '保溫效果圖片'"
+            :alt="`${item.title}保溫效果圖片`"
             style="max-width: 10.5vw"
             class="figure-img--mobile rounded"
           />
@@ -134,10 +134,6 @@ export default {
       this.topVisible = document.documentElement.scrollTop;
     },
     calcCurrentHeight(order) {
-      /*
-      1. CurrentHeight should be larger than 0. (Math.max)
-      2. CurrentHeiht should be smaller than innerHeight. (Math.min)
-      */
       return Math.min(
         this.innerHeight,
         Math.max(0, this.innerHeight - this.topVisible + this.innerHeight * order)

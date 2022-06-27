@@ -25,7 +25,7 @@ export default {
     this.emitter.on('pushMessages', (messages) => {
       const message = { ...messages };
       this.messages.push(message);
-      // Remove a new message from DOM when hidden
+      // Remove the hidden message from DOM
       setTimeout(() => {
         this.messages.shift();
       }, 6000);
