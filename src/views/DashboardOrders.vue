@@ -45,7 +45,11 @@
         </td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-outline-danger btn-sm" @click="openDeleteModal(item)">
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm"
+              @click="openDeleteModal(item)"
+            >
               刪除
             </button>
           </div>
@@ -80,42 +84,46 @@ export default {
   },
   methods: {
     async getProducts(page = 1) {
-      // Show loading overlay
       this.isLoading = true;
-      await apiGetOrderList(page)
-        .then((res) => {
-          if (res.data.success) {
-            this.orders = res.data.orders;
-            this.pagination = res.data.pagination;
-            console.log(res);
-          }
-        })
-        .catch((err) => console.log(err));
-      // Hide loading overlay
+      // Retrieve product data
+      const result = await apiGetOrderList(page);
+      try {
+        if (result.data.success) {
+          this.orders = result.data.orders;
+          this.pagination = result.data.pagination;
+          console.log(result);
+        }
+      } catch (e) {
+        console.log(e);
+      }
       this.isLoading = false;
     },
     async changePaymentStatus(status, id) {
       this.isLoading = true;
+      // Change the payment status of an order
       const isPaid = !status;
-      await apiPutOrderItemDetail({ data: { is_paid: isPaid } }, id)
-        .then((res) => {
-          console.log(res);
-          this.pushMessageState(res, '訂單狀態更新');
-          this.getProducts();
-        })
-        .catch((err) => console.log(err));
+      const result = await apiPutOrderItemDetail({ data: { is_paid: isPaid } }, id);
+      try {
+        this.pushMessageState(result, '訂單狀態更新');
+        this.getProducts();
+        console.log(result);
+      } catch (e) {
+        console.log(e);
+      }
     },
     async deleteOrder(item) {
-      const { id } = item;
       this.isLoading = true;
-      await apiDeleteOrder(id)
-        .then((res) => {
-          console.log(res);
-          this.getProducts();
-          this.$refs.deleteModal.hideModal();
-          this.pushMessageState(res, '訂單刪除');
-        })
-        .catch((err) => console.log(err));
+      // Delete an order
+      const { id } = item;
+      const result = await apiDeleteOrder(id);
+      try {
+        this.pushMessageState(result, '訂單刪除');
+        this.getProducts();
+        this.$refs.deleteModal.hideModal();
+        console.log(result);
+      } catch (e) {
+        console.log(e);
+      }
     },
     openDeleteModal(item) {
       this.tempOrder = { ...item, title: '此筆訂單' };

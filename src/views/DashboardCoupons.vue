@@ -1,7 +1,7 @@
 <template>
   <LoadingOverlay :active="isLoading" />
   <div class="text-end mt-3">
-    <button class="btn btn-primary" type="button" @click="openModal(true)">建立新的優惠券</button>
+    <button type="button" class="btn btn-primary" @click="openModal(true)">建立新的優惠券</button>
   </div>
   <table class="table mt-4">
     <thead>
@@ -26,10 +26,18 @@
         </td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-sm"
+              @click="openModal(false, item)"
+            >
               編輯
             </button>
-            <button class="btn btn-outline-danger btn-sm" @click="openDeleteModal(false, item)">
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm"
+              @click="openDeleteModal(false, item)"
+            >
               刪除
             </button>
           </div>
@@ -79,25 +87,26 @@ export default {
     async updateCoupon(formattedItem) {
       this.isLoading = true;
 
-      // 建立優惠券
+      // Create a new voucher
       if (this.isNew) {
-        await apiPostCouponItem({ data: formattedItem })
-          .then((res) => {
-            console.log(res);
-            this.pushMessageState(res, '優惠券資料建立');
-          })
-          .catch((err) => console.log(err));
+        const result = await apiPostCouponItem({ data: formattedItem });
+        try {
+          console.log(result);
+          this.pushMessageState(result, '優惠券資料建立');
+        } catch (e) {
+          console.log(e);
+        }
       }
-      // 更新優惠券
+      // Refresh the information of a voucher
       if (!this.isNew) {
-        await apiPutCouponItemDetail({ data: formattedItem })
-          .then((res) => {
-            console.log(res);
-            this.pushMessageState(res, '優惠券資料更新');
-          })
-          .catch((err) => console.log(err));
+        const result = await apiPutCouponItemDetail({ data: formattedItem });
+        try {
+          console.log(result);
+          this.pushMessageState(result, '優惠券資料更新');
+        } catch (e) {
+          console.log(e);
+        }
       }
-
       this.isLoading = false;
       this.$refs.couponModal.hideModal();
       this.getCoupons();
@@ -105,14 +114,14 @@ export default {
     async deleteCoupon() {
       this.isLoading = true;
 
-      // 刪除優惠券
-      await apiDeleteCoupon(this.tempCoupon.id)
-        .then((res) => {
-          console.log(res);
-          this.pushMessageState(res, '優惠券資料刪除');
-        })
-        .catch((err) => console.log(err));
-
+      // Delete a voucher
+      const result = await apiDeleteCoupon(this.tempCoupon.id);
+      try {
+        console.log(result);
+        this.pushMessageState(result, '優惠券資料刪除');
+      } catch (e) {
+        console.log(e);
+      }
       this.isLoading = false;
       this.$refs.deleteModal.hideModal();
       this.getCoupons();
@@ -120,19 +129,18 @@ export default {
     async getCoupons(page = 1) {
       this.isLoading = true;
 
-      // 取得優惠券資料
-      await apiGetCouponList(page)
-        .then((res) => {
-          console.log(res);
-          this.coupons = res.data.coupons;
-          this.pagination = res.data.pagination;
+      // Retrieve voucher data
+      const result = await apiGetCouponList(page);
+      try {
+        this.coupons = result.data.coupons;
+        this.pagination = result.data.pagination;
 
-          this.coupons.forEach((coupon, index) => {
-            this.coupons[index].due_date = this.getCurrentDate(coupon.due_date);
-          });
-        })
-        .catch((err) => console.log(err));
-
+        this.coupons.forEach((coupon, index) => {
+          this.coupons[index].due_date = this.getCurrentDate(coupon.due_date);
+        });
+      } catch (e) {
+        console.log(e);
+      }
       this.isLoading = false;
     },
     getCurrentDate(unixtimestamp) {

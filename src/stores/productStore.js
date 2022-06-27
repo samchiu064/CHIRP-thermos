@@ -8,7 +8,7 @@ export const useProductStore = defineStore('product', {
   getters: {
     thermos: (state) =>
       state.origin
-        .filter((item) => item.category === 'thermos') // Type: Thermos
+        .filter((item) => item.category === 'thermos')
         .map((item) => {
           // Add properties 1.chtColor, 2. engColor
           const chtColor = item.title.slice(item.title.indexOf('-') + 2, item.length);
@@ -28,16 +28,15 @@ export const useProductStore = defineStore('product', {
   },
   actions: {
     async getProduct() {
-      await apiGetProductList()
-        .then((res) => {
-          if (res.data.success) {
-            this.origin = res.data.products;
-            console.log(res);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const result = await apiGetProductList();
+      try {
+        if (result.data.success) {
+          this.origin = result.data.products;
+          console.log(result);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 });

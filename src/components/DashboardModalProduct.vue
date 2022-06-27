@@ -214,24 +214,29 @@ export default {
     },
   },
   methods: {
-    uploadFile(type, key) {
-      const index = key - 1; // Array index starting from zero
-
+    async uploadFile(type, key) {
+      // File index: 0, 1, 2...
+      const index = key - 1;
       const uploadedFile =
         type === 'major'
           ? this.$refs.majorImageInput.files[0]
           : this.$refs.minorImageInput[index].files[0];
 
-      const formData = new FormData(); // 2. 轉成 form-data格式
+      const formData = new FormData();
       formData.append('file-to-upload', uploadedFile);
 
-      apiPostUploadImage(formData)
-        .then((res) => {
-          if (!res.data.success) return;
-          if (type === 'major') this.tempProduct.imageUrl = res.data.imageUrl;
-          if (type === 'minor') this.tempProduct.imagesUrl[index] = res.data.imageUrl;
-        })
-        .catch((err) => console.log(err));
+      const result = apiPostUploadImage(formData);
+      try {
+        if (type === 'major') {
+          this.tempProduct.imageUrl = result.data.imageUrl;
+        } else if (type === 'minor') {
+          this.tempProduct.imagesUrl[index] = result.data.imageUrl;
+        } else {
+          return;
+        }
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };

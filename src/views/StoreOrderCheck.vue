@@ -18,8 +18,8 @@
             v-model="orderId"
           />
           <button
-            class="btn btn-outline-secondary"
             type="button"
+            class="btn btn-outline-secondary"
             id="button-addon2"
             @click="getOrderList(orderId)"
           >
@@ -80,32 +80,31 @@ export default {
   methods: {
     async getOrderList(orderId) {
       this.orderIsValid = false;
-      // function end if less than 20 digits
       if (orderId.length < 20) return;
 
       this.$Progress.start();
-      await apiGetOrderListById(orderId)
-        .then((res) => {
-          // function end if Order is null
-          if (!res.data.order) {
-            this.orderNotFound = true;
-            this.$Progress.finish();
-            return;
-          }
-          // assign values to order if success
-          if (res.data.success === true) {
-            this.order = res.data.order;
-            this.orderIsValid = true;
-            this.orderNotFound = false;
-          }
+      // Retrieve order data
+      const result = await apiGetOrderListById(orderId);
+      try {
+        // No order found
+        if (!result.data.order) {
+          this.orderNotFound = true;
           this.$Progress.finish();
-          console.log(res);
-        })
-        .catch((res) => {
-          this.$Progress.fail();
-          this.orderIsValid = false;
-          console.log(res);
-        });
+          return;
+        }
+        // Order found
+        if (result.data.success === true) {
+          this.order = result.data.order;
+          this.orderNotFound = false;
+          this.orderIsValid = true;
+        }
+        this.$Progress.finish();
+        console.log(result);
+      } catch (e) {
+        this.$Progress.fail();
+        this.orderIsValid = false;
+        console.log(result);
+      }
     },
   },
 };

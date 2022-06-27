@@ -9,26 +9,25 @@ export const useCouponStore = defineStore('coupon', {
     couponCode: '',
     couponList: [],
   }),
-  getters: {},
   actions: {
     async applyCoupon() {
       const code = this.couponCode;
-      await apiPostCouponApply({ data: { code } })
-        .then((res) => {
-          // A voucher code can be used once at a time
-          if (res.data.success) {
-            if (this.couponList.includes(code)) {
-              status.couponIsApplied = true;
-              return;
-            }
-            this.couponList.push(code);
-            this.couponCode = '';
-          } else {
-            status.couponIsValid = false;
+      const result = await apiPostCouponApply({ data: { code } });
+      try {
+        if (result.data.success) {
+          if (this.couponList.includes(code)) {
+            status.couponIsApplied = true;
+            return;
           }
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
+          this.couponList.push(code);
+          this.couponCode = '';
+        } else {
+          status.couponIsValid = false;
+        }
+        console.log(result);
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 });

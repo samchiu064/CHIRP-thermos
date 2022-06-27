@@ -24,7 +24,7 @@
         <button
           type="button"
           class="btn btn-dark rounded-pill w-100 py-2"
-          @click="confirmOrder"
+          @click="placeOrder"
           :disabled="isLoading"
         >
           <div
@@ -62,19 +62,20 @@ export default {
     };
   },
   methods: {
-    async confirmOrder() {
+    async placeOrder() {
       this.isLoading = true;
-      await apiPostOrder({ data: this.tempForm })
-        .then((res) => {
-          if (res.data.success === true) {
-            this.orderId = res.data.orderId;
-          }
-          this.isLoading = false;
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
-
-      this.$router.push({ name: 'checkoutOrder', params: { orderId: this.orderId } });
+      // Place an order
+      const result = await apiPostOrder({ data: this.tempForm });
+      try {
+        if (result.data.success === true) {
+          this.orderId = result.data.orderId;
+        }
+        this.isLoading = false;
+        this.$router.push({ name: 'checkoutOrder', params: { orderId: this.orderId } });
+        console.log(result);
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };

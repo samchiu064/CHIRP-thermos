@@ -1,7 +1,7 @@
 <template>
   <LoadingOverlay :active="isLoading" />
   <div class="text-end mt-3">
-    <button class="btn btn-primary" type="button" @click="openModal(true)">新增產品</button>
+    <button type="button" class="btn btn-primary" @click="openModal(true)">新增產品</button>
   </div>
   <table class="table mt-4">
     <thead>
@@ -26,10 +26,18 @@
         </td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-sm"
+              @click="openModal(false, item)"
+            >
               編輯
             </button>
-            <button class="btn btn-outline-danger btn-sm" @click="openDeleteModal(item)">
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm"
+              @click="openDeleteModal(item)"
+            >
               刪除
             </button>
           </div>
@@ -75,23 +83,22 @@ export default {
   },
   methods: {
     async getProducts(page = 1) {
-      // Show loading overlay
       this.isLoading = true;
-      await apiGetProductListByPage(page)
-        .then((res) => {
-          if (res.data.success) {
-            this.products = res.data.products;
-            this.pagination = res.data.pagination;
-            console.log(res);
-          }
-        })
-        .catch((err) => console.log(err));
-
-      // Hide loading overlay
+      // Retrieve product data
+      const result = await apiGetProductListByPage(page);
+      try {
+        if (result.data.success) {
+          this.products = result.data.products;
+          this.pagination = result.data.pagination;
+          console.log(result);
+        }
+      } catch (e) {
+        console.log(e);
+      }
       this.isLoading = false;
     },
     openModal(isNew, item) {
-      // Case 1: Add a new product (is NOT new); Case 2: Edit the product (is New)
+      // Case 1: Add a new product (is NOT new); Case 2: Edit a product (is New)
       this.tempProduct = isNew ? {} : item;
       this.isNew = isNew;
       this.$refs.productModal.showModal();
@@ -101,46 +108,42 @@ export default {
       this.$refs.deleteModal.showModal();
     },
     async updateProduct(item) {
-      this.tempProduct = item;
-
-      // Show loading overlay
       this.isLoading = true;
-
-      // 建立產品
+      this.tempProduct = item;
+      // Add a new product
       if (this.isNew) {
-        await apiPostProductItem({ data: this.tempProduct })
-          .then((res) => {
-            console.log('商品建立結果', res);
-            this.pushMessageState(res, '產品資料更新');
-          })
-          .catch((err) => console.log(err));
+        const result = await apiPostProductItem({ data: this.tempProduct });
+        try {
+          this.pushMessageState(result, '產品資料更新');
+          console.log('商品建立結果', result);
+        } catch (e) {
+          console.log(e);
+        }
       }
-      // 更新產品
+      // Update a product
       if (!this.isNew) {
-        await apiPutProductItemDetail({ data: this.tempProduct }, item.id)
-          .then((res) => {
-            console.log('商品更新結果', res);
-            this.pushMessageState(res, '產品資料更新');
-          })
-          .catch((err) => console.log(err));
+        const result = await apiPutProductItemDetail({ data: this.tempProduct }, item.id);
+        try {
+          this.pushMessageState(result, '產品資料更新');
+          console.log('商品更新結果', result);
+        } catch (e) {
+          console.log(e);
+        }
       }
-
       this.isLoading = false;
       this.$refs.productModal.hideModal();
       this.getProducts();
     },
     async deleteProduct(item) {
-      // Show loading overlay
       this.isLoading = true;
-
-      await apiDeleteProduct(item.id)
-        .then((res) => {
-          console.log(res);
-          this.pushMessageState(res, '產品資料刪除');
-        })
-        .catch((err) => console.log(err));
-
-      // Loading effect off
+      // Delete a product
+      const result = await apiDeleteProduct(item.id);
+      try {
+        this.pushMessageState(result, '產品資料刪除');
+        console.log(result);
+      } catch (e) {
+        console.log(e);
+      }
       this.isLoading = false;
       this.$refs.deleteModal.hideModal();
       this.getProducts();

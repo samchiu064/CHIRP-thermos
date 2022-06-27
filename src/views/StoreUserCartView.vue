@@ -97,14 +97,15 @@ export default {
       this.formIsValid = result;
     },
     async getOrderList(orderId) {
-      await apiGetOrderListById(orderId)
-        .then((res) => {
-          if (res.data.success === true) {
-            this.order = res.data.order;
-          }
-          console.log(res);
-        })
-        .catch((res) => console.log(res));
+      // Retrieve order data
+      const result = await apiGetOrderListById(orderId);
+      try {
+        if (result.data.success === true) {
+          this.order = result.data.order;
+        }
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };

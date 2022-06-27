@@ -17,57 +17,51 @@ export const useCartStore = defineStore('cart', {
   actions: {
     async getCartList() {
       status.isLoading = true;
-      await apiGetCartList()
-        .then((res) => {
-          this.cart = res.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const result = await apiGetCartList();
+      try {
+        this.cart = result.data.data;
+      } catch (e) {
+        console.log(e);
+      }
       status.isLoading = false;
     },
     async addCartItem(productId, qty) {
       status.cartLoadingItem = productId;
       status.cartItemIsAdded = false;
-      await apiPostCartItem({ data: { product_id: productId, qty } })
-        .then((res) => {
-          status.cartLoadingItem = '';
-          status.cartItemIsAdded = true;
-          console.log(res);
-        })
-        .catch((res) => {
-          status.cartItemIsAdded = false;
-          console.log(res);
-        });
-
+      const result = await apiPostCartItem({ data: { product_id: productId, qty } });
+      try {
+        status.cartLoadingItem = '';
+        status.cartItemIsAdded = true;
+        console.log(result);
+      } catch (e) {
+        status.cartItemIsAdded = false;
+        console.log(e);
+      }
       this.getCartList();
     },
     async updateCartItem({ itemId, qty }) {
-      // CartItem qty should be either 1 or more than 1
+      // Prevent qty being less than 0
       const newQty = qty <= 0 ? 1 : qty;
-
       status.cartLoadingItem = itemId;
-      await apiPutCartItem({ data: { product_id: itemId, qty: newQty } }, itemId)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
-
-      // Update cart list to refresh data in the table
-      this.getCartList();
+      const result = await apiPutCartItem({ data: { product_id: itemId, qty: newQty } }, itemId);
+      try {
+        console.log(result);
+      } catch (e) {
+        console.log(e);
+      }
       status.cartLoadingItem = '';
+      this.getCartList();
     },
     async deleteCartItem(itemId) {
       status.cartDeletedItem = itemId;
-      await apiDeleteCartItem(itemId)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
-
-      // Update cart list to refresh data in the table
-      this.getCartList();
+      const result = await apiDeleteCartItem(itemId);
+      try {
+        console.log(result);
+      } catch (e) {
+        console.log(e);
+      }
       status.cartDeletedItem = '';
+      this.getCartList();
     },
   },
 });
