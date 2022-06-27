@@ -42,12 +42,13 @@
             >
           </li>
           <li class="nav-item">
-            <router-link
-              to="/dashboard"
-              class="nav-link link-classic-green fs-5 px-3"
+            <button
+              type="button"
+              class="btn nav-link link-classic-green fs-5 px-3 border-0"
               @click="logout"
-              >登出</router-link
             >
+              登出
+            </button>
           </li>
         </ul>
       </div>
@@ -60,14 +61,17 @@ import { apiPostUserLogout } from '@/api/admin';
 
 export default {
   methods: {
-    logout() {
-      apiPostUserLogout().then((res) => {
-        if (res.data.success) {
-          console.log(res);
+    async logout() {
+      const result = await apiPostUserLogout();
+      try {
+        if (result.data.success) {
+          console.log(result);
           document.cookie = `hexToken=;expires= ${new Date(0).toGMTString()}`;
           this.$router.push('/login');
         }
-      });
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };
