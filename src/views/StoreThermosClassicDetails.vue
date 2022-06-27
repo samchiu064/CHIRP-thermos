@@ -8,7 +8,7 @@
               <img
                 :src="tempProduct.imageUrl"
                 :key="tempProduct.id"
-                alt="保溫瓶圖片"
+                :alt="`${tempProduct.title}圖片`"
                 class="img-box"
               />
             </div>

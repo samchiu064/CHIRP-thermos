@@ -28,7 +28,7 @@
                 <div class="title fw-bold fs-6 text-classic-green text-center mb-3">胡克綠</div>
                 <img
                   src="../assets/images/Hookers_green_bottle.png"
-                  alt="胡克綠保溫瓶"
+                  alt="胡克綠保溫瓶圖片"
                   class="w-100"
               /></router-link>
             </div>
@@ -36,7 +36,10 @@
               <router-link to="/thermos/classic/details/classic-red" class="text-decoration-none">
                 <span class="color-dot bg-classic-red mx-auto my-3"></span>
                 <div class="title fw-bold fs-6 text-classic-red text-center mb-3">灰玫紅</div>
-                <img src="../assets/images/Old_rose_bottle.png" alt="灰玫紅保溫瓶" class="w-100"
+                <img
+                  src="../assets/images/Old_rose_bottle.png"
+                  alt="灰玫紅保溫瓶圖片"
+                  class="w-100"
               /></router-link>
             </div>
             <div class="kv__product-card">
@@ -45,7 +48,7 @@
                 <div class="title fw-bold fs-6 text-classic-blue text-center mb-3">灰丁寧藍</div>
                 <img
                   src="../assets/images/Blue_yonder_bottle.png"
-                  alt="灰丁寧藍保溫瓶"
+                  alt="灰丁寧藍保溫瓶圖片"
                   class="w-100"
               /></router-link>
             </div>

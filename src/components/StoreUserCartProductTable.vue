@@ -28,7 +28,7 @@
               >
                 <img
                   :src="item.product.imageUrl"
-                  alt="購物車商品圖"
+                  :alt="`${item.product.title}圖片`"
                   class="img-fluid img-cart-item p-1 rounded"
                 />
               </div>
