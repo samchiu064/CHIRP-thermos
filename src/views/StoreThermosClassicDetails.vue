@@ -205,6 +205,7 @@ export default {
         this.tempProduct = { ...this.thermos[2], qty: 1 };
       else this.tempProduct = { ...this.thermos[0], qty: 1 };
     },
+
     ...mapActions(useProductStore, ['getProduct']),
     ...mapActions(useCartStore, ['addCartItem']),
   },

@@ -1,6 +1,9 @@
 <template>
-  <header class="container-fluid p-0 bg-light pt-2" :class="positionType">
-    <nav class="navbar navbar-expand-lg navbar-light mx-1 p-3">
+  <header class="container-fluid p-0 bg-light pt-2 top-0" :class="positionType">
+    <nav
+      class="navbar navbar-expand-lg navbar-light mx-1"
+      :class="{ 'navbar--transition': topVisible >= 50 }"
+    >
       <router-link
         to="/thermos/classic"
         class="nav-link d-none d-lg-block link-classic-green underline"
@@ -96,13 +99,14 @@ export default {
       isActive: false,
       isCollapsed: true,
       collapse: {},
+      topVisible: 0,
     };
   },
   computed: {
     positionType() {
       if (this.$route.name === 'home') return 'position-fixed';
       if (this.$route.name === 'thermosClassic') return 'position-fixed';
-      return 'position-relative';
+      return 'position-sticky';
     },
   },
   emits: ['blurPages'],
@@ -120,6 +124,9 @@ export default {
     beCollapsing() {
       this.isCollapsed = false;
     },
+    calcTopVisible() {
+      this.topVisible = document.documentElement.scrollTop;
+    },
   },
   mounted() {
     this.collapse = new Collapse(this.$refs.hamburger, {
@@ -130,12 +137,16 @@ export default {
     this.$refs.hamburger.addEventListener('hide.bs.collapse', this.beCollapsing);
     this.$refs.hamburger.addEventListener('shown.bs.collapse', this.beCollapsed);
     this.$refs.hamburger.addEventListener('hidden.bs.collapse', this.beCollapsed);
+
+    //
+    document.addEventListener('scroll', this.calcTopVisible);
   },
   unmounted() {
     this.$refs.hamburger.removeEventListener('show.bs.collapse', this.beCollapsing);
     this.$refs.hamburger.removeEventListener('hide.bs.collapse', this.beCollapsing);
     this.$refs.hamburger.removeEventListener('shown.bs.collapse', this.beCollapsed);
     this.$refs.hamburger.removeEventListener('hidden.bs.collapse', this.beCollapsed);
+    document.removeEventListener('scroll', this.calcTopVisible);
   },
 };
 </script>
@@ -143,6 +154,12 @@ export default {
 <style lang="scss" scoped>
 header {
   z-index: 1000;
+}
+
+.header {
+  &--scroll {
+    // border-bottom: 2px solid rgba(77, 109, 88, 0.2);
+  }
 }
 
 #navbar {
@@ -170,6 +187,17 @@ header {
   }
 }
 
+.navbar {
+  padding: 1rem;
+  transition: border, padding 0.3s;
+  border-bottom: 2px solid rgba(77, 109, 88, 0);
+  &--transition {
+    padding: 0.25rem 1rem;
+    transition: border, padding 0.3s;
+    border-bottom: 2px solid rgba(77, 109, 88, 0.2);
+  }
+}
+
 /* stroke */
 .underline {
   position: relative;
@@ -182,7 +210,7 @@ header {
     width: 0%;
     content: '';
     color: transparent;
-    background: #4d6d58;
+    background: rgb(77, 109, 88);
     height: 2px;
     transition: all 0.5s;
   }

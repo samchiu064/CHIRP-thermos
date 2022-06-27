@@ -1,5 +1,6 @@
 <template>
   <StoreHeader @blurPages="blurPages" />
+
   <div class="unblur" :class="{ blur: hamburgerIsOpened }">
     <router-view />
   </div>
