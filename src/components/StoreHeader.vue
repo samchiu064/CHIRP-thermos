@@ -54,28 +54,28 @@
           to="/thermos/classic"
           class="nav-link link-classic-green fw-medium py-3 fs-5 mt-2"
           :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
-          @click="toggleHamburger()"
+          @click="toggleHamburger"
           >商品資訊</router-link
         >
         <router-link
           to="/thermos/classic/details/classic-green"
           class="nav-link link-classic-green fw-medium py3 fs-5"
           :class="{ 'nav-link--selected': this.$route.name === 'thermosClassicDetails' }"
-          @click="toggleHamburger()"
+          @click="toggleHamburger"
           >線上訂購</router-link
         >
         <router-link
           to="/order-check"
           class="nav-link link-classic-green fw-medium py-3 fs-5"
           :class="{ 'nav-link--selected': this.$route.name === 'OrderCheck' }"
-          @click="toggleHamburger()"
+          @click="toggleHamburger"
           >訂單查詢</router-link
         >
         <router-link
           to="/about-us"
           class="nav-link link-classic-green fw-medium py3 fs-5 mb-4"
           :class="{ 'nav-link--selected': this.$route.name === 'aboutUs' }"
-          @click="toggleHamburger()"
+          @click="toggleHamburger"
           >關於我們</router-link
         >
       </div>
