@@ -45,21 +45,17 @@
       </div>
     </div>
   </div>
-
-  <StoreFooter />
 </template>
 
 <script>
 import StoreUserCartOrderList from '@/components/StoreUserCartOrderList.vue';
 import StoreUserCartOrderTable from '@/components/StoreUserCartOrderTable.vue';
-import StoreFooter from '@/components/StoreFooter.vue';
 import { apiGetOrderListById } from '@/api/client';
 
 export default {
   components: {
     StoreUserCartOrderList,
     StoreUserCartOrderTable,
-    StoreFooter,
   },
   data() {
     return {

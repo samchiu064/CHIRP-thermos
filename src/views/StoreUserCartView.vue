@@ -38,17 +38,12 @@
       @getOrderList="getOrderList"
     ></router-view>
   </main>
-  <StoreFooter />
 </template>
 
 <script>
-import StoreFooter from '@/components/StoreFooter.vue';
 import { apiGetOrderListById } from '@/api/client';
 
 export default {
-  components: {
-    StoreFooter,
-  },
   data() {
     return {
       order: {},

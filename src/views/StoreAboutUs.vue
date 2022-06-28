@@ -21,15 +21,8 @@
       </div>
     </div>
   </div>
-  <StoreFooter />
 </template>
 
 <script>
-import StoreFooter from '@/components/StoreFooter.vue';
-
-export default {
-  components: {
-    StoreFooter,
-  },
-};
+export default {};
 </script>

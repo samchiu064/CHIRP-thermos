@@ -1,20 +1,34 @@
 <template>
-  <StoreHeader @blurPages="blurPages" />
-
-  <div class="unblur" :class="{ blur: hamburgerIsOpened }">
-    <router-view />
+  <div class="min-vh-100 d-flex flex-column">
+    <StoreHeader class="flex-shrink-0" @blurPages="blurPages" />
+    <div class="unblur flex-grow-1" :class="{ blur: hamburgerIsOpened }">
+      <router-view />
+    </div>
+    <StoreFooter
+      class="unblur flex-shrink-0"
+      :class="{ 'd-none': pagesWithoutFooter, blur: hamburgerIsOpened }"
+    />
   </div>
 </template>
 
 <script>
 import StoreHeader from '@/components/StoreHeader.vue';
+import StoreFooter from '@/components/StoreFooter.vue';
 
 export default {
-  components: { StoreHeader },
+  components: { StoreHeader, StoreFooter },
   data() {
     return {
       hamburgerIsOpened: false,
     };
+  },
+  computed: {
+    pagesWithoutFooter() {
+      const whiteList = ['home', 'thermosClassic'];
+
+      if (whiteList.includes(this.$route.name)) return true;
+      return false;
+    },
   },
   methods: {
     blurPages(isOpened) {
