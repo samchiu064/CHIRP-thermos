@@ -12,7 +12,7 @@ const routes = [
         component: () => import('../views/StoreHome.vue'),
       },
       {
-        path: 'thermos/classic',
+        path: 'thermos/:color',
         name: 'thermosClassic',
         component: () => import('../views/StoreThermosClassic.vue'),
       },

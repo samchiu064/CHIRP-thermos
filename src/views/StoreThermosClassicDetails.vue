@@ -3,7 +3,7 @@
     <section class="bg-light">
       <div class="container p-3 p-md-5 mt-3">
         <div class="row row-cols-1 row-cols-md-2 mb-2">
-          <div class="col">
+          <div class="col position-relative">
             <div class="text-center d-flex align-items-center justify-content-center">
               <img
                 :src="tempProduct.imageUrl"
@@ -11,6 +11,47 @@
                 :alt="`${tempProduct.title}圖片`"
                 class="img-box"
               />
+            </div>
+            <div class="position-absolute top-0 left-0">
+              <div
+                class="imgbox d-flex justify-content-center align-items-center position-relative"
+              >
+                <img
+                  class="mw-100 h-100 p-3"
+                  :src="tempProduct.imageUrl"
+                  :key="tempProduct.id"
+                  alt="保溫瓶全貌圖"
+                />
+                <a href="#?" class="stretched-link" @click.prevent>
+                  <span class="d-none">保溫瓶全貌圖</span>
+                </a>
+              </div>
+              <div
+                class="imgbox d-flex justify-content-center align-items-center position-relative"
+              >
+                <img
+                  class="mw-100 h-100 p-3"
+                  :src="tempProduct.imagesUrl[3]"
+                  :key="tempProduct.id"
+                  alt="保溫瓶瓶蓋細節圖"
+                />
+                <a href="#?" class="stretched-link" @click.prevent>
+                  <span class="d-none">保溫瓶瓶蓋細節圖</span>
+                </a>
+              </div>
+              <div
+                class="imgbox d-flex justify-content-center align-items-center position-relative"
+              >
+                <img
+                  class="mw-100 h-100 p-3"
+                  :src="tempProduct.imagesUrl[4]"
+                  :key="tempProduct.id"
+                  alt="保溫瓶底部細節圖"
+                />
+                <a href="#?" class="stretched-link" @click.prevent>
+                  <span class="d-none">保溫瓶底部細節圖</span>
+                </a>
+              </div>
             </div>
           </div>
           <div class="col">
@@ -96,13 +137,12 @@
         </div>
       </div>
     </section>
-
     <section class="bg-white">
       <div class="container p-3 p-md-5">
         <div class="row row-cols-1">
           <StoreTabsProductDetail>
             <template #titleFirstTab>
-              <span class="link-classic-green fw-medium">商品詳情</span>
+              <span class="link-classic-green">商品詳情</span>
             </template>
             <template #firstTab>
               <dl>
@@ -119,9 +159,7 @@
                 </dd>
               </dl></template
             >
-            <template #titleSecondTab>
-              <span class="link-classic-green fw-medium">運送資訊</span></template
-            >
+            <template #titleSecondTab> <span class="link-classic-green">運送資訊</span></template>
             <template #secondTab>
               <dl>
                 <dt>寄送時間</dt>
@@ -137,9 +175,7 @@
                 </dd>
               </dl></template
             >
-            <template #titleThirdTab>
-              <span class="link-classic-green fw-medium">退款政策</span></template
-            >
+            <template #titleThirdTab> <span class="link-classic-green">退款政策</span></template>
             <template #thirdTab>
               <dl>
                 <dt>退款須知</dt>
@@ -154,10 +190,16 @@
             >
           </StoreTabsProductDetail>
         </div>
+        <div class="row">
+          <StoreProductCard :products="thermos">
+            <template #title>
+              <span class="fw-bold">相似商品</span>
+            </template>
+          </StoreProductCard>
+        </div>
       </div>
     </section>
   </main>
-  <StoreFooter />
 </template>
 
 <script>
@@ -165,15 +207,15 @@ import { mapState, mapWritableState, mapActions } from 'pinia';
 import { useProductStore } from '@/stores/productStore';
 import { useCartStore } from '@/stores/cartStore';
 import statusStore from '@/stores/statusStore';
-import StoreFooter from '@/components/StoreFooter.vue';
 import StoreTabsProductDetail from '@/components/StoreTabsProductDetail.vue';
 import StoreProductInput from '@/components/StoreProductInput.vue';
+import StoreProductCard from '@/components/StoreProductCard.vue';
 
 export default {
   components: {
     StoreProductInput,
     StoreTabsProductDetail,
-    StoreFooter,
+    StoreProductCard,
   },
   data() {
     return {
@@ -199,13 +241,19 @@ export default {
       this.$router.push({ name: 'cart' });
     },
     renderProduct() {
-      if (this.$route.params.color === 'classic-red')
-        this.tempProduct = { ...this.thermos[1], qty: 1 };
-      else if (this.$route.params.color === 'classic-blue')
-        this.tempProduct = { ...this.thermos[2], qty: 1 };
-      else this.tempProduct = { ...this.thermos[0], qty: 1 };
-    },
+      const { color } = this.$route.params;
 
+      if (color === 'classic-red') {
+        this.tempProduct = { ...this.thermos[1], qty: 1 };
+        // this.tempProduct = JSON.parse(JSON.stringify(this.thermos[1]));
+      } else if (color === 'classic-blue') {
+        this.tempProduct = { ...this.thermos[2], qty: 1 };
+        // this.tempProduct = JSON.parse(JSON.stringify(this.thermos[2]));
+      } else {
+        this.tempProduct = { ...this.thermos[0], qty: 1 };
+        // this.tempProduct = JSON.parse(JSON.stringify(this.thermos[0]));
+      }
+    },
     ...mapActions(useProductStore, ['getProduct']),
     ...mapActions(useCartStore, ['addCartItem']),
   },
@@ -230,6 +278,14 @@ export default {
   @media (max-width: 576px) {
     max-height: 360px;
   }
+}
+
+.imgbox {
+  width: 100px;
+  height: 100px;
+  // background-color: salmon;
+  margin: 0px 10px 10px 10px;
+  border: 1px solid black;
 }
 
 .cart-message--success {
