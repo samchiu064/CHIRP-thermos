@@ -23,7 +23,7 @@
             class="kv__product d-flex justify-content-center position-absolute bottom-0 start-50 w-100"
           >
             <div class="kv__product-card">
-              <router-link to="/thermos/classic/details/classic-green" class="text-decoration-none">
+              <router-link to="/thermos/classic-green" class="text-decoration-none">
                 <span class="color-dot bg-classic-green mx-auto my-3"></span>
                 <div class="title fw-bold fs-6 text-classic-green text-center mb-3">胡克綠</div>
                 <img
@@ -33,7 +33,7 @@
               /></router-link>
             </div>
             <div class="kv__product-card">
-              <router-link to="/thermos/classic/details/classic-red" class="text-decoration-none">
+              <router-link to="/thermos/classic-red" class="text-decoration-none">
                 <span class="color-dot bg-classic-red mx-auto my-3"></span>
                 <div class="title fw-bold fs-6 text-classic-red text-center mb-3">灰玫紅</div>
                 <img
@@ -43,7 +43,7 @@
               /></router-link>
             </div>
             <div class="kv__product-card">
-              <router-link to="/thermos/classic/details/classic-blue" class="text-decoration-none">
+              <router-link to="/thermos/classic-blue" class="text-decoration-none">
                 <span class="color-dot bg-classic-blue mx-auto my-3"></span>
                 <div class="title fw-bold fs-6 text-classic-blue text-center mb-3">灰丁寧藍</div>
                 <img
@@ -82,10 +82,18 @@ export default {
 .kv {
   &__product {
     transform: translate(-50%, 60%);
+    @media (max-width: 768px) {
+      transform: translate(-50%, 40%);
+    }
     &-card {
       transition: transform 250ms;
       transition-timing-function: linear;
       margin: 3rem;
+      position: relative;
+      animation-name: float;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
       @media (max-width: 768px) {
         margin: 0.5rem;
       }
@@ -105,6 +113,18 @@ export default {
         cursor: pointer;
       }
     }
+  }
+}
+
+@keyframes float {
+  0% {
+    top: 0px;
+  }
+  50% {
+    top: 20px;
+  }
+  100% {
+    top: 0px;
   }
 }
 </style>
