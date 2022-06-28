@@ -6,6 +6,7 @@
     <section
       v-for="(item, index) in thermos"
       :key="index"
+      :id="item.engColor"
       class="row overflow-hidden position-absolute top-0 w-100 bg-light"
       style="z-index: 5"
       :style="{
@@ -13,7 +14,12 @@
         'z-index': thermos.length - index,
       }"
     >
-      <article class="col mt-17 mt-lg-9 text-classic-black flex-column d-none d-md-flex ps-0">
+      <article
+        class="col text-classic-black flex-column d-none d-md-flex ps-0"
+        :style="{
+          'margin-top': `9rem`,
+        }"
+      >
         <div class="ms-auto ps-2">
           <div class="lh-sm d-flex">
             <span class="badge px-1 me-2" :class="`bg-${item.engColor}`">
@@ -31,8 +37,8 @@
             <span class="d-block">讓您透過簡易的清洗，達到去除污垢的效果。</span>
           </p>
           <span class="text-muted" style="max-width: 90%">
-            <span class="d-inline d-lg-block">※此保溫瓶全零件皆可沖洗，可以清水沖洗後晾乾</span>
-            <span class="d-inline d-lg-block">或以海綿沾中性清潔劑清洗保養。</span>
+            <span class="d-none d-xl-block">※此保溫瓶全零件皆可沖洗，可以清水沖洗後晾乾</span>
+            <span class="d-none d-xl-block">或以海綿沾中性清潔劑清洗保養。</span>
           </span>
         </div>
         <img
@@ -61,16 +67,19 @@
         </figure>
       </article>
       <article
-        class="col d-none d-md-flex flex-column align-items-end mt-8 text-classic-black pe-2"
+        class="col d-none d-md-flex flex-column align-items-end justify-content-between text-classic-black pe-2"
+        :style="{
+          'margin-top': `10rem`,
+        }"
       >
         <img
           :src="item.imagesUrl[0]"
           :alt="`${item.title}瓶蓋圖片`"
           style="max-width: 12vw"
-          class="img-fluid mx-auto"
+          class="img-fluid mx-auto flex-shrink-0"
         />
-        <div class="ms-auto" dir="rtl">
-          <div class="mt-19 mt-lg-12 lh-sm d-flex">
+        <div class="ms-auto mt-auto mb-3" dir="rtl">
+          <div class="lh-sm d-flex">
             <span class="badge py-4 px-1 ms-2" :class="`bg-${item.engColor}`">
               <span class="visually-hidden">胡克綠保溫瓶</span>
             </span>
@@ -81,14 +90,14 @@
           </div>
           <p class="mt-3">
             <span class="d-inline d-lg-block">一體式上蓋設計可簡易拆卸，讓您從此不再有</span>
-            <span class="d-inline d-lg-block">墊圈老化的困擾。</span>
+            <span class="d-inline d-lg-block">墊圈老化的困擾</span>
           </p>
-          <span class="d-inline d-lg-block text-muted"
+          <span class="d-none d-xl-block text-muted"
             >經實測此款保溫瓶經過 24 小時後仍保留 70% 的熱度※</span
           >
           <span class="d-inline d-lg-block text-muted"></span>
         </div>
-        <figure class="figure me-4 mb-4 mt-auto">
+        <figure class="figure">
           <figcaption class="figure-caption mb-3 d-inline-block align-bottom">
             ※最長可保溫24小時
           </figcaption>
@@ -169,7 +178,7 @@ export default {
 .main-image {
   max-width: 45%;
   @media (min-width: 768px) {
-    max-width: 70%;
+    max-width: 60%;
   }
   @media (min-width: 992px) {
     width: auto;

@@ -1,5 +1,5 @@
 <template>
-  <ul class="nav pe-2 flex-column position-fixed top-50 end-0 translate-middle-y text-end fs-8">
+  <ul class="nav pe-2 flex-column position-fixed top-50 end-0 translate-middle-y text-end fs-7">
     <li
       v-for="(item, index) in products"
       :key="index"
@@ -7,7 +7,7 @@
       :class="`text-${item.engColor}`"
     >
       <a
-        href="javascript:"
+        href="#?"
         class="d-flex justify-content-end align-items-center"
         @click.prevent="switchItem(index, item.engColor)"
       >
@@ -42,6 +42,12 @@ export default {
       if (this.topVisible > 0) return 1;
       return 0;
     },
+    itemIndex() {
+      if (this.$route.params.color === 'classic-green') return 0;
+      if (this.$route.params.color === 'classic-red') return 1;
+      if (this.$route.params.color === 'classic-blue') return 2;
+      return 0;
+    },
   },
   methods: {
     switchItem(itemIndex, engColor) {
@@ -54,6 +60,9 @@ export default {
     document.addEventListener('scroll', () => {
       this.topVisible = document.documentElement.scrollTop;
     });
+    setTimeout(() => {
+      this.switchItem(this.itemIndex, this.$route.params.color);
+    }, 100);
   },
 };
 </script>
@@ -89,8 +98,21 @@ a {
     line-height: 1rem;
   }
 }
-.active.label::after {
-  opacity: 1;
+.active.label {
+  position: relative;
+  animation: float 1s ease-in-out infinite alternate;
+  &::after {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  from {
+    right: 0px;
+  }
+  to {
+    right: 6px;
+  }
 }
 
 .v-enter-active,
