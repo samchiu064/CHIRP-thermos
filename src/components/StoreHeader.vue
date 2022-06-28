@@ -1,11 +1,8 @@
 <template>
-  <header class="container-fluid p-0 bg-light pt-2 top-0" :class="positionType">
-    <nav
-      class="navbar navbar-expand-lg navbar-light mx-1"
-      :class="{ 'navbar--transition': topVisible >= 50 }"
-    >
+  <header class="container-fluid top-0" :class="[positionType, headerScroll]">
+    <nav class="navbar navbar-expand-lg navbar-light mx-1" :class="navScroll">
       <router-link
-        to="/thermos/classic"
+        to="/thermos/classic-green"
         class="nav-link d-none d-lg-block link-classic-green underline"
         :class="{ 'nav-link--selected': this.$route.name === 'thermosClassic' }"
         >商品資訊</router-link
@@ -108,6 +105,18 @@ export default {
       if (this.$route.name === 'thermosClassic') return 'position-fixed';
       return 'position-sticky';
     },
+    headerScroll() {
+      if (this.topVisible !== 0 && this.$route.name !== 'thermosClassic') {
+        return 'header header--scroll';
+      }
+      return 'header';
+    },
+    navScroll() {
+      if (this.topVisible !== 0 && this.$route.name !== 'thermosClassic') {
+        return 'navbar navbar--scroll';
+      }
+      return 'navbar';
+    },
   },
   emits: ['blurPages'],
   methods: {
@@ -137,8 +146,6 @@ export default {
     this.$refs.hamburger.addEventListener('hide.bs.collapse', this.beCollapsing);
     this.$refs.hamburger.addEventListener('shown.bs.collapse', this.beCollapsed);
     this.$refs.hamburger.addEventListener('hidden.bs.collapse', this.beCollapsed);
-
-    //
     document.addEventListener('scroll', this.calcTopVisible);
   },
   unmounted() {
@@ -152,13 +159,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
+.header {
   z-index: 1000;
+  padding: 0;
+  padding-top: 0.5rem;
+  transition: all 0.3s linear;
+  &--scroll {
+    background-color: rgb(248, 249, 250, 0.85);
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%);
+    padding-bottom: 0.25rem;
+    transition: all 0.3s linear;
+  }
 }
 
-.header {
+.navbar {
+  padding: 1rem;
+  transition: padding 0.3s linear;
   &--scroll {
-    // border-bottom: 2px solid rgba(77, 109, 88, 0.2);
+    padding: 0.25rem 1rem;
+    transition: padding 0.3s linear;
   }
 }
 
@@ -184,17 +203,6 @@ header {
     &.isActive .line:nth-child(3) {
       transform: translateY(-8px) rotate(-45deg);
     }
-  }
-}
-
-.navbar {
-  padding: 1rem;
-  transition: border, padding 0.3s;
-  border-bottom: 2px solid rgba(77, 109, 88, 0);
-  &--transition {
-    padding: 0.25rem 1rem;
-    transition: border, padding 0.3s;
-    border-bottom: 2px solid rgba(77, 109, 88, 0.2);
   }
 }
 
