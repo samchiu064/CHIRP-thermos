@@ -1,21 +1,21 @@
 <template>
-  <ul class="nav pe-2 flex-column position-fixed top-50 end-0 translate-middle-y text-end fs-7">
+  <ul class="nav flex-column align-items-end position-fixed top-50 end-0 translate-middle-y">
     <li
       v-for="(item, index) in products"
       :key="index"
-      class="nav-item"
+      class="nav-item pe-1"
       :class="`text-${item.engColor}`"
     >
-      <a
-        href="#?"
-        class="d-flex justify-content-end align-items-center"
+      <button
+        type="button"
+        class="btn btn-link text-decoration-none text-reset d-flex justify-content-end align-items-center"
         @click.prevent="switchItem(index, item.engColor)"
       >
-        <span class="label" :class="{ active: isActive === index }">
+        <span class="label fs-md-7" :class="{ active: isActive === index }">
           {{ item.chtColor }}
         </span>
-        <span class="bullet" :class="`bg-${item.engColor}`"> </span
-      ></a>
+        <span class="bullet" :class="`bg-${item.engColor}`"> </span>
+      </button>
     </li>
   </ul>
 </template>

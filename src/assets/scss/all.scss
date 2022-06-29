@@ -29,6 +29,13 @@ $font-weight-bolder: 900 !default;
   font-size: 0.875rem;
 }
 
+.fs-md-7 {
+  font-size: 0.875rem;
+  @media (min-width: 576px) {
+    font-size: 1rem;
+  }
+}
+
 .fs-8 {
   font-size: 0.75rem;
 }
