@@ -5,7 +5,7 @@
     </span>
     <div class="col" v-for="(item, index) in products" :key="item + index">
       <div class="card pe-auto">
-        <img :src="item.imageUrl" class="rounded img-box p-3" alt="商品圖片" />
+        <img :src="item.imageUrl" class="img-box rounded w-100" alt="商品圖片" />
         <div class="card-body">
           <h5 class="card-sub-title text-center fs-7 fw-normal">
             {{ item.chtColor }}
@@ -14,7 +14,7 @@
           <hr />
           <p class="card-text text-center fs-6">NT$ {{ item.price.toLocaleString('en-us') }}</p>
         </div>
-        <router-link to="" class="stretched-link"></router-link>
+        <!-- <router-link :to="`/thermos/classic/details/${item.engColor}`"></router-link> -->
       </div>
     </div>
   </section>
@@ -32,8 +32,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.img-box {
-  max-width: 7rem;
-  margin: 0 auto;
-}
+// .img-box {
+//   &:hover {
+//     filter: blur(5px);
+//   }
+// }
 </style>

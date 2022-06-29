@@ -3,55 +3,70 @@
     <section class="bg-light">
       <div class="container p-3 p-md-5 mt-3">
         <div class="row row-cols-1 row-cols-md-2 mb-2">
-          <div class="col position-relative">
-            <div class="text-center d-flex align-items-center justify-content-center">
-              <img
-                :src="tempProduct.imageUrl"
-                :key="tempProduct.id"
-                :alt="`${tempProduct.title}圖片`"
-                class="img-box"
-              />
+          <div class="col d-flex flex-column flex-xl-row">
+            <div
+              class="d-flex flex-row flex-xl-column justify-content-center justify-content-xl-start order-2 order-xl-1 mt-2 mt-xl-0"
+            >
+              <div class="img-thumbnail d-flex justify-content-center align-items-center">
+                <button
+                  type="button"
+                  class="btn btn-link text-decoration-none text-reset w-100 h-100 p-0 m-0"
+                  :class="{ 'outline-selected': displayImageUrl === tempProduct.imageUrl }"
+                  @click="switchDisplayImage(tempProduct.imageUrl)"
+                >
+                  <img
+                    class="mw-100 h-100 p-3"
+                    :src="tempProduct.imageUrl"
+                    :key="tempProduct.id"
+                    alt="保溫瓶全貌圖"
+                  />
+                </button>
+              </div>
+              <div class="img-thumbnail d-flex justify-content-center align-items-center">
+                <button
+                  type="button"
+                  class="btn btn-link text-decoration-none text-reset w-100 h-100 p-0 m-0"
+                  :class="{ 'outline-selected': displayImageUrl === tempProduct.imagesUrl[3] }"
+                  @click="switchDisplayImage(tempProduct.imagesUrl[3])"
+                >
+                  <img
+                    v-if="dataReady"
+                    class="mw-100 h-100 p-3"
+                    :src="tempProduct.imagesUrl[3]"
+                    :key="tempProduct.id"
+                    alt="保溫瓶瓶蓋細節圖"
+                  />
+                </button>
+              </div>
+              <div class="img-thumbnail d-flex justify-content-center align-items-center">
+                <button
+                  type="button"
+                  class="btn btn-link text-decoration-none text-reset w-100 h-100 p-0 m-0"
+                  :class="{ 'outline-selected': displayImageUrl === tempProduct.imagesUrl[4] }"
+                  @click="switchDisplayImage(tempProduct.imagesUrl[4])"
+                >
+                  <img
+                    v-if="dataReady"
+                    class="mw-100 h-100 p-3"
+                    :src="tempProduct.imagesUrl[4]"
+                    :key="tempProduct.id"
+                    alt="保溫瓶底部細節圖"
+                  />
+                </button>
+              </div>
             </div>
-            <div class="position-absolute top-0 left-0">
-              <div
-                class="imgbox d-flex justify-content-center align-items-center position-relative"
-              >
+            <div
+              class="text-center d-flex align-items-center justify-content-center flex-grow-1 order-1 order-xl-2"
+            >
+              <Transition>
                 <img
-                  class="mw-100 h-100 p-3"
-                  :src="tempProduct.imageUrl"
+                  v-if="dataReady"
+                  :src="displayImageUrl"
                   :key="tempProduct.id"
-                  alt="保溫瓶全貌圖"
+                  :alt="`${tempProduct.title}圖片`"
+                  class="img-box me-0"
                 />
-                <a href="#?" class="stretched-link" @click.prevent>
-                  <span class="d-none">保溫瓶全貌圖</span>
-                </a>
-              </div>
-              <div
-                class="imgbox d-flex justify-content-center align-items-center position-relative"
-              >
-                <img
-                  class="mw-100 h-100 p-3"
-                  :src="tempProduct.imagesUrl[3]"
-                  :key="tempProduct.id"
-                  alt="保溫瓶瓶蓋細節圖"
-                />
-                <a href="#?" class="stretched-link" @click.prevent>
-                  <span class="d-none">保溫瓶瓶蓋細節圖</span>
-                </a>
-              </div>
-              <div
-                class="imgbox d-flex justify-content-center align-items-center position-relative"
-              >
-                <img
-                  class="mw-100 h-100 p-3"
-                  :src="tempProduct.imagesUrl[4]"
-                  :key="tempProduct.id"
-                  alt="保溫瓶底部細節圖"
-                />
-                <a href="#?" class="stretched-link" @click.prevent>
-                  <span class="d-none">保溫瓶底部細節圖</span>
-                </a>
-              </div>
+              </Transition>
             </div>
           </div>
           <div class="col">
@@ -74,7 +89,10 @@
                   <router-link
                     :to="`/thermos/classic/details/${item.engColor}`"
                     class="btn bg-classic-green p-3 rounded-circle d-inline-block"
-                    :class="`bg-${item.engColor}`"
+                    :class="[
+                      `bg-${item.engColor}`,
+                      { 'outline-selected': tempProduct.engColor === item.engColor },
+                    ]"
                     @click.prevent="switchProduct(item)"
                   ></router-link>
                   <p class="mt-1">{{ item.chtColor }}</p>
@@ -191,9 +209,9 @@
           </StoreTabsProductDetail>
         </div>
         <div class="row">
-          <StoreProductCard :products="thermos">
+          <StoreProductCard :products="upcoming">
             <template #title>
-              <span class="fw-bold">相似商品</span>
+              <span class="fw-bold">即將上架</span>
             </template>
           </StoreProductCard>
         </div>
@@ -219,17 +237,25 @@ export default {
   },
   data() {
     return {
-      tempProduct: {},
+      tempProduct: {
+        imagesUrl: [],
+      },
+      displayImageUrl: '',
+      dataReady: false,
     };
   },
   computed: {
-    ...mapState(useProductStore, ['thermos']),
+    ...mapState(useProductStore, ['thermos', 'upcoming']),
     ...mapState(statusStore, ['cartLoadingItem']),
     ...mapWritableState(statusStore, ['cartItemIsAdded']),
   },
   methods: {
     switchProduct(item) {
       this.tempProduct = { ...item, qty: 1 };
+      this.displayImageUrl = item.imageUrl;
+    },
+    switchDisplayImage(item) {
+      this.displayImageUrl = item;
     },
     updateItem({ qty }) {
       const productQty = qty <= 0 ? 1 : qty;
@@ -240,27 +266,26 @@ export default {
       this.cartItemIsAdded = false;
       this.$router.push({ name: 'cart' });
     },
-    renderProduct() {
-      const { color } = this.$route.params;
+    async renderProduct() {
+      await this.getProduct();
 
+      const { color } = this.$route.params;
       if (color === 'classic-red') {
         this.tempProduct = { ...this.thermos[1], qty: 1 };
-        // this.tempProduct = JSON.parse(JSON.stringify(this.thermos[1]));
       } else if (color === 'classic-blue') {
         this.tempProduct = { ...this.thermos[2], qty: 1 };
-        // this.tempProduct = JSON.parse(JSON.stringify(this.thermos[2]));
       } else {
         this.tempProduct = { ...this.thermos[0], qty: 1 };
-        // this.tempProduct = JSON.parse(JSON.stringify(this.thermos[0]));
       }
+      this.displayImageUrl = this.tempProduct.imageUrl;
     },
     ...mapActions(useProductStore, ['getProduct']),
     ...mapActions(useCartStore, ['addCartItem']),
   },
-  async created() {
+  async mounted() {
     this.$Progress.start();
-    await this.getProduct();
-    this.renderProduct();
+    await this.renderProduct();
+    this.dataReady = true;
     this.$Progress.finish();
   },
 };
@@ -268,24 +293,23 @@ export default {
 
 <style lang="scss" scoped>
 .outline-selected {
-  border: 2px solid white;
-  outline: 2px solid #212529;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
 }
 
 .img-box {
-  max-width: 620px;
+  max-width: 300px;
   max-height: 509px;
   @media (max-width: 576px) {
     max-height: 360px;
   }
 }
 
-.imgbox {
+.img-thumbnail {
   width: 100px;
   height: 100px;
-  // background-color: salmon;
   margin: 0px 10px 10px 10px;
-  border: 1px solid black;
+  border: 1px solid #ced4da;
 }
 
 .cart-message--success {
@@ -308,5 +332,14 @@ export default {
   100% {
     opacity: 0;
   }
+}
+
+.v-enter-active {
+  transition: opacity 0.9s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

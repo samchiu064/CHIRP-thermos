@@ -53,7 +53,7 @@
           <img
             :src="item.imageUrl"
             :alt="`${item.title}產品圖片`"
-            class="figure-img main-image img-fluid align-self-center mt-5 mt-md-6"
+            class="figure-img main-image img-fluid align-self-center mt-6"
           />
           <figcaption class="figure-caption">
             <router-link

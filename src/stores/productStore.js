@@ -25,6 +25,23 @@ export const useProductStore = defineStore('product', {
           };
         })
         .sort((a, b) => b.num - a.num),
+    upcoming: (state) =>
+      state.origin
+        .filter((item) => item.category === 'upcoming')
+        .map((item) => {
+          // Add properties 1.chtColor, 2. engColor
+          const chtColor = item.title.slice(item.title.indexOf('-') + 2, item.length);
+          const colorClassMap = {
+            繽紛色彩: 'colorful',
+          };
+          const engColor = colorClassMap[chtColor] ?? 'unassigned';
+          return {
+            ...item,
+            chtColor,
+            engColor,
+          };
+        })
+        .sort((a, b) => b.num - a.num),
   },
   actions: {
     async getProduct() {
