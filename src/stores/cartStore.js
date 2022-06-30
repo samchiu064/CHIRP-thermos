@@ -60,8 +60,16 @@ export const useCartStore = defineStore('cart', {
       } catch (e) {
         console.log(e);
       }
-      status.cartDeletedItem = '';
+      this.cancelOverlay();
       this.getCartList();
+    },
+    overlayCartItem(id) {
+      status.cartItemIsOverlaid = true;
+      status.cartDeletedItem = id;
+    },
+    cancelOverlay() {
+      status.cartItemIsOverlaid = false;
+      status.cartDeletedItem = '';
     },
   },
 });

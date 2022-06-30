@@ -9,7 +9,10 @@
       @focus="cartIsShown = true"
     >
       <i class="bi bi-cart fs-4 text-classic-green"></i>
-      <span class="position-absolute top-28 start-75 translate-middle badge rounded-pill bg-danger">
+      <span
+        v-if="this.cart.carts?.length"
+        class="position-absolute top-28 start-75 translate-middle badge rounded-pill bg-danger"
+      >
         {{ this.cart.carts?.length ?? '0' }}
         <span class="visually-hidden">商品數量</span>
       </span>
@@ -22,7 +25,7 @@
         @mouseleave="cartIsShown = false"
         @blur="cartIsShown = false"
       >
-        <!-- cart=title -->
+        <!-- cart-title -->
         <div class="row py-2 border-bottom">
           <div class="col">購物車</div>
         </div>
@@ -39,7 +42,7 @@
           <div
             v-for="(item, index) in cart.carts"
             :key="item + index"
-            class="row g-0 align-items-center"
+            class="row g-0 align-items-center position-relative"
             :class="{
               'td-deleted': cartDeletedItem === item.id,
               'text-muted': cartDeletedItem === item.id,
@@ -57,12 +60,20 @@
               <div class="card-body">
                 <h5 class="card-title fs-6">{{ item.product.title }}</h5>
                 <p class="card-text m-0">NT$ {{ item.product.price }}</p>
-                <span class="card-text align-middle"> 數量： {{ item.qty }} </span>
+                <span class="card-text align-middle">
+                  數量：
+                  <StoreProductInput
+                    :hasOperators="false"
+                    :itemId="item.id"
+                    :qty="item.qty"
+                    @update:value="(newValue) => updateCartItem({ itemId: item.id, qty: newValue })"
+                  ></StoreProductInput>
+                </span>
                 <button
                   v-if="cartDeletedItem !== item.id"
                   type="button"
                   class="btn bi bi-trash float-end btn-deleted"
-                  @click="deleteCartItem(item.id)"
+                  @click="overlayCartItem(item.id)"
                 ></button>
                 <div
                   v-if="cartDeletedItem === item.id"
@@ -70,6 +81,26 @@
                   role="status"
                 >
                   <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </div>
+            <div
+              v-if="item.id === cartDeletedItem"
+              class="overlay w-100 h-100 position-absolute top-0 start-0"
+            >
+              <div class="w-100 position-absolute top-50 start-50 translate-middle">
+                <p class="text-center text-light">確定要刪除嗎？</p>
+                <div class="d-flex justify-content-center" role="group" aria-label="Basic example">
+                  <button
+                    type="button"
+                    class="btn btn-danger me-1"
+                    @click="deleteCartItem(item.id)"
+                  >
+                    刪除產品
+                  </button>
+                  <button @click="cancelOverlay" type="button" class="btn btn-light ms-1">
+                    返回
+                  </button>
                 </div>
               </div>
             </div>
@@ -89,7 +120,10 @@
                 @click="cartIsShown = false"
                 >查看購物車</router-link
               >
-              <router-link :to="{ path: '/user/cart/order' }" class="btn btn-dark w-45 ms-2 mb-3"
+              <router-link
+                :to="{ path: '/user/cart/order' }"
+                class="btn btn-dark w-45 ms-2 mb-3"
+                :class="{ disabled: !this.cart.carts?.length }"
                 >結帳</router-link
               >
             </div>
@@ -104,15 +138,25 @@
 import { useCartStore } from '@/stores/cartStore';
 import { mapState, mapActions, mapWritableState } from 'pinia';
 import statusStore from '@/stores/statusStore';
+import StoreProductInput from './StoreProductInput.vue';
 
 export default {
+  components: {
+    StoreProductInput,
+  },
   computed: {
     ...mapState(useCartStore, ['cart']),
-    ...mapState(statusStore, ['cartDeletedItem']),
+    ...mapWritableState(statusStore, ['cartDeletedItem']),
     ...mapWritableState(statusStore, ['cartIsShown']),
   },
   methods: {
-    ...mapActions(useCartStore, ['getCartList', 'deleteCartItem']),
+    ...mapActions(useCartStore, [
+      'getCartList',
+      'deleteCartItem',
+      'updateCartItem',
+      'overlayCartItem',
+      'cancelOverlay',
+    ]),
   },
   async created() {
     await this.getCartList();
@@ -139,6 +183,10 @@ export default {
   &:hover {
     background-color: #f8f9fa !important;
   }
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .v-enter-active,

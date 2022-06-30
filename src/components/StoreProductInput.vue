@@ -9,10 +9,10 @@
   <label for="qty" class="w-25 align-middle">
     <input
       type="number"
-      class="rounded form-control text-center w-100 text-black-50 bg-transparent"
+      class="rounded form-control text-center w-100 text-black-50 bg-transparent px-2"
       id="qty"
       min="1"
-      :disabled="cartDeletedItem === itemId || !hasOperators"
+      :disabled="cartDeletedItem === itemId || (!hasOperators && !editable)"
       :value="qty"
       @change="$emit('update:value', Number($event.target.value))"
     />
@@ -43,6 +43,10 @@ export default {
     itemId: {
       type: String,
       default: 'defaultId',
+    },
+    editable: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: ['updateItem', 'update:value'],

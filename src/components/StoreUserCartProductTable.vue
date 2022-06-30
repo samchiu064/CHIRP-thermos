@@ -17,7 +17,7 @@
             'td-deleted': cartDeletedItem === item.id,
             'text-muted': cartDeletedItem === item.id,
           }"
-          class="d-flex d-sm-table-row table-row--divider-light flex-wrap justify-content-center m-2"
+          class="d-flex d-sm-table-row table-row--divider-light flex-wrap justify-content-center m-2 position-relative"
         >
           <td class="col-12 col-md-auto text-center text-md-start">
             <figure
@@ -32,7 +32,6 @@
                   class="img-fluid img-cart-item p-1 rounded"
                 />
               </div>
-
               <figcaption>
                 <h2 class="fs-6 m-0 pt-3 pt-md-0">{{ item.product.title }}</h2>
               </figcaption>
@@ -45,6 +44,7 @@
             <StoreProductInput
               v-if="cartLoadingItem !== item.id"
               :hasOperators="hasOperators"
+              :editable="editable"
               :qty="item.qty"
               :itemId="item.id"
               @updateItem="updateCartItem"
@@ -63,7 +63,7 @@
               v-if="cartDeletedItem !== item.id"
               type="button"
               class="btn btn-deleted bi bi-trash"
-              @click="deleteCartItem(item.id)"
+              @click="overlayCartItem(item.id)"
             ></button>
             <div
               v-if="cartDeletedItem === item.id"
@@ -71,6 +71,22 @@
               role="status"
             >
               <span class="visually-hidden">Loading...</span>
+            </div>
+          </td>
+          <td
+            v-if="item.id === cartDeletedItem"
+            class="overlay w-100 h-100 position-absolute top-0 start-0"
+          >
+            <div class="w-100 position-absolute top-50 start-50 translate-middle">
+              <p class="text-center text-light">確定要刪除嗎？</p>
+              <div class="d-flex justify-content-center" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-danger me-1" @click="deleteCartItem(item.id)">
+                  刪除產品
+                </button>
+                <button @click="cancelOverlay" type="button" class="btn btn-light ms-1">
+                  返回
+                </button>
+              </div>
             </div>
           </td>
         </tr>
@@ -126,11 +142,21 @@ export default {
       if (this.isSummary) return false;
       return true;
     },
+    editable() {
+      if (this.isSummary) return false;
+      return true;
+    },
     ...mapState(useCartStore, ['cart', 'discount']),
     ...mapState(statusStore, ['cartLoadingItem', 'cartDeletedItem']),
   },
   methods: {
-    ...mapActions(useCartStore, ['getCartList', 'updateCartItem', 'deleteCartItem']),
+    ...mapActions(useCartStore, [
+      'getCartList',
+      'updateCartItem',
+      'deleteCartItem',
+      'overlayCartItem',
+      'cancelOverlay',
+    ]),
   },
   created() {
     this.getCartList();
@@ -162,5 +188,9 @@ export default {
   &:hover {
     background-color: #f8f9fa !important;
   }
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>
