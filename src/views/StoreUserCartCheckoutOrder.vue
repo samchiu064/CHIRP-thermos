@@ -7,9 +7,31 @@
       </p>
     </div>
   </div>
-  <div class="col-lg-6 m-auto">
-    <StoreUserCartOrderList :order="order" />
-    <StoreUserCartOrderTable :form="tempForm" />
+  <div class="row">
+    <div class="col-lg-6 m-auto">
+      <form class="subscription-box">
+        <p>訂閱電子報</p>
+        <label for="email" class="form-label col-12 px-4 mb-3"
+          >Email<i class="asterisk"></i>
+          <VField
+            name="Email欄位"
+            type="email"
+            rules="email|required"
+            class="form-control mt-1"
+            id="email"
+            placeholder="請填入要被通知的Email"
+          />
+          <ErrorMessage name="Email欄位" class="text-danger fs-7 ps-2 m-0" />
+          <button type="submit" class="btn btn-primary" @click.prevent>Submit</button>
+        </label>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 m-auto">
+      <StoreUserCartOrderList :order="order" />
+      <StoreUserCartOrderTable :form="tempForm" />
+    </div>
   </div>
 
   <div class="row justify-content-center mt-3">
