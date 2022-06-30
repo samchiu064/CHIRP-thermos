@@ -209,11 +209,7 @@
           </StoreTabsProductDetail>
         </div>
         <div class="row">
-          <StoreProductCard :products="upcoming">
-            <template #title>
-              <span class="fw-bold">即將上架</span>
-            </template>
-          </StoreProductCard>
+          <StoreProductCard :products="upcoming"> </StoreProductCard>
         </div>
       </div>
     </section>
@@ -309,7 +305,7 @@ export default {
   width: 100px;
   height: 100px;
   margin: 0px 10px 10px 10px;
-  border: 1px solid #ced4da;
+  border-radius: 0.6rem;
 }
 
 .cart-message--success {
