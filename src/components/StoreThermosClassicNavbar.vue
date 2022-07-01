@@ -3,7 +3,7 @@
     <li
       v-for="(item, index) in products"
       :key="index"
-      class="nav-item pe-1"
+      class="nav-item pe-1 py-lg-0"
       :class="`text-${item.engColor}`"
     >
       <button
