@@ -12,8 +12,8 @@ import VueAxios from 'vue-axios';
 import Loading from 'vue3-loading-overlay';
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 // Bootstrap
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 // Vue progress-bar
 import VueProgressBar from '@aacassandra/vue3-progressbar';
 import App from './App.vue';

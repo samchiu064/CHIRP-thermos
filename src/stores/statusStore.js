@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 export default defineStore('statusStore', {
   state: () => ({
     isLoading: false,
-    cartIsShown: true,
+    cartIsShown: false,
     cartLoadingItem: '',
     cartDeletedItem: '',
     cartItemIsAdded: false,

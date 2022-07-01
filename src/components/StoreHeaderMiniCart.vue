@@ -124,6 +124,7 @@
                 :to="{ path: '/user/cart/order' }"
                 class="btn btn-dark w-45 ms-2 mb-3"
                 :class="{ disabled: !this.cart.carts?.length }"
+                @click="cartIsShown = false"
                 >結帳</router-link
               >
             </div>
