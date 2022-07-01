@@ -1,5 +1,5 @@
 <template>
-  <div class="min-vh-100 d-flex flex-column">
+  <div class="d-flex flex-column" :class="{ 'min-vh-100': !pagesWithoutFooter }">
     <StoreHeader class="flex-shrink-0" @blurPages="blurPages" />
     <div class="unblur flex-grow-1" :class="{ blur: hamburgerIsOpened }">
       <router-view />

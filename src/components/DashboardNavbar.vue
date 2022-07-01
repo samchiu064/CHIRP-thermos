@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <router-link to="/dashboard" class="navbar-brand"
         ><img
-          src="@/assets/images/logo_backend.png"
+          src="@/assets/images/logo_backend.svg"
           alt="後臺logo圖片"
           style="max-height: 48px"
           class="navbar-brand position-absolute top-50 start-50 translate-middle"

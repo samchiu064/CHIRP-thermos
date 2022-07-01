@@ -38,7 +38,12 @@
         </div>
       </button>
       <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#">
-        <img src="@/assets/images/logo.png" alt="CHIRP鳥牌Logo圖片" style="max-height: 48px" />
+        <img
+          src="@/assets/images/logo.svg"
+          alt="CHIRP鳥牌Logo圖片"
+          style="max-height: 48px"
+          class="w-100"
+        />
       </a>
       <div class="ms-auto me-0 d-flex">
         <StoreHeaderMiniCart />
@@ -84,7 +89,7 @@
 </template>
 
 <script>
-import Collapse from 'bootstrap/js/dist/collapse';
+import bootstrapBundle from 'bootstrap/dist/js/bootstrap.bundle';
 import StoreHeaderMiniCart from './StoreHeaderMiniCart.vue';
 
 export default {
@@ -138,7 +143,7 @@ export default {
     },
   },
   mounted() {
-    this.collapse = new Collapse(this.$refs.hamburger, {
+    this.collapse = new bootstrapBundle.Collapse(this.$refs.hamburger, {
       toggle: false,
     });
     // To prevent the hamburger list be toggled over and over
