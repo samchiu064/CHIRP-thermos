@@ -103,6 +103,12 @@ export default {
       }
     },
   },
+  created() {
+    if (this.$route.query.order_id) {
+      this.orderId = this.$route.query.order_id;
+      this.getOrderList(this.$route.query.order_id);
+    }
+  },
 };
 </script>
 

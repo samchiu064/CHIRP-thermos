@@ -88,7 +88,12 @@
                   <button
                     type="button"
                     class="btn btn-outline-secondary rounded-pill w-100 py-2"
-                    @click="this.$router.push({ name: 'OrderCheck' })"
+                    @click="
+                      this.$router.push({
+                        path: '/order-check',
+                        query: { order_id: this.$route.params.orderId },
+                      })
+                    "
                   >
                     查詢訂單
                   </button>
