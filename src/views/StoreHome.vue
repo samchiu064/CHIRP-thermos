@@ -174,13 +174,6 @@ export default {
   }
 }
 
-.carousel-item {
-  .banner {
-    background-image: url('@/assets/images/banner_01.jpg');
-    background-repeat: no-repeat;
-  }
-}
-
 .chevron {
   background: rgba(0, 0, 0, 0.06);
   padding: 0rem 0.4375rem;
