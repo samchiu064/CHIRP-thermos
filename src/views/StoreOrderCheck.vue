@@ -95,11 +95,9 @@ export default {
           this.orderIsValid = true;
         }
         this.$Progress.finish();
-        console.log(result);
       } catch (e) {
         this.$Progress.fail();
         this.orderIsValid = false;
-        console.log(result);
       }
     },
   },

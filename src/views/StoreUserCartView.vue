@@ -94,12 +94,8 @@ export default {
     async getOrderList(orderId) {
       // Retrieve order data
       const result = await apiGetOrderListById(orderId);
-      try {
-        if (result.data.success === true) {
-          this.order = result.data.order;
-        }
-      } catch (e) {
-        console.log(e);
+      if (result.data.success === true) {
+        this.order = result.data.order;
       }
     },
   },

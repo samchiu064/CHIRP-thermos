@@ -44,13 +44,11 @@
 import { apiPostUserCheck } from '@/api/admin';
 
 export default {
-  created() {
-    apiPostUserCheck()
-      .then((res) => {
-        if (!res.data.success) this.$router.push('/login');
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+  async created() {
+    const userCheck = await apiPostUserCheck();
+    if (!userCheck.data.success) {
+      this.$router.push('/login');
+    }
   },
 };
 </script>

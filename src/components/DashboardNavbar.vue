@@ -63,14 +63,9 @@ export default {
   methods: {
     async logout() {
       const result = await apiPostUserLogout();
-      try {
-        if (result.data.success) {
-          console.log(result);
-          document.cookie = `hexToken=;expires= ${new Date(0).toGMTString()}`;
-          this.$router.push('/login');
-        }
-      } catch (e) {
-        console.log(e);
+      if (result.data.success) {
+        document.cookie = `hexToken=;expires= ${new Date(0).toGMTString()}`;
+        this.$router.push('/login');
       }
     },
   },

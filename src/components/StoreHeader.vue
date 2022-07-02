@@ -153,13 +153,6 @@ export default {
     this.$refs.hamburger.addEventListener('hidden.bs.collapse', this.beCollapsed);
     document.addEventListener('scroll', this.calcTopVisible);
   },
-  unmounted() {
-    this.$refs.hamburger.removeEventListener('show.bs.collapse', this.beCollapsing);
-    this.$refs.hamburger.removeEventListener('hide.bs.collapse', this.beCollapsing);
-    this.$refs.hamburger.removeEventListener('shown.bs.collapse', this.beCollapsed);
-    this.$refs.hamburger.removeEventListener('hidden.bs.collapse', this.beCollapsed);
-    document.removeEventListener('scroll', this.calcTopVisible);
-  },
 };
 </script>
 

@@ -87,14 +87,9 @@ export default {
       this.isLoading = true;
       // Retrieve product data
       const result = await apiGetOrderList(page);
-      try {
-        if (result.data.success) {
-          this.orders = result.data.orders;
-          this.pagination = result.data.pagination;
-          console.log(result);
-        }
-      } catch (e) {
-        console.log(e);
+      if (result.data.success) {
+        this.orders = result.data.orders;
+        this.pagination = result.data.pagination;
       }
       this.isLoading = false;
     },
@@ -103,12 +98,9 @@ export default {
       // Change the payment status of an order
       const isPaid = !status;
       const result = await apiPutOrderItemDetail({ data: { is_paid: isPaid } }, id);
-      try {
+      if (result.data.success) {
         this.pushMessageState(result, '訂單狀態更新');
         this.getProducts();
-        console.log(result);
-      } catch (e) {
-        console.log(e);
       }
     },
     async deleteOrder(item) {
@@ -116,13 +108,10 @@ export default {
       // Delete an order
       const { id } = item;
       const result = await apiDeleteOrder(id);
-      try {
+      if (result.data.success) {
         this.pushMessageState(result, '訂單刪除');
         this.getProducts();
         this.$refs.deleteModal.hideModal();
-        console.log(result);
-      } catch (e) {
-        console.log(e);
       }
     },
     openDeleteModal(item) {

@@ -86,14 +86,9 @@ export default {
       this.isLoading = true;
       // Retrieve product data
       const result = await apiGetProductListByPage(page);
-      try {
-        if (result.data.success) {
-          this.products = result.data.products;
-          this.pagination = result.data.pagination;
-          console.log(result);
-        }
-      } catch (e) {
-        console.log(e);
+      if (result.data.success) {
+        this.products = result.data.products;
+        this.pagination = result.data.pagination;
       }
       this.isLoading = false;
     },
@@ -113,21 +108,15 @@ export default {
       // Add a new product
       if (this.isNew) {
         const result = await apiPostProductItem({ data: this.tempProduct });
-        try {
+        if (result.data.success) {
           this.pushMessageState(result, '產品資料更新');
-          console.log('商品建立結果', result);
-        } catch (e) {
-          console.log(e);
         }
       }
       // Update a product
       if (!this.isNew) {
         const result = await apiPutProductItemDetail({ data: this.tempProduct }, item.id);
-        try {
+        if (result.data.success) {
           this.pushMessageState(result, '產品資料更新');
-          console.log('商品更新結果', result);
-        } catch (e) {
-          console.log(e);
         }
       }
       this.isLoading = false;
@@ -138,11 +127,8 @@ export default {
       this.isLoading = true;
       // Delete a product
       const result = await apiDeleteProduct(item.id);
-      try {
+      if (result.data.success) {
         this.pushMessageState(result, '產品資料刪除');
-        console.log(result);
-      } catch (e) {
-        console.log(e);
       }
       this.isLoading = false;
       this.$refs.deleteModal.hideModal();

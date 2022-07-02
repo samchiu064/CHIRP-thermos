@@ -51,14 +51,11 @@ export default {
   },
   methods: {
     signin() {
-      postUserLogin(this.user)
-        .then((res) => {
-          console.log(res);
-          const { token, expired } = res.data;
-          document.cookie = `hexToken = ${token}; expires = ${new Date(expired)}`;
-          this.$router.push('/dashboard/products');
-        })
-        .catch((err) => console.log(err));
+      postUserLogin(this.user).then((res) => {
+        const { token, expired } = res.data;
+        document.cookie = `hexToken = ${token}; expires = ${new Date(expired)}`;
+        this.$router.push('/dashboard/products');
+      });
     },
   },
 };

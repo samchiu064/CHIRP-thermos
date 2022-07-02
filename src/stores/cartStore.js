@@ -18,10 +18,8 @@ export const useCartStore = defineStore('cart', {
     async getCartList() {
       status.isLoading = true;
       const result = await apiGetCartList();
-      try {
+      if (result.data.success) {
         this.cart = result.data.data;
-      } catch (e) {
-        console.log(e);
       }
       status.isLoading = false;
     },
@@ -29,13 +27,11 @@ export const useCartStore = defineStore('cart', {
       status.cartLoadingItem = productId;
       status.cartItemIsAdded = false;
       const result = await apiPostCartItem({ data: { product_id: productId, qty } });
-      try {
+      if (result.data.success) {
         status.cartLoadingItem = '';
         status.cartItemIsAdded = true;
-        console.log(result);
-      } catch (e) {
+      } else {
         status.cartItemIsAdded = false;
-        console.log(e);
       }
       this.getCartList();
     },
@@ -44,24 +40,18 @@ export const useCartStore = defineStore('cart', {
       const newQty = qty <= 0 ? 1 : qty;
       status.cartLoadingItem = itemId;
       const result = await apiPutCartItem({ data: { product_id: itemId, qty: newQty } }, itemId);
-      try {
-        console.log(result);
-      } catch (e) {
-        console.log(e);
+      if (result.data.success) {
+        status.cartLoadingItem = '';
+        this.getCartList();
       }
-      status.cartLoadingItem = '';
-      this.getCartList();
     },
     async deleteCartItem(itemId) {
       status.cartDeletedItem = itemId;
       const result = await apiDeleteCartItem(itemId);
-      try {
-        console.log(result);
-      } catch (e) {
-        console.log(e);
+      if (result.data.success) {
+        this.cancelOverlay();
+        this.getCartList();
       }
-      this.cancelOverlay();
-      this.getCartList();
     },
     overlayCartItem(id) {
       status.cartItemIsOverlaid = true;

@@ -90,21 +90,15 @@ export default {
       // Create a new voucher
       if (this.isNew) {
         const result = await apiPostCouponItem({ data: formattedItem });
-        try {
-          console.log(result);
+        if (result.data.success) {
           this.pushMessageState(result, '優惠券資料建立');
-        } catch (e) {
-          console.log(e);
         }
       }
       // Refresh the information of a voucher
       if (!this.isNew) {
         const result = await apiPutCouponItemDetail({ data: formattedItem });
-        try {
-          console.log(result);
+        if (result.data.success) {
           this.pushMessageState(result, '優惠券資料更新');
-        } catch (e) {
-          console.log(e);
         }
       }
       this.isLoading = false;
@@ -116,11 +110,8 @@ export default {
 
       // Delete a voucher
       const result = await apiDeleteCoupon(this.tempCoupon.id);
-      try {
-        console.log(result);
+      if (result.data.success) {
         this.pushMessageState(result, '優惠券資料刪除');
-      } catch (e) {
-        console.log(e);
       }
       this.isLoading = false;
       this.$refs.deleteModal.hideModal();
@@ -131,15 +122,13 @@ export default {
 
       // Retrieve voucher data
       const result = await apiGetCouponList(page);
-      try {
+      if (result.data.success) {
         this.coupons = result.data.coupons;
         this.pagination = result.data.pagination;
 
         this.coupons.forEach((coupon, index) => {
           this.coupons[index].due_date = this.getCurrentDate(coupon.due_date);
         });
-      } catch (e) {
-        console.log(e);
       }
       this.isLoading = false;
     },

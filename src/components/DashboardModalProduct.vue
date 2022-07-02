@@ -215,7 +215,6 @@ export default {
   },
   methods: {
     async uploadFile(type, key) {
-      // File index: 0, 1, 2...
       const index = key - 1;
       const uploadedFile =
         type === 'major'
@@ -223,14 +222,14 @@ export default {
           : this.$refs.minorImageInput[index].files[0];
       const formData = new FormData();
       formData.append('file-to-upload', uploadedFile);
-
       const result = await apiPostUploadImage(formData);
-      try {
-        if (!result.data.success) return;
-        if (type === 'major') this.tempProduct.imageUrl = result.data.imageUrl;
-        if (type === 'minor') this.tempProduct.imagesUrl[index] = result.data.imageUrl;
-      } catch (e) {
-        console.log(e);
+
+      if (result.data.success) {
+        if (type === 'major') {
+          this.tempProduct.imageUrl = result.data.imageUrl;
+        } else if (type === 'minor') {
+          this.tempProduct.imagesUrl[index] = result.data.imageUrl;
+        }
       }
     },
   },

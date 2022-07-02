@@ -66,16 +66,11 @@ export default {
       this.isLoading = true;
       // Place an order
       const result = await apiPostOrder({ data: this.tempForm });
-      try {
-        if (result.data.success === true) {
-          this.orderId = result.data.orderId;
-        }
-        this.isLoading = false;
-        this.$router.push({ name: 'checkoutOrder', params: { orderId: this.orderId } });
-        console.log(result);
-      } catch (e) {
-        console.log(e);
+      if (result.data.success === true) {
+        this.orderId = result.data.orderId;
       }
+      this.isLoading = false;
+      this.$router.push({ name: 'checkoutOrder', params: { orderId: this.orderId } });
     },
   },
 };

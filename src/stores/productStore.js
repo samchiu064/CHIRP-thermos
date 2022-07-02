@@ -46,13 +46,8 @@ export const useProductStore = defineStore('product', {
   actions: {
     async getProduct() {
       const result = await apiGetProductList();
-      try {
-        if (result.data.success) {
-          this.origin = result.data.products;
-          console.log(result);
-        }
-      } catch (e) {
-        console.log(e);
+      if (result.data.success) {
+        this.origin = result.data.products;
       }
     },
   },
