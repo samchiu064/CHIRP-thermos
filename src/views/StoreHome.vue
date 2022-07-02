@@ -1,85 +1,79 @@
 <template>
   <main class="kv bg-light">
     <div
-      class="container-fluid apple overflow-hidden position-relative"
+      class="container-fluid overflow-hidden position-relative"
       :style="{ height: `${innerHeight}px` }"
     >
-      <div class="row text-center">
-        <div class="col-12">
-          <section class="position-absolute top-40 start-50 translate-middle w-100">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-              <!-- <div class="carousel-indicators">
-                <button
-                  type="button"
-                  data-bs-target="#carouselExampleIndicators"
-                  data-bs-slide-to="0"
-                  class="active"
-                  aria-current="true"
-                  aria-label="Slide 1"
-                ></button>
-                <button
-                  type="button"
-                  data-bs-target="#carouselExampleIndicators"
-                  data-bs-slide-to="1"
-                  aria-label="Slide 2"
-                ></button>
-                <button
-                  type="button"
-                  data-bs-target="#carouselExampleIndicators"
-                  data-bs-slide-to="2"
-                  aria-label="Slide 3"
-                ></button>
-              </div> -->
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <h1 ref="title">
-                    單色不鏽鋼保溫瓶 <br />
-                    輕便保溫，易洗防沾 <br />
-                  </h1>
-                  <p class="px-3">
-                    商品可寄送至臺澎金馬地區，目前暫不提供海外運送服務。所有商品皆於臺灣製造。
-                  </p>
-                </div>
-                <div class="carousel-item"></div>
-                <div class="carousel-item"></div>
-              </div>
+      <section class="kv__content row text-center">
+        <div class="col-12 p-0 h-100">
+          <div id="carouselHome" class="carousel slide w-100 h-100" data-bs-ride="carousel">
+            <div class="carousel-indicators mb-9">
               <button
-                class="carousel-control-prev"
                 type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="prev"
-              >
-                <i class="bi bi-chevron-left chevron text-dark fs-3" aria-hidden="true"></i>
-                <span class="visually-hidden">Previous</span>
-              </button>
+                data-bs-target="#carouselHome"
+                data-bs-slide-to="0"
+                class="active bg-dark"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
               <button
-                class="carousel-control-next"
                 type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="next"
-              >
-                <i class="bi bi-chevron-right chevron text-dark fs-3" aria-hidden="true"></i>
-                <span class="visually-hidden">Next</span>
-              </button>
+                data-bs-target="#carouselHome"
+                data-bs-slide-to="1"
+                class="bg-dark"
+                aria-label="Slide 2"
+              ></button>
             </div>
-          </section>
-          <!-- <section class="position-absolute top-40 start-50 translate-middle w-100">
-            <h1 ref="title">
-              單色不鏽鋼保溫瓶 <br />
-              輕便保溫，易洗防沾 <br />
-            </h1>
-            <p class="px-3">
-              商品可寄送至臺澎金馬地區，目前暫不提供海外運送服務。所有商品皆於臺灣製造。
-            </p>
-          </section> -->
+            <div class="carousel-inner h-100 d-flex align-items-center position-relative">
+              <div class="carousel-item active">
+                <h1>
+                  單色不鏽鋼保溫瓶 <br />
+                  輕便保溫，易洗防沾 <br />
+                </h1>
+                <p class="px-3">
+                  商品可寄送至臺澎金馬地區，目前暫不提供海外運送服務。所有商品皆於臺灣製造。
+                </p>
+              </div>
+              <div class="carousel-item w-100">
+                <img
+                  src="@/assets/images/static/banner_01.jpg"
+                  alt="產品banner"
+                  class="img-fluid d-none d-lg-inline"
+                />
+                <img
+                  src="@/assets/images/static/banner_01_mobile.jpg"
+                  class="img-fluid d-inline d-lg-none"
+                  alt="產品banner"
+                />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselHome"
+              data-bs-slide="prev"
+            >
+              <i class="bi bi-chevron-left chevron text-dark fs-3" aria-hidden="true"></i>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselHome"
+              data-bs-slide="next"
+            >
+              <i class="bi bi-chevron-right chevron text-dark fs-3" aria-hidden="true"></i>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="row">
+      </section>
+      <section class="kv__product-slide row">
         <div class="col-12">
-          <section
-            class="kv__product d-flex justify-content-center position-absolute bottom-0 start-50 w-100"
+          <div
+            class="product-group d-flex justify-content-center position-absolute bottom-0 start-50 w-100"
           >
-            <div class="kv__product-card">
+            <div class="product-group__item">
               <router-link to="/thermos/classic-green" class="text-decoration-none">
                 <span class="color-dot bg-classic-green mx-auto my-3"></span>
                 <div class="title fw-bold fs-6 text-classic-green text-center mb-3">胡克綠</div>
@@ -89,7 +83,7 @@
                   class="w-100 static-item"
               /></router-link>
             </div>
-            <div class="kv__product-card">
+            <div class="product-group__item">
               <router-link to="/thermos/classic-red" class="text-decoration-none">
                 <span class="color-dot bg-classic-red mx-auto my-3"></span>
                 <div class="title fw-bold fs-6 text-classic-red text-center mb-3">灰玫紅</div>
@@ -99,7 +93,7 @@
                   class="w-100 static-item"
               /></router-link>
             </div>
-            <div class="kv__product-card">
+            <div class="product-group__item">
               <router-link to="/thermos/classic-blue" class="text-decoration-none">
                 <span class="color-dot bg-classic-blue mx-auto my-3"></span>
                 <div class="title fw-bold fs-6 text-classic-blue text-center mb-3">灰丁寧藍</div>
@@ -109,9 +103,9 @@
                   class="w-100 static-item"
               /></router-link>
             </div>
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   </main>
 </template>
@@ -137,12 +131,22 @@ export default {
 
 <style lang="scss" scoped>
 .kv {
-  &__product {
+  &__content {
+    height: 80%;
+  }
+  &__product-slide {
+    height: 20%;
+    // background-color: antiquewhite;
+  }
+}
+
+.product {
+  &-group {
     transform: translate(-50%, 60%);
     @media (max-width: 768px) {
       transform: translate(-50%, 40%);
     }
-    &-card {
+    &__item {
       transition: transform 250ms;
       transition-timing-function: linear;
       margin: 3rem;
@@ -167,6 +171,13 @@ export default {
         cursor: pointer;
       }
     }
+  }
+}
+
+.carousel-item {
+  .banner {
+    background-image: url('@/assets/images/banner_01.jpg');
+    background-repeat: no-repeat;
   }
 }
 

@@ -83,7 +83,7 @@
                 <button type="button" class="btn btn-danger me-1" @click="deleteCartItem(item.id)">
                   刪除產品
                 </button>
-                <button @click="cancelOverlay" type="button" class="btn btn-light ms-1">
+                <button type="button" class="btn btn-light ms-1" @click="cancelOverlay">
                   返回
                 </button>
               </div>
