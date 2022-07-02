@@ -177,9 +177,6 @@ export default {
 
 .main-image {
   max-width: 45%;
-  @media (min-width: 768px) {
-    max-width: 60%;
-  }
   @media (min-width: 992px) {
     width: auto;
   }
