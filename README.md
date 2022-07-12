@@ -1,6 +1,8 @@
 # [CHIRP鳥牌 - 單色不鏽鋼保溫瓶](https://samchiu064.github.io/CHIRP-thermos/#/)
 此專案為虛擬保溫瓶品牌「CHIRP鳥牌」的電商網站。本作品為開發者對前端領域所學所知的展現，主要使用 Vue 前端框架製作，
 
+關鍵字：Vue 3, options API, Vue CLI, Pinia, Bootstrap 5, RWD, SCSS, Axios
+
 <p align="center">
   <a href="https://samchiu064.github.io/CHIRP-thermos/#/" ><img src="src/assets/images/readme/home.png" alt="landing page"></a>
 </p>
@@ -17,7 +19,7 @@
   - [行動裝置](#行動裝置)
 - [使用技術與工具](#使用技術與工具)
   - [設計相關](#設計相關)
-  - [前端開發相關](#前端開發香菇ㄢ)
+  - [前端開發相關](#前端開發相關)
 - [專案回顧](#專案回顧)
   - [開發時程](#開發時程)
   - [專案架構](#專案架構)
