@@ -14,7 +14,9 @@
           <p class="m-0">讓喝水不再是種負擔，而是變成一件像是呼吸一樣自然的事情</p>
           <p class="m-0 mt-4">
             您可以在
-            <a href="#" class="text-decoration-none link-success">@CHIRP鳥牌工作室</a>
+            <a href="#/" @click.prevent class="text-decoration-none link-success"
+              >@CHIRP鳥牌工作室</a
+            >
             找到最新的消息
           </p>
         </div>
