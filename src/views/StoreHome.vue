@@ -124,7 +124,7 @@ export default {
     },
   },
   created() {
-    window.addEventListener('resize', this.initHeight());
+    window.addEventListener('resize', this.initHeight);
   },
 };
 </script>
@@ -136,40 +136,37 @@ export default {
   }
   &__product-slide {
     height: 20%;
-    // background-color: antiquewhite;
   }
 }
 
-.product {
-  &-group {
-    transform: translate(-50%, 60%);
+.product-group {
+  transform: translate(-50%, 60%);
+  @media (max-width: 768px) {
+    transform: translate(-50%, 40%);
+  }
+  &__item {
+    transition: transform 250ms;
+    transition-timing-function: linear;
+    margin: 3rem;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
     @media (max-width: 768px) {
-      transform: translate(-50%, 40%);
+      margin: 0.5rem;
     }
-    &__item {
-      transition: transform 250ms;
-      transition-timing-function: linear;
-      margin: 3rem;
-      position: relative;
-      animation: float 3s ease-in-out infinite;
+    .color-dot {
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 100%;
       @media (max-width: 768px) {
-        margin: 0.5rem;
+        width: 1rem;
+        height: 1rem;
       }
-      .color-dot {
-        display: block;
-        width: 1.5rem;
-        height: 1.5rem;
-        border-radius: 100%;
-        @media (max-width: 768px) {
-          width: 1rem;
-          height: 1rem;
-        }
-      }
-      &:hover {
-        transform: translateY(-40px);
-        transition: all 0.3s;
-        cursor: pointer;
-      }
+    }
+    &:hover {
+      transform: translateY(-40px);
+      transition: all 0.3s;
+      cursor: pointer;
     }
   }
 }
