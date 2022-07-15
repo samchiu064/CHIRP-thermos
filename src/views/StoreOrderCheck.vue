@@ -79,9 +79,9 @@ export default {
       if (orderId.length < 20) return;
 
       this.$Progress.start();
-      // Retrieve order data
-      const result = await apiGetOrderListById(orderId);
       try {
+        // Retrieve order data
+        const result = await apiGetOrderListById(orderId);
         // No order found
         if (!result.data.order) {
           this.orderNotFound = true;

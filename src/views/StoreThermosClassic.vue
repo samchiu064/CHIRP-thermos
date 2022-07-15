@@ -17,7 +17,7 @@
       <article
         class="col text-classic-black flex-column d-none d-md-flex ps-0"
         :style="{
-          'margin-top': `9rem`,
+          'margin-top': '9rem',
         }"
       >
         <div class="ms-auto ps-2">
