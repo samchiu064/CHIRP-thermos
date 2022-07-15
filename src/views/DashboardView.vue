@@ -2,7 +2,7 @@
   <div class="container">
     <DashboardNavbar />
     <DashboardToastContainer />
-    <router-view></router-view>
+    <RouterView />
   </div>
 </template>
 

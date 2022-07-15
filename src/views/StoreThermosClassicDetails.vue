@@ -209,7 +209,7 @@
           </StoreTabsProductDetail>
         </div>
         <div class="row">
-          <StoreProductCard :products="upcoming"> </StoreProductCard>
+          <StoreProductCard :products="upcoming" />
         </div>
       </div>
     </section>

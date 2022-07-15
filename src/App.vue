@@ -1,6 +1,6 @@
 <template>
-  <vue-progress-bar></vue-progress-bar>
-  <router-view />
+  <vue-progress-bar />
+  <RouterView />
 </template>
 
 <script>

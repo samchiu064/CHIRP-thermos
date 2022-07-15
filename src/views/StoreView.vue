@@ -2,7 +2,7 @@
   <div class="d-flex flex-column" :class="{ 'min-vh-100': !pagesWithoutFooter }">
     <StoreHeader class="flex-shrink-0" @blurPages="blurPages" />
     <div class="unblur flex-grow-1" :class="{ blur: hamburgerIsOpened }">
-      <router-view />
+      <RouterView />
     </div>
     <StoreFooter
       class="unblur flex-shrink-0"

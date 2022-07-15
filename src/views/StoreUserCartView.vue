@@ -1,14 +1,14 @@
 <template>
   <main class="container mt-5">
-    <router-view
+    <RouterView
       name="StoreUserCartProgressBar"
       :percentage="progressPercent"
       :enableStepsArray="enableStepsArray"
       :formIsValid="formIsValid"
     />
     <div class="row">
-      <router-view name="StoreUserCartProductTable" :class="columns" />
-      <router-view
+      <RouterView name="StoreUserCartProductTable" :class="columns" />
+      <RouterView
         name="StoreUserCartOrderForm"
         :emailValue="tempForm.user.email"
         :nameValue="tempForm.user.name"
@@ -25,18 +25,14 @@
         @validateForm="validateForm"
         class="col-12 col-lg-8"
       />
-      <router-view
-        name="StoreUserCartSpreadsheet"
-        :nextPage="nextPage"
-        :formIsValid="formIsValid"
-      />
+      <RouterView name="StoreUserCartSpreadsheet" :nextPage="nextPage" :formIsValid="formIsValid" />
     </div>
-    <router-view
+    <RouterView
       :tempForm="tempForm"
       :paymentMethod="paymentMethod"
       :order="order"
       @getOrderList="getOrderList"
-    ></router-view>
+    />
   </main>
 </template>
 
