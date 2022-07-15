@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col text-center">
       <div class="bottle-outline">
-        <img src="@/assets/images/static/bottle_outline.svg" alt="" class="bottle-outline__img" />
+        <img
+          src="@/assets/images/static/bottle_outline.svg"
+          alt="結帳成功動畫"
+          class="bottle-outline__img"
+        />
       </div>
     </div>
   </div>
@@ -89,7 +93,7 @@
                     type="button"
                     class="btn btn-outline-secondary rounded-pill w-100 py-2"
                     @click="
-                      this.$router.push({
+                      $router.push({
                         path: '/order-check',
                         query: { order_id: this.$route.params.orderId },
                       })
