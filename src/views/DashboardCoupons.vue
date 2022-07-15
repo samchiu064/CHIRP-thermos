@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, key) in coupons" :key="item + key">
+      <tr v-for="item in coupons" :key="item.id">
         <td>{{ item.title }}</td>
         <td>{{ item.percent }}%</td>
         <td>{{ item.due_date }}</td>
