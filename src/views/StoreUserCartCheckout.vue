@@ -15,7 +15,7 @@
         <button
           type="button"
           class="btn btn-outline-secondary rounded-pill w-100 py-2"
-          @click="this.$router.push({ name: 'order' })"
+          @click="$router.push({ name: 'order' })"
         >
           上一步
         </button>

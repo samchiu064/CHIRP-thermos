@@ -24,7 +24,7 @@
             'btn-light': !enableStepsArray.includes(1),
           }"
           style="width: 2rem; height: 2rem"
-          @click="this.$router.push({ name: 'cart' })"
+          @click="$router.push({ name: 'cart' })"
         >
           1
         </button>
@@ -39,7 +39,7 @@
             'btn-light': !enableStepsArray.includes(2),
           }"
           style="width: 2rem; height: 2rem"
-          @click="this.$router.push({ name: 'order' })"
+          @click="$router.push({ name: 'order' })"
         >
           2
         </button>
@@ -55,7 +55,7 @@
           }"
           style="width: 2rem; height: 2rem"
           :disabled="!formIsValid"
-          @click="this.$router.push({ name: 'checkout' })"
+          @click="$router.push({ name: 'checkout' })"
         >
           3
         </button>

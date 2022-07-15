@@ -94,7 +94,7 @@
             :disabled="
               this.cart.carts?.length === 0 || (this.$route.name === 'order' && !formIsValid)
             "
-            @click="this.$router.push({ name: nextPage })"
+            @click="$router.push({ name: nextPage })"
           >
             下一步
           </button>
