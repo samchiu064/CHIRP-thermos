@@ -1,5 +1,5 @@
 <template>
-  <section class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-3">
+  <section class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-3 mx-auto">
     <span class="col-12 col-md-12 col-lg-12"> 即將上架 </span>
     <div class="col" v-for="(item, index) in products" :key="item + index">
       <div class="card pe-auto">
