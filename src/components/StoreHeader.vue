@@ -106,7 +106,6 @@ export default {
   },
   computed: {
     positionType() {
-      if (this.$route.name === 'home') return 'position-fixed';
       if (this.$route.name === 'thermosClassic') return 'position-fixed';
       return 'position-sticky';
     },

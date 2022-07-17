@@ -2,17 +2,17 @@
   <main class="kv bg-light">
     <div
       class="container-fluid overflow-hidden position-relative"
-      :style="{ height: `${innerHeight}px` }"
+      :style="{ height: `${pageHeight}px` }"
     >
       <section class="kv__content row text-center">
         <div class="col-12 p-0 h-100">
           <div id="carouselHome" class="carousel slide w-100 h-100" data-bs-ride="carousel">
-            <div class="carousel-indicators mb-9">
+            <div class="carousel-indicators mb-8 mb-lg-7">
               <button
                 type="button"
                 data-bs-target="#carouselHome"
                 data-bs-slide-to="0"
-                class="active bg-dark"
+                class="active bg-dark border border-2"
                 aria-current="true"
                 aria-label="Slide 1"
               ></button>
@@ -20,7 +20,7 @@
                 type="button"
                 data-bs-target="#carouselHome"
                 data-bs-slide-to="1"
-                class="bg-dark"
+                class="bg-dark border border-2"
                 aria-label="Slide 2"
               ></button>
             </div>
@@ -41,8 +41,13 @@
                   class="img-fluid d-none d-lg-inline"
                 />
                 <img
+                  src="@/assets/images/static/banner_01_laptop.jpg"
+                  class="img-fluid d-none d-sm-inline d-lg-none"
+                  alt="產品banner"
+                />
+                <img
                   src="@/assets/images/static/banner_01_mobile.jpg"
-                  class="img-fluid d-inline d-lg-none"
+                  class="img-fluid d-inline d-sm-none"
                   alt="產品banner"
                 />
               </div>
@@ -76,7 +81,9 @@
             <div class="product-group__item">
               <router-link to="/thermos/classic-green" class="text-decoration-none">
                 <span class="color-dot bg-classic-green mx-auto my-3"></span>
-                <div class="title fw-bold fs-6 text-classic-green text-center mb-3">胡克綠</div>
+                <div class="title fw-bold fs-6 text-classic-green text-center mb-3">
+                  <span class="bg-light px-1 rounded">胡克綠</span>
+                </div>
                 <img
                   src="@/assets/images/static/bottle_hookers_green.svg"
                   alt="胡克綠保溫瓶圖片"
@@ -86,7 +93,9 @@
             <div class="product-group__item">
               <router-link to="/thermos/classic-red" class="text-decoration-none">
                 <span class="color-dot bg-classic-red mx-auto my-3"></span>
-                <div class="title fw-bold fs-6 text-classic-red text-center mb-3">灰玫紅</div>
+                <div class="title fw-bold fs-6 text-classic-red text-center mb-3">
+                  <span class="bg-light px-1 rounded">灰玫紅</span>
+                </div>
                 <img
                   src="@/assets/images/static/bottle_old_rose.svg"
                   alt="灰玫紅保溫瓶圖片"
@@ -96,7 +105,9 @@
             <div class="product-group__item">
               <router-link to="/thermos/classic-blue" class="text-decoration-none">
                 <span class="color-dot bg-classic-blue mx-auto my-3"></span>
-                <div class="title fw-bold fs-6 text-classic-blue text-center mb-3">灰丁寧藍</div>
+                <div class="title fw-bold fs-6 text-classic-blue text-center mb-3">
+                  <span class="bg-light px-1 rounded">灰丁寧藍</span>
+                </div>
                 <img
                   src="@/assets/images/static/bottle_blue_yonder.svg"
                   alt="灰丁寧藍保溫瓶圖片"
@@ -117,6 +128,11 @@ export default {
       innerHeight: window.innerHeight,
     };
   },
+  computed: {
+    pageHeight() {
+      return this.innerHeight - 90;
+    },
+  },
   methods: {
     initHeight() {
       const vh = window.innerHeight;
@@ -132,7 +148,7 @@ export default {
 <style lang="scss" scoped>
 .kv {
   &__content {
-    height: 80%;
+    height: 75%;
   }
   &__product-slide {
     height: 20%;
@@ -158,6 +174,7 @@ export default {
       width: 1.5rem;
       height: 1.5rem;
       border-radius: 100%;
+      border: 2px solid white;
       @media (max-width: 768px) {
         width: 1rem;
         height: 1rem;
@@ -178,7 +195,7 @@ export default {
 }
 
 .static-item {
-  max-height: 650px;
+  max-height: 600px;
 }
 
 @keyframes float {
