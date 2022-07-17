@@ -90,8 +90,8 @@
                     :to="`/thermos/classic/details/${item.engColor}`"
                     class="btn bg-classic-green p-3 rounded-circle d-inline-block"
                     :class="[
-                      `bg-${item.engColor}`,
                       { 'outline-selected': tempProduct.engColor === item.engColor },
+                      `bg-${item.engColor}`,
                     ]"
                     @click.prevent="switchProduct(item)"
                   ></router-link>
@@ -255,10 +255,12 @@ export default {
     },
     updateItem({ qty }) {
       const productQty = qty <= 0 ? 1 : qty;
+
       this.tempProduct.qty = productQty;
     },
     async purchaseItem(id, qty) {
       await this.addCartItem(id, qty);
+
       this.cartItemIsAdded = false;
       this.$router.push({ name: 'cart' });
     },
@@ -266,6 +268,7 @@ export default {
       await this.getProduct();
 
       const { color } = this.$route.params;
+
       if (color === 'classic-red') {
         this.tempProduct = { ...this.thermos[1], qty: 1 };
       } else if (color === 'classic-blue') {
@@ -273,6 +276,7 @@ export default {
       } else {
         this.tempProduct = { ...this.thermos[0], qty: 1 };
       }
+
       this.displayImageUrl = this.tempProduct.imageUrl;
     },
     ...mapActions(useProductStore, ['getProduct']),
@@ -280,7 +284,9 @@ export default {
   },
   async mounted() {
     this.$Progress.start();
+
     await this.renderProduct();
+
     this.dataReady = true;
     this.$Progress.finish();
   },

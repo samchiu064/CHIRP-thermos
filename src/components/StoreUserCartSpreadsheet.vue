@@ -137,8 +137,8 @@ export default {
       await this.applyCoupon();
       await this.getCartList();
     },
-    ...mapActions(useCartStore, ['getCartList']),
     ...mapActions(useCouponStore, ['applyCoupon']),
+    ...mapActions(useCartStore, ['getCartList']),
   },
 };
 </script>
