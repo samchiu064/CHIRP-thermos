@@ -3,8 +3,8 @@
     v-if="hasOperators"
     type="button"
     class="btn bi bi-dash fs-3 text-black-50"
-    :disabled="cartDeletedItem === itemId || qty === 1"
-    @click="$emit('updateItem', { qty: qty - 1, itemId })"
+    :disabled="cartDeletedItem === productId || qty === 1"
+    @click="$emit('updateItem', { qty: qty - 1, productId })"
   ></button>
   <label for="qty" class="w-25 align-middle">
     <input
@@ -12,7 +12,7 @@
       class="rounded form-control text-center w-100 text-black-50 bg-transparent px-2"
       id="qty"
       min="1"
-      :disabled="cartDeletedItem === itemId || (!hasOperators && !editable)"
+      :disabled="cartDeletedItem === productId || (!hasOperators && !editable)"
       :value="qty"
       @change="$emit('update:value', Number($event.target.value))"
     />
@@ -21,8 +21,8 @@
     v-if="hasOperators"
     type="button"
     class="btn bi bi-plus fs-3 text-black-50"
-    :disabled="cartDeletedItem === itemId"
-    @click="$emit('updateItem', { qty: qty + 1, itemId })"
+    :disabled="cartDeletedItem === productId"
+    @click="$emit('updateItem', { qty: qty + 1, productId })"
   ></button>
 </template>
 
@@ -40,7 +40,7 @@ export default {
       type: Number,
       default: 1,
     },
-    itemId: {
+    productId: {
       type: String,
       default: 'defaultId',
     },

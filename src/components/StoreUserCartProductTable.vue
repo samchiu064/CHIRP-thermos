@@ -11,8 +11,8 @@
       </thead>
       <tbody>
         <tr
-          v-for="(item, index) in cart.carts"
-          :key="item + index"
+          v-for="item in cart.carts"
+          :key="item.product.id"
           :class="{
             'td-deleted': cartDeletedItem === item.id,
             'text-muted': cartDeletedItem === item.id,
@@ -42,16 +42,16 @@
           </td>
           <td class="col-12 col-md-auto p-0">
             <StoreProductInput
-              v-if="cartLoadingItem !== item.id"
+              v-if="cartLoadingItem !== item.product.id"
               :hasOperators="hasOperators"
               :editable="editable"
               :qty="item.qty"
-              :itemId="item.id"
-              @updateItem="updateCartItem"
-              @update:value="(newValue) => updateCartItem({ itemId: item.id, qty: newValue })"
+              :productId="item.product.id"
+              @updateItem="(data) => updateCartItem(data, item.id)"
+              @update:value="(newValue) => updateQty(newValue, item.product.id, item.id)"
             />
             <div
-              v-if="cartLoadingItem === item.id"
+              v-if="cartLoadingItem === item.product.id"
               class="spinner-border spinner-border-sm"
               role="status"
             >
@@ -150,6 +150,9 @@ export default {
     ...mapState(statusStore, ['cartLoadingItem', 'cartDeletedItem']),
   },
   methods: {
+    async updateQty(qty, productId, cartItemId) {
+      await this.updateCartItem({ productId, qty }, cartItemId);
+    },
     ...mapActions(useCartStore, [
       'getCartList',
       'updateCartItem',
