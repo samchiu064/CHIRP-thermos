@@ -23,4 +23,4 @@ export const getCouponList = (page) => couponRequest.get(`/coupons?page=${page}`
 export const postCouponItem = (data) => couponRequest.post('/coupon', data);
 export const putCouponItemDetail = (data, couponId) =>
   couponRequest.put(`/coupon/${couponId}`, data);
-export const deleteCoupon = (productId) => couponRequest.delete(`/coupon/${productId}`);
+export const deleteCoupon = (couponId) => couponRequest.delete(`/coupon/${couponId}`);
