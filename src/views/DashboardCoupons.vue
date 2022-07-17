@@ -87,20 +87,26 @@ export default {
     async updateCoupon(formattedItem) {
       this.isLoading = true;
 
-      // Create a new voucher
       if (this.isNew) {
-        const result = await apiPostCouponItem({ data: formattedItem });
-        if (result.data.success) {
+        try {
+          const result = await apiPostCouponItem({ data: formattedItem });
+
           this.pushMessageState(result, '優惠券資料建立');
+        } catch (err) {
+          this.pushMessageState(err, '優惠券資料建立');
         }
       }
-      // Refresh the information of a voucher
+
       if (!this.isNew) {
-        const result = await apiPutCouponItemDetail({ data: formattedItem });
-        if (result.data.success) {
+        try {
+          const result = await apiPutCouponItemDetail({ data: formattedItem });
+
           this.pushMessageState(result, '優惠券資料更新');
+        } catch (err) {
+          this.pushMessageState(err, '優惠券資料更新');
         }
       }
+
       this.isLoading = false;
       this.$refs.couponModal.hideModal();
       this.getCoupons();
@@ -108,11 +114,14 @@ export default {
     async deleteCoupon() {
       this.isLoading = true;
 
-      // Delete a voucher
-      const result = await apiDeleteCoupon(this.tempCoupon.id);
-      if (result.data.success) {
+      try {
+        const result = await apiDeleteCoupon(this.tempCoupon.id);
+
         this.pushMessageState(result, '優惠券資料刪除');
+      } catch (err) {
+        this.pushMessageState(err, '優惠券資料刪除');
       }
+
       this.isLoading = false;
       this.$refs.deleteModal.hideModal();
       this.getCoupons();
@@ -120,16 +129,23 @@ export default {
     async getCoupons(page = 1) {
       this.isLoading = true;
 
-      // Retrieve voucher data
-      const result = await apiGetCouponList(page);
-      if (result.data.success) {
+      try {
+        const result = await apiGetCouponList(page);
+
+        console.log(result);
+
         this.coupons = result.data.coupons;
         this.pagination = result.data.pagination;
 
         this.coupons.forEach((coupon, index) => {
           this.coupons[index].due_date = this.getCurrentDate(coupon.due_date);
         });
+
+        this.pushMessageState(result, '優惠券資料獲取');
+      } catch (err) {
+        this.pushMessageState(err, '優惠券資料獲取');
       }
+
       this.isLoading = false;
     },
     getCurrentDate(unixtimestamp) {

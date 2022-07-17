@@ -11,5 +11,7 @@ export default defineStore('statusStore', {
     couponIsApplied: false,
     couponIsValid: false,
     orderIsValid: false,
+    apiRequestIsFailed: false,
+    apiErrorMessage: '',
   }),
 });

@@ -1,5 +1,8 @@
 import { apiGetProductList } from '@/api/client';
 import { defineStore } from 'pinia';
+import statusStore from './statusStore';
+
+const status = statusStore();
 
 export const useProductStore = defineStore('product', {
   state: () => ({
@@ -45,9 +48,13 @@ export const useProductStore = defineStore('product', {
   },
   actions: {
     async getProduct() {
-      const result = await apiGetProductList();
-      if (result.data.success) {
+      try {
+        const result = await apiGetProductList();
+
         this.origin = result.data.products;
+      } catch (err) {
+        status.apiRequestIsFailed = true;
+        status.apiErrorMessage = err;
       }
     },
   },

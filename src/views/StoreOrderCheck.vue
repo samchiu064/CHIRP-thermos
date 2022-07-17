@@ -51,6 +51,8 @@
 import StoreUserCartOrderList from '@/components/StoreUserCartOrderList.vue';
 import StoreUserCartOrderTable from '@/components/StoreUserCartOrderTable.vue';
 import { apiGetOrderListById } from '@/api/client';
+import { mapWritableState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 
 export default {
   components: {
@@ -72,32 +74,35 @@ export default {
       form.user = { ...this.order.user };
       return form;
     },
+    ...mapWritableState(statusStore, ['apiRequestIsFailed', 'apiErrorMessage']),
   },
   methods: {
     async getOrderList(orderId) {
       this.orderIsValid = false;
+
       if (orderId.length < 20) return;
 
       this.$Progress.start();
+
       try {
-        // Retrieve order data
         const result = await apiGetOrderListById(orderId);
-        // No order found
+
         if (!result.data.order) {
           this.orderNotFound = true;
           this.$Progress.finish();
           return;
         }
-        // Order found
-        if (result.data.success === true) {
-          this.order = result.data.order;
-          this.orderNotFound = false;
-          this.orderIsValid = true;
-        }
+
+        this.order = result.data.order;
+        this.orderIsValid = true;
+        this.orderNotFound = false;
+
         this.$Progress.finish();
-      } catch (e) {
+      } catch (err) {
+        this.apiRequestIsFailed = true;
+        this.apiErrorMessage = err;
+
         this.$Progress.fail();
-        this.orderIsValid = false;
       }
     },
   },

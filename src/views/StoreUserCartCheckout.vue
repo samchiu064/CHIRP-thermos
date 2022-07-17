@@ -43,6 +43,8 @@
 import { apiPostOrder } from '@/api/client';
 import StoreUserCartProductTable from '@/components/StoreUserCartProductTable.vue';
 import StoreUserCartOrderTable from '@/components/StoreUserCartOrderTable.vue';
+import { mapWritableState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 
 export default {
   components: {
@@ -61,14 +63,22 @@ export default {
       isLoading: false,
     };
   },
+  computed: {
+    ...mapWritableState(statusStore, ['apiRequestIsFailed', 'apiErrorMessage']),
+  },
   methods: {
     async placeOrder() {
       this.isLoading = true;
-      // Place an order
-      const result = await apiPostOrder({ data: this.tempForm });
-      if (result.data.success === true) {
+
+      try {
+        const result = await apiPostOrder({ data: this.tempForm });
+
         this.orderId = result.data.orderId;
+      } catch (err) {
+        this.apiRequestIsFailed = true;
+        this.apiErrorMessage = err;
       }
+
       this.isLoading = false;
       this.$router.push({ name: 'checkoutOrder', params: { orderId: this.orderId } });
     },

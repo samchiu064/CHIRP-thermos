@@ -44,10 +44,18 @@
 import { apiPostUserCheck } from '@/api/admin';
 
 export default {
+  inject: ['pushMessageState'],
   async created() {
-    const userCheck = await apiPostUserCheck();
-    if (!userCheck.data.success) {
-      this.$router.push('/login');
+    try {
+      const userCheck = await apiPostUserCheck();
+
+      if (!userCheck.data.success) {
+        this.$router.push('/login');
+      }
+
+      this.pushMessageState(userCheck, '登入狀態檢查');
+    } catch (err) {
+      this.pushMessageState(err, '登入狀態檢查');
     }
   },
 };

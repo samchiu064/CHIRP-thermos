@@ -84,12 +84,18 @@ export default {
   methods: {
     async getProducts(page = 1) {
       this.isLoading = true;
-      // Retrieve product data
-      const result = await apiGetProductListByPage(page);
-      if (result.data.success) {
+
+      try {
+        const result = await apiGetProductListByPage(page);
+
         this.products = result.data.products;
         this.pagination = result.data.pagination;
+
+        this.pushMessageState(result, '產品資料獲取');
+      } catch (err) {
+        this.pushMessageState(err, '產品資料獲取');
       }
+
       this.isLoading = false;
     },
     openModal(isNew, item) {
@@ -105,31 +111,42 @@ export default {
     async updateProduct(item) {
       this.isLoading = true;
       this.tempProduct = item;
-      // Add a new product
+
       if (this.isNew) {
-        const result = await apiPostProductItem({ data: this.tempProduct });
-        if (result.data.success) {
+        try {
+          const result = await apiPostProductItem({ data: this.tempProduct });
+
           this.pushMessageState(result, '產品資料更新');
+        } catch (err) {
+          this.pushMessageState(err, '產品資料更新');
         }
       }
-      // Update a product
+
       if (!this.isNew) {
-        const result = await apiPutProductItemDetail({ data: this.tempProduct }, item.id);
-        if (result.data.success) {
+        try {
+          const result = await apiPutProductItemDetail({ data: this.tempProduct }, item.id);
+
           this.pushMessageState(result, '產品資料更新');
+        } catch (err) {
+          this.pushMessageState(err, '產品資料更新');
         }
       }
+
       this.isLoading = false;
       this.$refs.productModal.hideModal();
       this.getProducts();
     },
     async deleteProduct(item) {
       this.isLoading = true;
-      // Delete a product
-      const result = await apiDeleteProduct(item.id);
-      if (result.data.success) {
+
+      try {
+        const result = await apiDeleteProduct(item.id);
+
         this.pushMessageState(result, '產品資料刪除');
+      } catch (err) {
+        this.pushMessageState(err, '產品資料刪除');
       }
+
       this.isLoading = false;
       this.$refs.deleteModal.hideModal();
       this.getProducts();

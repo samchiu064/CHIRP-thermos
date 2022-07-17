@@ -192,6 +192,8 @@
 <script>
 import { apiPostUploadImage } from '@/api/admin';
 import modalMixin from '@/mixins/modalMixin';
+import { mapWritableState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 
 export default {
   mixins: [modalMixin],
@@ -207,6 +209,9 @@ export default {
       tempProduct: {},
     };
   },
+  computed: {
+    ...mapWritableState(statusStore, ['apiRequestIsFailed', 'apiErrorMessage']),
+  },
   watch: {
     product() {
       this.tempProduct = this.product;
@@ -221,15 +226,20 @@ export default {
           ? this.$refs.majorImageInput.files[0]
           : this.$refs.minorImageInput[index].files[0];
       const formData = new FormData();
-      formData.append('file-to-upload', uploadedFile);
-      const result = await apiPostUploadImage(formData);
 
-      if (result.data.success) {
+      formData.append('file-to-upload', uploadedFile);
+
+      try {
+        const result = await apiPostUploadImage(formData);
+
         if (type === 'major') {
           this.tempProduct.imageUrl = result.data.imageUrl;
         } else if (type === 'minor') {
           this.tempProduct.imagesUrl[index] = result.data.imageUrl;
         }
+      } catch (err) {
+        this.apiRequestIsFailed = true;
+        this.apiErrorMessage = err;
       }
     },
   },

@@ -12,16 +12,24 @@ export const useCouponStore = defineStore('coupon', {
   actions: {
     async applyCoupon() {
       const code = this.couponCode;
-      const result = await apiPostCouponApply({ data: { code } });
-      if (result.data.success) {
-        if (this.couponList.includes(code)) {
-          status.couponIsApplied = true;
-          return;
+
+      try {
+        const result = await apiPostCouponApply({ data: { code } });
+
+        if (result.data.success) {
+          if (this.couponList.includes(code)) {
+            status.couponIsApplied = true;
+            return;
+          }
+
+          this.couponList.push(code);
+          this.couponCode = '';
+        } else {
+          status.couponIsValid = false;
         }
-        this.couponList.push(code);
-        this.couponCode = '';
-      } else {
-        status.couponIsValid = false;
+      } catch (err) {
+        status.apiRequestIsFailed = true;
+        status.apiErrorMessage = err;
       }
     },
   },

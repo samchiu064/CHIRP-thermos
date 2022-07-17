@@ -85,34 +85,51 @@ export default {
   methods: {
     async getProducts(page = 1) {
       this.isLoading = true;
-      // Retrieve product data
-      const result = await apiGetOrderList(page);
-      if (result.data.success) {
+
+      try {
+        const result = await apiGetOrderList(page);
+
         this.orders = result.data.orders;
         this.pagination = result.data.pagination;
+
+        this.pushMessageState(result, '產品資料獲取');
+      } catch (err) {
+        this.pushMessageState(err, '產品資料獲取');
       }
+
       this.isLoading = false;
     },
     async changePaymentStatus(status, id) {
       this.isLoading = true;
-      // Change the payment status of an order
+
       const isPaid = !status;
-      const result = await apiPutOrderItemDetail({ data: { is_paid: isPaid } }, id);
-      if (result.data.success) {
+
+      try {
+        const result = await apiPutOrderItemDetail({ data: { is_paid: isPaid } }, id);
+
         this.pushMessageState(result, '訂單狀態更新');
         this.getProducts();
+      } catch (err) {
+        this.pushMessageState(err, '優惠券資料刪除');
       }
+
+      this.isLoading = false;
     },
     async deleteOrder(item) {
       this.isLoading = true;
-      // Delete an order
-      const { id } = item;
-      const result = await apiDeleteOrder(id);
-      if (result.data.success) {
+
+      try {
+        const { id } = item;
+        const result = await apiDeleteOrder(id);
+
         this.pushMessageState(result, '訂單刪除');
         this.getProducts();
         this.$refs.deleteModal.hideModal();
+      } catch (err) {
+        this.pushMessageState(err, '訂單刪除');
       }
+
+      this.isLoading = false;
     },
     openDeleteModal(item) {
       this.tempOrder = { ...item, title: '此筆訂單' };

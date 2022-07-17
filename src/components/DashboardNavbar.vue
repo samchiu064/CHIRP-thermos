@@ -58,14 +58,23 @@
 
 <script>
 import { apiPostUserLogout } from '@/api/admin';
+import { mapWritableState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 
 export default {
+  computed: {
+    ...mapWritableState(statusStore, ['apiRequestIsFailed', 'apiErrorMessage']),
+  },
   methods: {
     async logout() {
-      const result = await apiPostUserLogout();
-      if (result.data.success) {
+      try {
+        await apiPostUserLogout();
         document.cookie = `hexToken=;expires= ${new Date(0).toGMTString()}`;
+
         this.$router.push('/login');
+      } catch (err) {
+        this.apiRequestIsFailed = true;
+        this.apiErrorMessage = err;
       }
     },
   },

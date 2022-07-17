@@ -17,41 +17,63 @@ export const useCartStore = defineStore('cart', {
   actions: {
     async getCartList() {
       status.isLoading = true;
-      const result = await apiGetCartList();
-      if (result.data.success) {
+
+      try {
+        const result = await apiGetCartList();
         this.cart = result.data.data;
+      } catch (err) {
+        status.apiRequestIsFailed = true;
+        status.apiErrorMessage = err;
       }
+
       status.isLoading = false;
     },
     async addCartItem(productId, qty) {
       status.cartLoadingItem = productId;
       status.cartItemIsAdded = false;
-      const result = await apiPostCartItem({ data: { product_id: productId, qty } });
-      if (result.data.success) {
+
+      try {
+        await apiPostCartItem({ data: { product_id: productId, qty } });
+
         status.cartLoadingItem = '';
         status.cartItemIsAdded = true;
-      } else {
+      } catch (err) {
         status.cartItemIsAdded = false;
+        status.apiRequestIsFailed = true;
+        status.apiErrorMessage = err;
       }
+
       this.getCartList();
     },
-    async updateCartItem({ itemId, qty }) {
-      // Prevent qty being less than 0
-      const newQty = qty <= 0 ? 1 : qty;
-      status.cartLoadingItem = itemId;
-      const result = await apiPutCartItem({ data: { product_id: itemId, qty: newQty } }, itemId);
-      if (result.data.success) {
-        status.cartLoadingItem = '';
+    async updateCartItem({ productId, qty }, cartItemId) {
+      status.cartLoadingItem = productId;
+
+      try {
+        const newQty = qty <= 0 ? 1 : qty;
+
+        await apiPutCartItem({ data: { product_id: productId, qty: newQty } }, cartItemId);
+
         this.getCartList();
+      } catch (err) {
+        status.apiRequestIsFailed = true;
+        status.apiErrorMessage = err;
       }
+
+      status.cartLoadingItem = '';
     },
     async deleteCartItem(itemId) {
       status.cartDeletedItem = itemId;
-      const result = await apiDeleteCartItem(itemId);
-      if (result.data.success) {
-        this.cancelOverlay();
+
+      try {
+        await apiDeleteCartItem(itemId);
+
         this.getCartList();
+      } catch (err) {
+        status.apiRequestIsFailed = true;
+        status.apiErrorMessage = err;
       }
+
+      this.cancelOverlay();
     },
     overlayCartItem(id) {
       status.cartItemIsOverlaid = true;

@@ -38,6 +38,8 @@
 
 <script>
 import { apiGetOrderListById } from '@/api/client';
+import { mapWritableState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 
 export default {
   data() {
@@ -82,16 +84,19 @@ export default {
       if (this.$route.name === 'checkout') return 'col-12';
       return 'col-12 col-lg-8';
     },
+    ...mapWritableState(statusStore, ['apiRequestIsFailed', 'apiErrorMessage']),
   },
   methods: {
     validateForm(result) {
       this.formIsValid = result;
     },
     async getOrderList(orderId) {
-      // Retrieve order data
-      const result = await apiGetOrderListById(orderId);
-      if (result.data.success === true) {
+      try {
+        const result = await apiGetOrderListById(orderId);
         this.order = result.data.order;
+      } catch (err) {
+        this.apiRequestIsFailed = true;
+        this.apiErrorMessage = err;
       }
     },
   },
