@@ -1,5 +1,11 @@
 <template>
-  <ul class="nav flex-column align-items-end position-fixed top-50 end-0 translate-middle-y">
+  <ul
+    class="nav flex-column align-items-end position-fixed top-50 end-0 translate-middle-y border border-1 rounded rounded-2 me-2"
+    @mouseenter="navIsHovered = true"
+    @focus="navIsHovered = true"
+    @mouseleave.self="navIsHovered = false"
+    @focusout.self="navIsHovered = false"
+  >
     <li
       v-for="(item, index) in products"
       :key="index"
@@ -12,8 +18,11 @@
         @click.prevent="switchItem(index, item.engColor)"
       >
         <span class="label fs-md-7" :class="{ active: isActive === index }">
-          {{ item.chtColor }}
+          <Transition name="fade">
+            <span v-if="navIsHovered">{{ item.chtColor }}</span>
+          </Transition>
         </span>
+
         <span class="bullet" :class="`bg-${item.engColor}`"> </span>
       </button>
     </li>
@@ -34,6 +43,7 @@ export default {
       innerHeight: window.innerHeight,
       topVisible: document.documentElement.scrollTop,
       activeColor: 'classic-green',
+      navIsHovered: false,
     };
   },
   computed: {
@@ -55,6 +65,9 @@ export default {
       document.documentElement.scrollTop = innerHeight * 0.97 * itemIndex;
       this.activeColor = engColor;
     },
+    toggleNav() {
+      this.navIsHover = true;
+    },
   },
   mounted() {
     document.addEventListener('scroll', () => {
@@ -72,8 +85,11 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+.nav {
+  background-color: rgba(255, 255, 255, 0.5);
+}
 .nav-item {
-  padding: 0.5rem 1rem;
   text-decoration: none;
   &:hover .label {
     opacity: 1;
@@ -115,13 +131,16 @@ a {
   }
 }
 
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
+.fade-enter-active {
+  transition: all 0.3s ease-out;
 }
 
-.v-enter-from,
-.v-leave-to {
+.fade-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

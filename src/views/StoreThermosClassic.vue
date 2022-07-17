@@ -67,7 +67,7 @@
         </figure>
       </article>
       <article
-        class="col d-none d-md-flex flex-column align-items-end justify-content-between text-classic-black pe-2"
+        class="col d-none d-md-flex flex-column justify-content-between text-classic-black pe-2"
         :style="{
           'margin-top': `10rem`,
         }"
@@ -78,26 +78,25 @@
           style="max-width: 12vw"
           class="img-fluid mx-auto flex-shrink-0"
         />
-        <div class="ms-auto mt-auto mb-3" dir="rtl">
+        <div class="mt-auto mb-3">
           <div class="lh-sm d-flex">
+            <h2 class="m-0 ms-3">
+              <span class="d-block text-end">一體式上蓋</span>
+              <span class="d-block">極佳的保冷保溫效力</span>
+            </h2>
             <span class="badge py-4 px-1 ms-2" :class="`bg-${item.engColor}`">
               <span class="visually-hidden">胡克綠保溫瓶</span>
             </span>
-            <h2 class="m-0">
-              <span class="d-block">一體式上蓋</span>
-              <span class="d-block">極佳的保冷保溫效力</span>
-            </h2>
           </div>
-          <p class="mt-3">
+          <p class="mt-3 me-3 d-inline-block">
             <span class="d-inline d-lg-block">一體式上蓋設計可簡易拆卸，讓您從此不再有</span>
-            <span class="d-inline d-lg-block">墊圈老化的困擾</span>
+            <span class="d-inline d-lg-block text-end">墊圈老化的困擾</span>
           </p>
-          <span class="d-none d-xl-block text-muted"
-            >經實測此款保溫瓶經過 24 小時後仍保留 70% 的熱度※</span
+          <span class="d-none d-xl-block text-muted text-offset"
+            >※經實測此款保溫瓶經過 24 小時後仍保留70% 的熱度</span
           >
-          <span class="d-inline d-lg-block text-muted"></span>
         </div>
-        <figure class="figure">
+        <figure class="figure align-self-end">
           <figcaption class="figure-caption mb-3 d-inline-block align-bottom">
             ※最長可保溫24小時
           </figcaption>
@@ -152,7 +151,9 @@ export default {
   },
   async created() {
     this.$Progress.start();
+
     await this.getProduct();
+
     this.$Progress.finish();
   },
   mounted() {
@@ -180,5 +181,9 @@ export default {
   @media (min-width: 992px) {
     width: auto;
   }
+}
+
+.text-offset {
+  margin-left: -60px;
 }
 </style>
