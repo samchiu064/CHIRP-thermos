@@ -53,9 +53,10 @@ export default {
         this.$router.push('/login');
       }
 
-      this.pushMessageState(userCheck, '登入狀態檢查');
+      this.pushMessageState(userCheck, '登入驗證');
     } catch (err) {
-      this.pushMessageState(err, '登入狀態檢查');
+      this.$router.push('/login');
+      this.pushMessageState(err, '登入驗證');
     }
   },
 };

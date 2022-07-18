@@ -132,8 +132,6 @@ export default {
       try {
         const result = await apiGetCouponList(page);
 
-        console.log(result);
-
         this.coupons = result.data.coupons;
         this.pagination = result.data.pagination;
 
