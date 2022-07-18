@@ -19,7 +19,13 @@ if (document.cookie) {
   );
 }
 
-export const getProductListByPage = (page) => productRequest.get(`/products?page=${page}`);
+export const getProductListByPage = (page) => {
+  const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+  productRequest.defaults.headers.common.Authorization = token;
+  const result = productRequest.get(`/products?page=${page}`);
+
+  return result;
+};
 export const getProductListAll = () => productRequest.get('/products/all');
 export const postProductItem = (data) => productRequest.post('/product', data);
 export const putProductItemDetail = (data, productId) =>

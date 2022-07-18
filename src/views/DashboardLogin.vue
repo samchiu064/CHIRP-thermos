@@ -41,6 +41,7 @@
 import { postUserLogin } from '@/api/adminLogon';
 
 export default {
+  inject: ['pushMessageState'],
   data() {
     return {
       user: {
@@ -50,12 +51,18 @@ export default {
     };
   },
   methods: {
-    signin() {
-      postUserLogin(this.user).then((res) => {
-        const { token, expired } = res.data;
-        document.cookie = `hexToken = ${token}; expires = ${new Date(expired)}`;
-        this.$router.push('/dashboard/products');
-      });
+    async signin() {
+      try {
+        const result = await postUserLogin(this.user);
+
+        if (result.data.success) {
+          this.$router.push('/dashboard/');
+        }
+
+        this.pushMessageState(result, '登入');
+      } catch (err) {
+        this.pushMessageState(err, '登入');
+      }
     },
   },
 };

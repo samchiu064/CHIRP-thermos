@@ -19,7 +19,13 @@ if (document.cookie) {
   );
 }
 
-export const getOrderList = (page) => orderRequest.get(`/orders?page=${page}`);
+export const getOrderList = (page) => {
+  const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+  orderRequest.defaults.headers.common.Authorization = token;
+  const result = orderRequest.get(`/orders?page=${page}`);
+
+  return result;
+};
 export const putOrderItemDetail = (data, orderId) => orderRequest.put(`/order/${orderId}`, data);
 export const deleteOrder = (orderId) => orderRequest.delete(`/order/${orderId}`);
 export const deleteOrderAll = () => orderRequest.delete('/orders/all');

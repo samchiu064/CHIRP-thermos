@@ -19,6 +19,16 @@ if (document.cookie) {
   );
 }
 
-export const postUserLogin = (data) => logonRequest.post('/admin/signin', data);
+export const postUserLogin = async (data) => {
+  const result = await logonRequest.post('/admin/signin', data);
+  const { token, expired } = result.data;
+
+  document.cookie = `hexToken = ${token}; expires = ${new Date(expired)}`;
+  axios.defaults.headers.common.Authorization = token;
+
+  logonRequest.defaults.headers.common.Authorization = token;
+
+  return result;
+};
 export const postUserLogout = () => logonRequest.post('/logout');
 export const postUserCheck = () => logonRequest.post('/api/user/check');

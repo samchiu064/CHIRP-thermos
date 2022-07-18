@@ -19,7 +19,13 @@ if (document.cookie) {
   );
 }
 
-export const getCouponList = (page) => couponRequest.get(`/coupons?page=${page}`);
+export const getCouponList = (page) => {
+  const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+  couponRequest.defaults.headers.common.Authorization = token;
+  const result = couponRequest.get(`/coupons?page=${page}`);
+
+  return result;
+};
 export const postCouponItem = (data) => couponRequest.post('/coupon', data);
 export const putCouponItemDetail = (data, couponId) =>
   couponRequest.put(`/coupon/${couponId}`, data);
