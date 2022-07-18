@@ -30,7 +30,11 @@
 
 <script>
 export default {
-  props: ['pages'],
+  props: {
+    pages: {
+      default: 1,
+    },
+  },
   emits: ['emit-page'],
   methods: {
     updatePage(page) {
