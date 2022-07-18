@@ -19,7 +19,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
+      <div class="collapse navbar-collapse" :class="{ invisible: isLoginPage }" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
           <li class="nav-item">
             <router-link to="/dashboard/products" class="nav-link link-classic-green fs-5 px-3"
@@ -63,6 +63,10 @@ import statusStore from '@/stores/statusStore';
 
 export default {
   computed: {
+    isLoginPage() {
+      if (this.$route.name === 'login') return true;
+      return false;
+    },
     ...mapWritableState(statusStore, ['apiRequestIsFailed', 'apiErrorMessage']),
   },
   methods: {
